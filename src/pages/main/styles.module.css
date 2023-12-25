@@ -244,9 +244,7 @@
       min-height: 100vh;
       background-color: #FFFFFF;
     }
-    .header {
-      display: none;
-    }
+    
     .mainContainer {
       padding: 85px 10px 84px;
     }
@@ -254,7 +252,148 @@
       width: 100%;
       height: 55px;
       background-color: #009EE4;
-      -webkit-box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.05);
       box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.05);
-      margin-bottom
+      margin-bottom: 0px;
+      padding: 11px 17px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 3;
+    }
+    .mainH2 {
+      font-size: 24px;
+      line-height: 29px;
+      color: #000000;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+    }
+    .mainH2::before {
+      content: "";
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-color: transparent;
+      border-top: 2px solid #000000;
+      border-left: 2px solid #000000;
+      transform: rotate(-45deg);
+      position: absolute;
+      top: 9px;
+      left: 13px;
+      cursor: pointer;
+    }
+    .mainContent {
+      width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      position: fixed;
+      right: 0;
+      left: 0;
+      top: 134px;
+      bottom: 84px;
+    }
+    .searchLogoMobLink {
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
+    .searchLogoLink {
+      display: none;
+    }
+    .searchLogoMobImg {
+      width: 32px;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    .searchForm {
+      margin-left: 10px;
+      max-width: 1044px;
+      width: 100%;
+      display: flex;
+    }
+    .searchText {
+      display: none;
+    }
+    .searchTextMob {
+      display: inline-block;
+      width: 100%;
+      height: 32px;
+      border: none;
+      border-radius: 30px;
+      background-color: #FFFFFF;
+      padding: 5px 17px;
+      font-size: 14px;
+      line-height: 21px;
+      color: #000000;
+    }
+    .searchTextMob::placeholder {
+      background-color: transparent;
+      color: #B3B3B3;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+    }
+    .searchBtn {
+      display: none;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 137px);
+      grid-auto-rows: 293px;
+      grid-gap: 10px 10px;
+      justify-content: center;
+    }
+    .cardsItem {
+      margin: 0;
+      box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+    }
+    .cardsCard {
+      width: 137px;
+      height: 293px;
+      display: flex;
+      flex-direction: column;
+    }
+    .cardImage {
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      width: 137px;
+      height: 132px;
+      background-color: #D9D9D9;
+    }
+    .cardImage img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+    .cardTitle {
+      height: 51px;
+      font-size: 14px;
+      line-height: 17px;
+      color: #009EE4;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    .cardPrice {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .cardPlace {
+      font-size: 12px;
+      line-height: 16px;
+      color: #5F5F5F;
+    }
+    
+    .cardDate {
+      font-size: 12px;
+      line-height: 16px;
+      color: #5F5F5F;
+    }
+
+  }
   

@@ -2,6 +2,7 @@ import styles from './styles.module.css'
 
 
 export default function Page() {
+  return (
 <main className={styles.main}>
   <div className={`${styles.mainSearch} ${styles.search}`}>
     <a className={styles.searchLogoLink} href="#" target="_blank">
@@ -72,5 +73,5 @@ export default function Page() {
     </div>
   </div>
 </main>
-
+  )
 }
