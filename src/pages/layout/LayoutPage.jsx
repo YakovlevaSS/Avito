@@ -1,5 +1,5 @@
 import styles from './styles.module.css'
-
+import { Outlet } from 'react-router'
 
 export default function LayoutPage() {
 return (
@@ -12,6 +12,26 @@ return (
         </button>
       </nav>
     </header>
+    <Outlet />
+    <footer className={styles.footer}>
+      <div className={styles.footerContainer}>
+        <div className={styles.footerImg}>
+          <a href="" target="_self">
+            <img src="img/icon_01.png" alt="home" />
+          </a>
+        </div>
+        <div className={styles.footerImg}>
+          <a href="" target="_self">
+            <img src="img/icon_02.png" alt="home" />
+          </a>
+        </div>
+        <div className={styles.footerImg}>
+          <a href="" target="_self">
+            <img src="img/icon_03.png" alt="home" />
+          </a>
+        </div>
+      </div>
+    </footer>
   </div>
 </div>
 )
