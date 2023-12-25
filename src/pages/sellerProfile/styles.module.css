@@ -1,0 +1,539 @@
+/* YourComponent.module.css */
+
+.wrapper {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    background-color: #F1F1F1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+  }
+  
+  .btnHov01:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid #FFFFFF;
+  }
+  
+  .btnHov02:hover {
+    background-color: #0080C1;
+  }
+  
+  .mainH2:hover::before {
+    border-top: 2px solid #0080C1;
+    border-left: 2px solid #0080C1;
+  }
+  
+  .header {
+    background-color: #009EE4;
+  }
+  
+  .headerNav {
+    max-width: 1178px;
+    margin: 0 auto;
+    padding: 0 10px;
+    height: 79px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .headerBtnLk {
+    width: 173px;
+    height: 40px;
+    margin-left: 10px;
+  }
+  
+  .headerBtnPutAd {
+    width: 232px;
+    height: 40px;
+  }
+  
+  .headerBtnLk, .headerBtnPutAd {
+    border: 1px solid #FFFFFF;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 1;
+  }
+  
+  .headerLogo {
+    display: none;
+  }
+  
+  .mainContainer {
+    max-width: 1178px;
+    margin: 0 auto;
+    padding: 0px 10px 79px;
+  }
+  
+  .mainCenterBlock {
+    margin: 0 auto;
+  }
+  
+  .mainMenu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 11px 0;
+    width: 100%;
+    padding: 31px 10px 64px;
+  }
+  
+  .mainH2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 42px;
+    color: #000000;
+    margin-bottom: 30px;
+  }
+  
+  .mainProfileSell {
+    width: 100%;
+    padding: 0 0 70px;
+  }
+  
+  .mainTitle {
+    margin-bottom: 20px;
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 500;
+    color: #000000;
+  }
+  
+  .mainContent {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .menuLogoLink {
+    width: 54;
+    height: 50px;
+  }
+  
+  .menuLogoImg {
+    width: 54px;
+    height: auto;
+  }
+  
+  .menuForm {
+    margin-left: 60px;
+    max-width: 1044px;
+    width: 100%;
+  }
+  
+  .menuBtn {
+    width: 241px;
+    height: 50px;
+    background-color: #009EE4;
+    border: 1px solid #009EE4;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 1;
+    color: #FFFFFF;
+  }
+  
+  .profileSellContent {
+    width: 100%;
+  }
+  
+  .profileSellTitle {
+    margin-bottom: 10px;
+  }
+  
+  .profileSellSeller {
+    display: flex;
+    align-items: top;
+    justify-content: start;
+  }
+  
+  .sellerLeft {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 50px;
+  }
+  
+  .sellerImgMobBlock {
+    display: none;
+  }
+  
+  .sellerImg {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background-color: #F0F0F0;
+  }
+  
+  .sellerImg img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .sellerRight {
+    width: auto;
+  }
+  
+  .sellerTitle {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #000000;
+    margin-bottom: 0px;
+  }
+  
+  .sellerInf, .sellerCity {
+    font-size: 16px;
+    line-height: 21px;
+    color: #5F5F5F;
+    margin-bottom: 10px;
+  }
+  
+  .sellerBtn {
+    margin-top: 20px;
+    background-color: #009EE4;
+    border-radius: 6px;
+    border: 1px solid #009EE4;
+    width: 214px;
+    height: 62px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .sellerBtn span {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
+  .cards {
+    max-width: 1158px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 270px);
+    grid-auto-rows: 441px;
+    grid-gap: 40px 26px;
+    justify-content: center;
+    overflow-y: auto;
+    scrollbar-color: #FFFFFF #2E2E2E;
+    scrollbar-width: thin;
+    scrollbar-width: 0px;
+    height: 441px;
+  }
+  
+  .cards::-webkit-scrollbar {
+    width: 0px;
+    background-color: #009EE4;
+  }
+  
+  .cards::-webkit-scrollbar-thumb {
+    background-color: #0080C1;
+    border-radius: 3px;
+  }
+  
+  .cardsItem {
+    margin: 0;
+  }
+  
+  .cardsCard {
+    width: 270px;
+    height: 441px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cardImage {
+    width: 270px;
+    height: 270px;
+    background-color: #F0F0F0;
+  }
+  
+  .cardImage img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .cardTitle {
+    height: 52px;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 26px;
+    color: #009EE4;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .cardPrice {
+    color: #000000;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 33px;
+    margin-bottom: 10px;
+  }
+  
+  .cardPlace, .cardDate {
+    font-size: 16px;
+    line-height: 21px;
+    color: #5F5F5F;
+  }
+  
+  .cardPlace {
+    margin-bottom: 4px;
+  }
+  
+  .footer {
+    display: none;
+  }
+  
+  @media screen and (max-width: 1158px) {
+    .cards {
+      grid-template-columns: repeat(3, 270px);
+    }
+  }
+  
+  @media screen and (max-width: 890px) {
+    .profileSellContent {
+      max-width: 834px;
+      width: 100%;
+    }
+    .profileSellSeller {
+      flex-wrap: wrap;
+    }
+    .cards {
+      grid-template-columns: repeat(2, 270px);
+    }
+  }
+  
+  @media screen and (max-width: 580px) {
+    .container {
+      width: 100%;
+      min-width: 320px;
+    }
+    .header {
+      width: 100%;
+      height: 55px;
+      box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 3;
+    }
+    .headerNav {
+      height: 55px;
+      justify-content: flex-start;
+      padding: 0 20px;
+    }
+    .headerBtnLk, .headerBtnPutAd {
+      display: none;
+    }
+    .headerLogo {
+      display: block;
+    }
+    .logoMobLink {
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
+    .logoMobImg {
+      width: 32px;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    .mainContainer {
+      padding: 85px 0px 84px;
+    }
+    .mainCenterBlock {
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .mainMenu {
+      display: none;
+    }
+    .mainH2 {
+      font-size: 24px;
+      line-height: 29px;
+      color: #000000;
+      padding: 0 0 0 26px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .mainH2::before {
+      content: "";
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-color: transparent;
+      border-top: 2px solid #000000;
+      border-left: 2px solid #000000;
+      transform: rotate(-45deg);
+      position: absolute;
+      top: 9px;
+      left: 0;
+      cursor: pointer;
+    }
+    .mainProfileSell {
+      width: 100%;
+      padding: 0 0 40px;
+    }
+    .mainTitle {
+      font-size: 18px;
+      line-height: 1;
+      margin-bottom: 30px;
+    }
+    .mainContent {
+      width: 100%;
+      margin: 0 auto;
+    }
+    .profileSellContent {
+      max-width: 100%;
+      width: 100%;
+    }
+    .profileSellSeller {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .sellerLeft {
+      display: none;
+      margin-right: 0px;
+    }
+    .sellerImg {
+      display: none;
+    }
+    .sellerImgMobBlock {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      padding: 20px 0;
+    }
+    .sellerImgMob {
+      display: block;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background-color: #F0F0F0;
+    }
+    .sellerImgMob img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    .sellerRight {
+      width: 100%;
+    }
+    .sellerTitle {
+      font-size: 20px;
+      line-height: 26px;
+      margin-bottom: 6px;
+    }
+    .sellerInf, .sellerCity {
+      font-size: 16px;
+      line-height: 21px;
+      color: #5F5F5F;
+      margin-bottom: 6px;
+    }
+    .sellerBtn {
+      width: 100%;
+      height: 57px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    .sellerBtn span {
+      font-size: 12px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 137px);
+      grid-auto-rows: 293px;
+      grid-gap: 10px 10px;
+      justify-content: center;
+      height: 596px;
+    }
+    .cardsItem {
+      margin: 0;
+    }
+    .cardsCard {
+      width: 137px;
+      height: 293px;
+      display: flex;
+      flex-direction: column;
+    }
+    .cardImage {
+      width: 137px;
+      height: 132px;
+      background-color: #D9D9D9;
+    }
+    .cardImage img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .cardTitle {
+      height: 51px;
+      font-size: 14px;
+      line-height: 17px;
+      color: #009EE4;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    .cardPrice {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .cardPlace, .cardDate {
+      font-size: 12px;
+      line-height: 16px;
+      color: #5F5F5F;
+    }
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 54px;
+      width: 100%;
+      background-color: #FFFFFF;
+      box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.1);
+    }
+    .footerContainer {
+      width: 225px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footerImg {
+      width: 42px;
+      height: 42px;
+    }
+    .footerImg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+  }
+  

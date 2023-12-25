@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-export default function LayoutPage() {
+export default function ArticlePage() {
   return (
     <main className={styles.main}>
       <div className={styles.mainContainer}>

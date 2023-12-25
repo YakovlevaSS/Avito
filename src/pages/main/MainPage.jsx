@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 
 
-export default function Page() {
+export default function MainPage() {
   return (
 <main className={styles.main}>
   <div className={`${styles.mainSearch} ${styles.search}`}>
