@@ -53,7 +53,7 @@ export default function ArticlePage() {
               </button>
               <div className={`${styles.articleAuthor} ${styles.author}`}>
                 <div className={styles.authorImg}>
-                  {/* Изображение автора */}
+                <img src="" alt="" />
                 </div>
                 <div className={styles.authorCont}>
                   <p className={styles.authorName}>Кирилл</p>

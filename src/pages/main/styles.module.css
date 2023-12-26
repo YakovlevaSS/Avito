@@ -39,6 +39,15 @@
     width: 100%;
     margin: 0 auto;
   }
+
+  .btnHov01:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid #FFFFFF;
+  }
+  
+  .btnHov02:hover {
+    background-color: #0080C1;
+  }
   
   .searchLogoMobLink {
     display: none;
