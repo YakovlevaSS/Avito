@@ -155,65 +155,6 @@
     border-radius: 3px;
   }
   
-  .cardsItem {
-    margin: 0;
-  }
-  
-  .cardsCard {
-    width: 270px;
-    height: 441px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-  }
-  
-  .cardImage {
-    width: 270px;
-    height: 270px;
-    background-color: #F0F0F0;
-  }
-  
-  .cardImage img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    -o-object-fit: cover;
-    object-fit: cover;
-  }
-  
-  .cardTitle {
-    height: 52px;
-    font-size: 22px;
-    font-weight: 500;
-    line-height: 26px;
-    color: #009EE4;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .cardPrice {
-    color: #000000;
-    font-size: 22px;
-    font-weight: 500;
-    line-height: 33px;
-    margin-bottom: 10px;
-  }
-  
-  .cardPlace, .cardDate {
-    font-size: 16px;
-    line-height: 21px;
-    color: #5F5F5F;
-  }
-  
-  .cardPlace {
-    margin-bottom: 4px;
-  }
   
   .footer {
     display: none;
@@ -344,55 +285,6 @@
       grid-auto-rows: 293px;
       grid-gap: 10px 10px;
       justify-content: center;
-    }
-    .cardsItem {
-      margin: 0;
-      box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
-      border-radius: 6px;
-    }
-    .cardsCard {
-      width: 137px;
-      height: 293px;
-      display: flex;
-      flex-direction: column;
-    }
-    .cardImage {
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
-      width: 137px;
-      height: 132px;
-      background-color: #D9D9D9;
-    }
-    .cardImage img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
-    }
-    .cardTitle {
-      height: 51px;
-      font-size: 14px;
-      line-height: 17px;
-      color: #009EE4;
-      margin-bottom: 10px;
-      margin-top: 10px;
-    }
-    .cardPrice {
-      font-size: 16px;
-      line-height: 24px;
-    }
-    .cardPlace {
-      font-size: 12px;
-      line-height: 16px;
-      color: #5F5F5F;
-    }
-    
-    .cardDate {
-      font-size: 12px;
-      line-height: 16px;
-      color: #5F5F5F;
     }
 
   }
