@@ -1,13 +1,13 @@
 import styles from './styles.module.css'
 
-const AddNewAt = () => {
+const AddNewAt = ({setIsShow}) => {
   return (
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
         <div className={styles.modalContent}>
           <h3 className={styles.modalTitle}>Новое объявление</h3>
           <div className={styles.modalBtnClose}>
-            <div className={styles.modalBtnCloseLine} />
+            <div className={styles.modalBtnCloseLine} onClick={() => {setIsShow(false)}}/>
           </div>
           <form
             className={`${styles.modalFormNewArt} ${styles.formNewArt}`}

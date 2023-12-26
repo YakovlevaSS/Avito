@@ -1,11 +1,13 @@
 import styles from "./styles.module.css";
 import { Outlet } from "react-router";
 import { useNavigate } from "react-router";
+import { useState } from "react";
+import AddNewAt from "../../components/addNewAt/AddNewAt";
 
 export default function LayoutPage() {
   const user = true;
   const navigate = useNavigate();
-  
+  const [isShow, setIsShow] = useState(false)
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -26,6 +28,7 @@ export default function LayoutPage() {
                 <button
                   className={`${styles.headerBtnMainEnter} ${styles.btnHov01}`}
                   id="btnMainEnter"
+                  onClick={() => {setIsShow(true)}}
                 >
                   Разместить объявление
                 </button>
@@ -63,6 +66,7 @@ export default function LayoutPage() {
           </div>
         </footer>
       </div>
+      {isShow && <AddNewAt setIsShow={setIsShow}/>}
     </div>
   );
 }
