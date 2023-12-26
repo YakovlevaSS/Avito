@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-const Signup = () => {
+const SignupPage = () => {
   return (
     <div className={styles.containerSignup}>
       <div className={styles.modalBlock}>
@@ -59,4 +59,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupPage;

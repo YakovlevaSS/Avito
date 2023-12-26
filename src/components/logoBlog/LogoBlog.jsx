@@ -1,6 +1,8 @@
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router";
 
 export default function LogoBlog() {
+  const navigate = useNavigate()
   return (
     <div className={styles.mainContainer}>
     <div className={` ${styles.mainMenu}`}>
@@ -11,6 +13,7 @@ export default function LogoBlog() {
         <button
           className={`${styles.menuBtnSearch} ${styles.btnHov02}`}
           id="btnGoBack"
+          onClick={() =>{navigate('/')}}
         >
           Вернуться на главную
         </button>

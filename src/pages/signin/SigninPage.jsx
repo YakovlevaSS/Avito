@@ -1,6 +1,10 @@
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router";
 
-const Signin = () => {
+const SigninPage = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className={styles.containerEnter}>
       <div className={styles.modalBlock}>
@@ -25,8 +29,8 @@ const Signin = () => {
           <button className={styles.modalBtnEnter}>
             <a href="../index.html">Войти</a>
           </button>
-          <button className={styles.modalBtnSignup}>
-            <a href="signup.html">Зарегистрироваться</a>
+          <button className={styles.modalBtnSignup} onClick={() => {navigate('/signup')}}>
+            Зарегистрироваться
           </button>
         </form>
       </div>
@@ -34,4 +38,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SigninPage;

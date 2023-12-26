@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import CardItem from "../../components/card/Card";
 
 export default function MainPage() {
+  
   return (
     <main className={styles.main}>
       <div className={`${styles.mainSearch} ${styles.search}`}>
