@@ -42,62 +42,10 @@
     border-left: 2px solid #0080C1;
   }
   
-  .header {
-    background-color: #009EE4;
-  }
-  
-  .headerNav {
-    max-width: 1178px;
-    margin: 0 auto;
-    padding: 0 10px;
-    height: 79px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  
-  .headerBtnLk {
-    width: 173px;
-    height: 40px;
-    margin-left: 10px;
-  }
-  
-  .headerBtnPutAd {
-    width: 232px;
-    height: 40px;
-  }
-  
-  .headerBtnLk, .headerBtnPutAd {
-    border: 1px solid #FFFFFF;
-    border-radius: 6px;
-    background-color: transparent;
-    color: #FFFFFF;
-    font-size: 16px;
-    line-height: 1;
-  }
-  
-  .headerLogo {
-    display: none;
-  }
-  
   .main {
     margin: 0 auto;
   }
   
-  .mainContainer {
-    max-width: 1178px;
-    margin: 0 auto;
-    padding: 0px 5px;
-  }
-  
-  .mainMenu {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 11px 0;
-    padding: 43px 5px 77px;
-  }
   
   .mainArtic {
     max-width: 1178px;
@@ -123,33 +71,6 @@
     padding: 0 5px 117px;
   }
   
-  .menuLogoLink {
-    width: 54;
-    height: 50px;
-  }
-  
-  .menuLogoImg {
-    width: 54px;
-    height: auto;
-  }
-  
-  .menuForm {
-    margin-left: 60px;
-    max-width: 1044px;
-    width: 100%;
-    display: flex;
-  }
-  
-  .menuBtnSearch {
-    width: 241px;
-    height: 50px;
-    background-color: #009EE4;
-    border: 1px solid #009EE4;
-    border-radius: 6px;
-    font-size: 16px;
-    line-height: 24px;
-    color: #FFFFFF;
-  }
   
   .title {
     font-size: 32px;
@@ -378,12 +299,6 @@
       display: block;
       object-fit: cover;
     }
-    .mainContainer {
-      padding: 0 20px 0;
-    }
-    .mainMenu {
-      display: none;
-    }
     .mainArtic {
       max-width: 1178px;
       width: 100%;
@@ -520,35 +435,7 @@
       font-size: 14px;
       line-height: 28px;
     }
-    .footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 54px;
-      width: 100%;
-      background-color: #FFFFFF;
-      box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.1);
-    }
-    .footerContainer {
-      width: 225px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footerImg {
-      width: 42px;
-      height: 42px;
-    }
-    .footerImg img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
+  
   }
   
   

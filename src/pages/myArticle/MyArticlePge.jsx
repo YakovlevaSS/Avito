@@ -1,23 +1,10 @@
 import styles from "./styles.module.css";
+import LogoBlog from "../../components/logoBlog/LogoBlog";
 
 export default function MyArticlePage() {
   return (
     <main className={styles.main}>
-      <div className={styles.mainContainer}>
-        <div className={`${styles.mainContainer} ${styles.menu}`}>
-          <a className={styles.menuLogoLink} href="/" target="_blank">
-            <img className={styles.menuLogoImg} src="img/logo.png" alt="logo" />
-          </a>
-          <form className={styles.menuForm} action="#">
-            <button
-              className={`${styles.menuBtnSearch} ${styles.btnHov02}`}
-              id="btnGoBack"
-            >
-              Вернуться на главную
-            </button>
-          </form>
-        </div>
-      </div>
+      <LogoBlog />
 
       <div className={`${styles.mainArtic} ${styles.artic}`}>
         <div className={`${styles.articContent} ${styles.article}`}>

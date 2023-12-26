@@ -1,20 +1,11 @@
+import LogoBlog from "../../components/logoBlog/LogoBlog";
 import styles from "./styles.module.css";
 
 export default function ProfilePage() {
   return (
     <main className={styles.main}>
-      <div className={styles.mainContainer}>
         <div className={styles.mainCenterBlock}>
-          <div className={`${styles.mainMenu} ${styles.menu}`}>
-            <a className={styles.menuLogoLink} href="" target="_blank">
-              <img className={styles.menuLogoImg} src="img/logo.png" alt="logo" />
-            </a>
-            <form className={styles.menuForm} action="#">
-              <button className={`${styles.menuBtn} ${styles.btnHov02}`} id="btnGoBack">
-                Вернуться на&nbsp;главную
-              </button>
-            </form>
-          </div>
+          <LogoBlog/>
           <h2 className={styles.mainH2}>Здравствуйте, Антон!</h2>
           <div className={`${styles.mainProfile} ${styles.profile}`}>
             <div className={styles.profileContent}>
@@ -110,7 +101,6 @@ export default function ProfilePage() {
             {/* Добавьте остальные элементы в соответствии с вашей разметкой */}
           </div>
         </div>
-      </div>
     </main>
   );
 };

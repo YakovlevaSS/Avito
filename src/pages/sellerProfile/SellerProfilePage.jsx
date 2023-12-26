@@ -1,20 +1,12 @@
 import styles from "./styles.module.css";
+import LogoBlog from "../../components/logoBlog/LogoBlog";
 
 export default function SellerProfilePage() {
   return (
 <main className={styles.main}>
-      <div className={styles.mainContainer}>
+
         <div className={styles.mainCenterBlock}>
-          <div className={`${styles.mainMenu} ${styles.menu}`}>
-            <a className={styles.menuLogoLink} href="" target="_blank">
-              <img className={styles.menuLogoImg} src="img/logo.png" alt="logo" />
-            </a>
-            <form className={styles.menuForm} action="#">
-              <button className={`${styles.menuBtn} ${styles.btnHov02}`} id="btnGoBack">
-                Вернуться на&nbsp;главную
-              </button>
-            </form>
-          </div>
+  <LogoBlog/>
           <h2 className={styles.mainH2}>Профиль продавца</h2>
           <div className={`${styles.mainProfileSell} ${styles.profileSell}`}>
             <div className={styles.profileSellContent}>
@@ -71,7 +63,7 @@ export default function SellerProfilePage() {
             {/* Добавьте остальные карточки сюда */}
           </div>
         </div>
-      </div>
+
     </main>
   );
 };

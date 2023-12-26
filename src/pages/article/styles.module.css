@@ -4,48 +4,7 @@
     margin: 0 auto;
   }
   
-  .mainContainer {
-    max-width: 1178px;
-    margin: 0 auto;
-    padding: 0 5px;
-  }
   
-  .mainMenu {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 11px 0;
-    padding: 43px 5px 77px;
-  }
-  
-  .menuLogoLink {
-    width: 54;
-    height: 50px;
-  }
-  
-  .menuLogoImg {
-    width: 54px;
-    height: auto;
-  }
-  
-  .menuForm {
-    margin-left: 60px;
-    max-width: 1044px;
-    width: 100%;
-    display: flex;
-  }
-  
-  .menuBtnSearch {
-    width: 241px;
-    height: 50px;
-    background-color: #009EE4;
-    border: 1px solid #009EE4;
-    border-radius: 6px;
-    font-size: 16px;
-    line-height: 24px;
-    color: #FFFFFF;
-  }
   
   .mainArtic {
     max-width: 1178px;
@@ -241,10 +200,6 @@
   }
   
   @media screen and (max-width: 768px) {
-    .mainContainer {
-      padding: 0 20px 0;
-      display: none;
-    }
     
     .mainArtic {
       max-width: 1178px;
