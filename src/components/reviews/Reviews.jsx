@@ -1,13 +1,13 @@
 import styles from "./styles.module.css";
 
-const Reviews= () => {
+const Reviews= ({setIsShow}) => {
   return (
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
         <div className={styles.modalContent}>
           <h3 className={styles.modalTitle}>Отзывы о товаре</h3>
           <div className={styles.modalBtnClose}>
-            <div className={styles.modalBtnCloseLine}></div>
+            <div className={styles.modalBtnCloseLine} onClick={() => {setIsShow(false)}}></div>
           </div>
           <div className={styles.modalScroll}>
             <form className={`${styles.modalFormNewArt} ${styles.formNewArt}`} id="formNewArt" action="#">
