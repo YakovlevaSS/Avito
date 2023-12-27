@@ -4,6 +4,7 @@ import CardItem from "../../components/card/Card";
 export default function SellerProfilePage() {
   return (
     <main className={styles.main}>
+            <div className={styles.mainContainer}>
       <div className={styles.mainCenterBlock}>
         <LogoBlog />
         <h2 className={styles.mainH2}>Профиль продавца</h2>
@@ -44,6 +45,7 @@ export default function SellerProfilePage() {
         <div className={`${styles.contentCards} ${styles.cards}`}>
           <CardItem />
         </div>
+      </div>
       </div>
     </main>
   );
