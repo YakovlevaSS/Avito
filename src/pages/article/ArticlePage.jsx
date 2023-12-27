@@ -109,7 +109,7 @@ const location = useLocation();
       </div>
     </main>
     {isShow && <Reviews setIsShow={setIsShow}/>}
-    {isShow && <Atclsettings setIsShowSettings={setIsShowSettings}/>}
+    {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings}/>}
 </>
 
   );
