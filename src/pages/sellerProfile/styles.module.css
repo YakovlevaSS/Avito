@@ -113,7 +113,7 @@
   .profileSellSeller {
     display: flex;
     align-items: top;
-    justify-content: start;
+    justify-content: flex-start;
   }
   
   .sellerLeft {
