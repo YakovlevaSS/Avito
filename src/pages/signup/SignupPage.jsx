@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { singUpApi } from "../../API/authApi";
 
 const SignupPage = () => {
@@ -15,7 +15,7 @@ const SignupPage = () => {
   const [error, setError] = useState(null);
   const [offButton, setOffButton] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [errorsForm, setErrorsForm] = useState({
     email: "",
@@ -50,17 +50,16 @@ const SignupPage = () => {
     }
 
     if (confirmPassword.trim() === "") {
-      newErrors.password = "Подтвердите пароль";
+      newErrors.confirmPassword = "Подтвердите пароль";
       isValid = false;
     } else if (confirmPassword !== password) {
       newErrors.confirmPassword = "Пароли не совпадают";
       isValid = false;
     } else {
-      newErrors.password = "";
+      newErrors.confirmPassword = "";
     }
 
     setErrorsForm(newErrors);
-console.log(errorsForm)
     return isValid;
   };
 
@@ -125,9 +124,10 @@ console.log(errorsForm)
           <div className={styles.modalLogo}>
             <img src="../img/logo_modal.png" alt="logo" />
           </div>
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className={styles.errorMain}>{error}</div>}
+          <div className={styles.inputBlog}>
           <input
-            className={styles.modalInput}
+            className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
             type="text"
             name="login"
             id="loginReg"
@@ -140,8 +140,10 @@ console.log(errorsForm)
           {errorsForm.email && (
             <div className={styles.error}>{errorsForm.email}</div>
           )}
+          </div>
+          <div className={styles.inputBlog}>
           <input
-            className={styles.modalInput}
+            className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
             type="password"
             name="password"
             id="passwordFirst"
@@ -154,8 +156,10 @@ console.log(errorsForm)
           {errorsForm.password && (
             <div className={styles.error}>{errorsForm.password}</div>
           )}
+          </div>
+          <div className={styles.inputBlog}>
           <input
-            className={styles.modalInput}
+            className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
             type="password"
             name="password"
             id="passwordSecond"
@@ -168,6 +172,7 @@ console.log(errorsForm)
           {errorsForm.confirmPassword && (
             <div className={styles.error}>{errorsForm.confirmPassword}</div>
           )}
+          </div>
           <input
             className={styles.modalInput}
             type="text"
