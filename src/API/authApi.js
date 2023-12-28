@@ -37,6 +37,8 @@ export async function singInApi(email, password) {
   });
   if (response.status === 401 || response.status === 422) {
     throw new Error("Пользователь не авторизован");
+  } else if (response.status === 500) {
+    throw new Error("Сервер сломался");
   }
   const data = response.json();
   return data;
