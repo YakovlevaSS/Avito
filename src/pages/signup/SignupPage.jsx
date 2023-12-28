@@ -86,8 +86,9 @@ const SignupPage = () => {
     setErrorsForm(newErrors);
   }, [confirmPassword]);
 
-  const handleReg = async () => {
+  const handleReg = async (event) => {
     if (validateFormReg()) {
+      event.preventDefault();
       try {
         const response = await singUpApi(
           email,
@@ -108,6 +109,12 @@ const SignupPage = () => {
         console.log(response);
         setOffButton(true);
         navigate("/");
+        setName();
+        setSurname();
+        setEmail();
+        setPassword();
+        setCity();
+        setConfirmPassword();
       } catch (error) {
         setError(error.message);
       } finally {
@@ -120,7 +127,7 @@ const SignupPage = () => {
   return (
     <div className={styles.containerSignup}>
       <div className={styles.modalBlock}>
-        <form className={styles.modalFormLogin} id="formSignUp" action="#">
+        <form className={styles.modalFormLogin} id="formSignUp" action="#" onSubmit={handleReg}>
           <div className={styles.modalLogo}>
             <img src="../img/logo_modal.png" alt="logo" />
           </div>
@@ -210,7 +217,7 @@ const SignupPage = () => {
             className={styles.modalBtnSignupEnt}
             id="SignUpEnter"
             disabled={offButton}
-            onClick={handleReg}>
+            type="submit">
             {offButton ? "Осуществляем регистрацию" : "Зарегистрироваться"}
           </button>
         </form>

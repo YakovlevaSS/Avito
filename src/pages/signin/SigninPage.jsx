@@ -63,7 +63,8 @@ const SigninPage = () => {
     setErrorsForm(newErrors);
   }, [password]);
 
-  const handleLog = async () => {
+  const handleLog = async (event) => {
+    event.preventDefault();
     if (validateFormLog()) {
       try {
         const response = await singInApi(email, password);
@@ -82,6 +83,8 @@ const SigninPage = () => {
         setError(error.message);
       } finally {
         setOffButton(false);
+        setEmail('');
+        setPassword('');
       }
     }
   };
@@ -89,7 +92,7 @@ const SigninPage = () => {
   return (
     <div className={styles.containerEnter}>
       <div className={styles.modalBlock}>
-        <form className={styles.modalFormLogin} id="formLogIn" action="#">
+        <form className={styles.modalFormLogin} id="formLogIn" action="#" onSubmit={handleLog}>
           <div className={styles.modalLogo}>
             <img src="../img/logo_modal.png" alt="logo" />
           </div>
@@ -129,7 +132,7 @@ const SigninPage = () => {
           <button
             className={styles.modalBtnEnter}
             disabled={offButton}
-            onClick={handleLog}
+            type="submit"
           >
             {offButton ? "Осуществляем вход" : "Войти"}
           </button>
