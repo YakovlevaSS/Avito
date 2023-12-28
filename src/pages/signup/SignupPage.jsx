@@ -88,7 +88,7 @@ console.log(errorsForm)
   }, [confirmPassword]);
 
   const handleReg = async () => {
-    if (validateFormReg) {
+    if (validateFormReg()) {
       try {
         const response = await singUpApi(
           email,
