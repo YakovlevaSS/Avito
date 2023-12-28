@@ -1,8 +1,9 @@
 import styles from "./styles.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { singUpApi } from "../../API/authApi";
+import { setUser } from "../../store/slices/userSlice";
 
 const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const SignupPage = () => {
   const [error, setError] = useState(null);
   const [offButton, setOffButton] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [errorsForm, setErrorsForm] = useState({
     email: "",
@@ -98,14 +99,18 @@ const SignupPage = () => {
           surname,
           city
         );
-        // dispatch(
-        //   setUser({
-        //     email: response.email,
-        //     id: response.uid,
-        //     token: response.accessToken,
-        //     password: password,
-        //   })
-        // );
+        dispatch(
+          setUser({
+            email: response.email,
+            name: response.name,
+            id: response.id,
+            surname: response.surname,
+            avatar: response.avatar,
+            phone: response.phone,
+            role: response.role,
+            city: response.city,
+          })
+        );
         console.log(response);
         setOffButton(true);
         navigate("/");
@@ -121,64 +126,68 @@ const SignupPage = () => {
         setOffButton(false);
       }
     }
-    
   };
 
   return (
     <div className={styles.containerSignup}>
       <div className={styles.modalBlock}>
-        <form className={styles.modalFormLogin} id="formSignUp" action="#" onSubmit={handleReg}>
+        <form
+          className={styles.modalFormLogin}
+          id="formSignUp"
+          action="#"
+          onSubmit={handleReg}
+        >
           <div className={styles.modalLogo}>
             <img src="../img/logo_modal.png" alt="logo" />
           </div>
           {error && <div className={styles.errorMain}>{error}</div>}
           <div className={styles.inputBlog}>
-          <input
-            className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
-            type="text"
-            name="login"
-            id="loginReg"
-            placeholder="email"
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-          />
-          {errorsForm.email && (
-            <div className={styles.error}>{errorsForm.email}</div>
-          )}
+            <input
+              className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
+              type="text"
+              name="login"
+              id="loginReg"
+              placeholder="email"
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+            />
+            {errorsForm.email && (
+              <div className={styles.error}>{errorsForm.email}</div>
+            )}
           </div>
           <div className={styles.inputBlog}>
-          <input
-            className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
-            type="password"
-            name="password"
-            id="passwordFirst"
-            placeholder="Пароль"
-            value={password}
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
-          />
-          {errorsForm.password && (
-            <div className={styles.error}>{errorsForm.password}</div>
-          )}
+            <input
+              className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
+              type="password"
+              name="password"
+              id="passwordFirst"
+              placeholder="Пароль"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+            />
+            {errorsForm.password && (
+              <div className={styles.error}>{errorsForm.password}</div>
+            )}
           </div>
           <div className={styles.inputBlog}>
-          <input
-            className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
-            type="password"
-            name="password"
-            id="passwordSecond"
-            placeholder="Повторите пароль"
-            value={confirmPassword}
-            onChange={(event) => {
-              setConfirmPassword(event.target.value);
-            }}
-          />
-          {errorsForm.confirmPassword && (
-            <div className={styles.error}>{errorsForm.confirmPassword}</div>
-          )}
+            <input
+              className={`${styles.modalInput} ${styles.modalInputMarginNone}`}
+              type="password"
+              name="password"
+              id="passwordSecond"
+              placeholder="Повторите пароль"
+              value={confirmPassword}
+              onChange={(event) => {
+                setConfirmPassword(event.target.value);
+              }}
+            />
+            {errorsForm.confirmPassword && (
+              <div className={styles.error}>{errorsForm.confirmPassword}</div>
+            )}
           </div>
           <input
             className={styles.modalInput}
@@ -217,7 +226,8 @@ const SignupPage = () => {
             className={styles.modalBtnSignupEnt}
             id="SignUpEnter"
             disabled={offButton}
-            type="submit">
+            type="submit"
+          >
             {offButton ? "Осуществляем регистрацию" : "Зарегистрироваться"}
           </button>
         </form>

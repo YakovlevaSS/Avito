@@ -1,8 +1,10 @@
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { singInApi } from "../../API/authApi";
+import { setToken } from "../../store/slices/userSlice";
+
 
 const SigninPage = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +12,7 @@ const SigninPage = () => {
   const [error, setError] = useState(null);
   const [offButton, setOffButton] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [errorsForm, setErrorsForm] = useState({
     email: "",
@@ -68,23 +70,15 @@ const SigninPage = () => {
     if (validateFormLog()) {
       try {
         const response = await singInApi(email, password);
-        // dispatch(
-        //   setUser({
-        //     email: response.email,
-        //     id: response.uid,
-        //     token: response.accessToken,
-        //     password: password,
-        //   })
-        // );
-        console.log(response);
+        dispatch(setToken(response));
         setOffButton(true);
         navigate("/");
       } catch (error) {
         setError(error.message);
       } finally {
         setOffButton(false);
-        setEmail('');
-        setPassword('');
+        setEmail("");
+        setPassword("");
       }
     }
   };
@@ -92,7 +86,12 @@ const SigninPage = () => {
   return (
     <div className={styles.containerEnter}>
       <div className={styles.modalBlock}>
-        <form className={styles.modalFormLogin} id="formLogIn" action="#" onSubmit={handleLog}>
+        <form
+          className={styles.modalFormLogin}
+          id="formLogIn"
+          action="#"
+          onSubmit={handleLog}
+        >
           <div className={styles.modalLogo}>
             <img src="../img/logo_modal.png" alt="logo" />
           </div>

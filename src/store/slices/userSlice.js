@@ -8,6 +8,7 @@ const initialState = {
   avatar: null,
   phone: null,
   role: null,
+  city:null,
 
   accessToken: null,
   refreshToken: null,
@@ -19,21 +20,36 @@ const localStorageMiddleware = (store) => (next) => (action) => {
     const storedEmail = localStorage.getItem("email");
     const storedName = localStorage.getItem("nameUser");
     const storedId = localStorage.getItem("id");
-    const stored = localStorage.getItem("id");
-    const storedId = localStorage.getItem("id");
-    const storedId = localStorage.getItem("id");
+    const storedSurname = localStorage.getItem("surname");
+    const storedAvatar = localStorage.getItem("avatar");
+    const storedPhone = localStorage.getItem("phone");
+    const storedRole = localStorage.getItem("role");
+    const storedCity = localStorage.getItem("city");
     const storedAccessToken = localStorage.getItem("accessToken");
     const storedRefreshToken = localStorage.getItem("refreshToken");
     const storedTypeToken = localStorage.getItem("typeToken");
 
-    if (storedEmail && storedNameUser && storedId && storedAccessToken && storedRefreshToken && storedTypeToken) {
+    if (storedEmail) {
       store.dispatch(
         userSlice.actions.setUser({
           email: storedEmail,
-          name: storedNameUser,
+          name: storedName,
           id: storedId,
+          surname: storedSurname,
+          avatar: storedAvatar,
+          phone: storedPhone,
+          role: storedRole,
+          city: storedCity
+        })
+      );
+    }
+
+    if (storedAccessToken && storedRefreshToken && storedTypeToken) {
+      store.dispatch(
+        userSlice.actions.setToken({
           accessToken: storedAccessToken,
           refreshToken: storedRefreshToken,
+          typeToken: storedTypeToken,
         })
       );
     }
@@ -48,25 +64,53 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.email = action.payload.email;
-      state.token = action.payload.token;
+      state.name = action.payload.name;
       state.id = action.payload.id;
-      state.password = action.payload.password;
+      state.surname = action.payload.surname;
+      state.avatar = action.payload.avatar;
+      state.phone = action.payload.phone;
+      state.role = action.payload.role;
+      state.city = action.payload.city;
       localStorage.setItem("email", state.email);
       localStorage.setItem("token", state.token);
       localStorage.setItem("id", state.id);
-      localStorage.setItem("password", state.password);
-      localStorage.setItem("progress", state.progress);
+      localStorage.setItem("surname", state.surname);
+      localStorage.setItem("avatar", state.avatar);
+      localStorage.setItem("phone", state.phone);
+      localStorage.setItem("role", state.role);
+      localStorage.setItem("city", state.city);
+    },
+    setToken(state, action) {
+      state.accessToken= action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
+      state.typeToken= action.payload.typeToken;
+      localStorage.setItem("accessToken", state.accessToken);
+      localStorage.setItem("refreshToken", state.refreshToken);
+      localStorage.setItem("typeToken", state.typeToken);
     },
     removeUser(state) {
-      state.email = null;
-      state.token = null;
-      state.id = null;
-      state.password = null;
+      state.email = '';
+      state.name = '';
+      state.id = '';
+      state.surname = '';
+      state.avatar = '';
+      state.phone = '';
+      state.role = '';
+      state.city = '';
+      state.accessToken = '';
+      state.refreshToken = '';
+      state.typeToken =  '';
       localStorage.removeItem("email");
       localStorage.removeItem("token");
       localStorage.removeItem("id");
-      localStorage.removeItem("password");
-      localStorage.removeItem("progress");
+      localStorage.removeItem("surname");
+      localStorage.removeItem("avatar");
+      localStorage.removeItem("phone");
+      localStorage.removeItem("role");
+      localStorage.removeItem("city");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("typeToken");
     },
 
     initializeUserFromLocalStorage() {
@@ -77,6 +121,7 @@ const userSlice = createSlice({
 
 export const {
   setUser,
+  setToken,
   removeUser,
   initializeUserFromLocalStorage,
 } = userSlice.actions;
