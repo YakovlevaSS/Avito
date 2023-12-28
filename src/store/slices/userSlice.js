@@ -2,8 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   email: null,
-  nameUser: null,
+  name: null,
   id: null,
+  surname: null,
+  avatar: null,
+  phone: null,
+  role: null,
+
   accessToken: null,
   refreshToken: null,
   typeToken: null,
@@ -12,7 +17,10 @@ const initialState = {
 const localStorageMiddleware = (store) => (next) => (action) => {
   if (action.type === userSlice.actions.initializeUserFromLocalStorage.type) {
     const storedEmail = localStorage.getItem("email");
-    const storedNameUser = localStorage.getItem("nameUser");
+    const storedName = localStorage.getItem("nameUser");
+    const storedId = localStorage.getItem("id");
+    const stored = localStorage.getItem("id");
+    const storedId = localStorage.getItem("id");
     const storedId = localStorage.getItem("id");
     const storedAccessToken = localStorage.getItem("accessToken");
     const storedRefreshToken = localStorage.getItem("refreshToken");
