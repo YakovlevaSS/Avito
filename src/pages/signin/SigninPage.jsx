@@ -2,8 +2,9 @@ import styles from "./styles.module.css";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { singInApi } from "../../API/authApi";
-import { setToken } from "../../store/slices/userSlice";
+import { singInApi, getUser } from "../../API/authApi";
+import { setToken, setUser } from "../../store/slices/userSlice";
+
 
 
 const SigninPage = () => {
@@ -75,6 +76,22 @@ const SigninPage = () => {
           refreshToken: response.refresh_token,
           typeToken: response.token_type,
         }));
+        console.log('done')
+        const responseUser = await getUser();
+        console.log(responseUser)
+        dispatch(
+          setUser({
+            email: responseUser.email,
+            name: responseUser.name,
+            id: responseUser.id,
+            surname: responseUser.surname,
+            avatar: responseUser.avatar,
+            phone: responseUser.phone,
+            role: responseUser.role,
+            city: responseUser.city,
+          })
+        );
+        console.log('done')
         setOffButton(true);
         navigate("/");
       } catch (error) {

@@ -1,10 +1,10 @@
 
 export const emailSelector = (store) => store.user.email;
 
-export const tokenSelector = (store) => store.user.token;
+export const accessTokenSelector = (store) => store.user.accessToken;
+
+export const refreshTokenSelector = (store) => store.user.refreshToken;
 
 export const idSelector = (store) => store.user.id;
-
-export const passwordSelector = (store) => store.user.password;
 
 export const selectUser = (state) => state.user;
