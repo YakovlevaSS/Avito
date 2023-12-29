@@ -70,7 +70,11 @@ const SigninPage = () => {
     if (validateFormLog()) {
       try {
         const response = await singInApi(email, password);
-        dispatch(setToken(response));
+        dispatch(setToken({
+          accessToken: response.access_token,
+          refreshToken: response.refresh_token,
+          typeToken: response.token_type,
+        }));
         setOffButton(true);
         navigate("/");
       } catch (error) {

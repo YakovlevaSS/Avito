@@ -9,7 +9,6 @@ const initialState = {
   phone: null,
   role: null,
   city:null,
-
   accessToken: null,
   refreshToken: null,
   typeToken: null,
@@ -74,6 +73,7 @@ const userSlice = createSlice({
       localStorage.setItem("email", state.email);
       localStorage.setItem("token", state.token);
       localStorage.setItem("id", state.id);
+      localStorage.setItem("name", state.name);
       localStorage.setItem("surname", state.surname);
       localStorage.setItem("avatar", state.avatar);
       localStorage.setItem("phone", state.phone);
@@ -103,6 +103,7 @@ const userSlice = createSlice({
       localStorage.removeItem("email");
       localStorage.removeItem("token");
       localStorage.removeItem("id");
+      localStorage.removeItem("name");
       localStorage.removeItem("surname");
       localStorage.removeItem("avatar");
       localStorage.removeItem("phone");

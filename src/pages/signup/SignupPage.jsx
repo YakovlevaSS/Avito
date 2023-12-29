@@ -2,8 +2,8 @@ import styles from "./styles.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { singUpApi } from "../../API/authApi";
-import { setUser } from "../../store/slices/userSlice";
+import { singUpApi, singInApi } from "../../API/authApi";
+import { setUser, setToken } from "../../store/slices/userSlice";
 
 const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -111,7 +111,12 @@ const SignupPage = () => {
             city: response.city,
           })
         );
-        console.log(response);
+        const responseToken = await singInApi(email, password);
+        dispatch(setToken({
+          accessToken: responseToken.access_token,
+          refreshToken: responseToken.refresh_token,
+          typeToken: responseToken.token_type,
+        }));
         setOffButton(true);
         navigate("/");
         setName();
