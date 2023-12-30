@@ -34,17 +34,12 @@
   
   .modalFormLogin {
     width: 366px;
-    height: 439px;
     background-color: #ffffff;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 43px 47px 47px 40px;
-  }
-  
-  .modalFormLogin input:first-child {
-    margin-bottom: 30px;
   }
   
   .modalLogo {
@@ -115,20 +110,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .modalBtnEnter a {
-    width: 100%;
-    height: 100%;
+    color: #FFF;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
+    line-height: 24px; /* 133.333% */
     letter-spacing: -0.05px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .modalBtnSignup {
@@ -160,10 +148,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-variant-numeric: lining-nums proportional-nums;
   }
-  
-  .login {
+
+  .inputBlog {
+    width: 100%;
     margin-bottom: 30px;
+  }
+
+  .errorMain {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 128, 113);
+    font-size: 1rem;
+    font-weight: 400;
+    top: 70px;
+    left: 5px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .error {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 128, 113);
+    font-size: 1rem;
+    font-weight: 400;
+    top: 70px;
+    left: 5px;
+    text-align: center;
+    margin-top: 10px;
   }
   
   @media screen and (max-width: 768px) {
@@ -228,6 +247,7 @@
       line-height: 21px;
       color: #b3b3b3;
     }
+
     .modalBtnEnter {
       height: 46px;
       margin-top: 40px;
