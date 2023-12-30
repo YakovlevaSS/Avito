@@ -12,12 +12,24 @@ export default function ArticlePage() {
   const navigate = useNavigate();
   const idAds = useParams().id;
   const { data = [], isLoading } = useGetOneProductQuery(idAds);
-  console.log(data)
   const [bigImg, setBigImg] = useState( null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
   useEffect(() => {
     setBigImg(data?.images?.[0]?.url ?? null);
   }, [data]);
+
+  const handleNextImg = () => {
+    if (window.innerWidth <= 768) {
+      if (numberOfShowImg < data?.images.length) {
+        setNumberOfShowImg(numberOfShowImg + 1);
+        setBigImg(data?.images[numberOfShowImg]?.url);
+      } else {
+        setNumberOfShowImg(1);
+        setBigImg(data?.images[0]?.url);
+      }
+    }
+  };
+
   return (
     <>
       <main className={styles.main}>
@@ -28,7 +40,7 @@ export default function ArticlePage() {
               <div className={`${styles.articContent} ${styles.article}`}>
                 <div className={styles.articleLeft}>
                   <div className={styles.articleFillImg}>
-                    <div className={styles.articleImg}>
+                    <div className={styles.articleImg} onClick={handleNextImg}>
                       <img
                         src=
                         {
