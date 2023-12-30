@@ -1,7 +1,6 @@
 import styles from "./styles.module.css";
 import CardItem from "../../components/card/Card";
 import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";
-import { useState } from "react";
 
 export default function MainPage() {
   const { data = [], isLoading } = useGetAllProductsQuery();

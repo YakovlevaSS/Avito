@@ -12,8 +12,8 @@ export default function CardItem({ page, products }) {
               <NavLink
                 to={
                   page === "Мои товары"
-                    ? `/myartycle/?id=${item.id}`
-                    : `/artycle/?id=${item.id}`
+                    ? `/myartycle/${item.id}`
+                    : `/artycle/${item.id}`
                 }
               >
                 <img
@@ -30,8 +30,8 @@ export default function CardItem({ page, products }) {
             <NavLink
                 to={
                   page === "Мои товары"
-                    ? `/myartycle/?id=${item.id}`
-                    : `/artycle/?id=${item.id}`
+                    ? `/myartycle/${item.id}`
+                    : `/artycle/${item.id}`
                 }
               >
                 <h3 className={styles.cardTitle}>

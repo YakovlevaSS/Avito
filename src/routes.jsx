@@ -4,7 +4,7 @@ import ProtectedRoute from "./components/protectedRoute";
 import ArticlePage from "./pages/article/ArticlePage";
 import LayoutPage from "./pages/layout/LayoutPage";
 import MainPage from "./pages/main/MainPage";
-// import MyArticlePage from "./pages/myArticle/MyArticlePge";
+import MyArticlePage from "./pages/myArticle/MyArticlePage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import SellerProfilePage from "./pages/sellerProfile/SellerProfilePage";
 import SigninPage from "./pages/signin/SigninPage";
@@ -19,7 +19,7 @@ function AppRoutes() {
         <Route path="/" element={<MainPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/artycle/:id" element={<ArticlePage />} />
-          <Route path="/myartycle/:id" element={<ArticlePage />} />
+          <Route path="/myartycle/:id" element={<MyArticlePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/sellerprofile" element={<SellerProfilePage />} />
         </Route>
