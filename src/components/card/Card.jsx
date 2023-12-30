@@ -1,5 +1,6 @@
 import styles from "./styles.module.css";
 import { NavLink } from "react-router-dom";
+import { DateBlock } from "../dateBlog/DataBlog";
 
 export default function CardItem({ page, products }) {
   console.log(products)
@@ -40,7 +41,7 @@ export default function CardItem({ page, products }) {
               </NavLink>
               <p className={styles.cardPrice}>{item.price}</p>
               <p className={styles.cardPlace}>{item.user.city}</p>
-              <p className={styles.cardDate}>{item.created_on}</p>
+              <p className={styles.cardDate}><DateBlock time={item.created_on}/></p>
             </div>
           </div>
         </div>

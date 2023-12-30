@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews";
 import Atclsettings from "../../components/atclsettings/Atclsettings";
 import { useGetOneProductQuery } from "../../store/RTKQuery/adsApi";
+import { DateBlock } from "../../components/dateBlog/DataBlog";
 
 export default function ArticlePage() {
   const [isShow, setIsShow] = useState(false);
@@ -93,7 +94,7 @@ export default function ArticlePage() {
                       {data?.title}
                     </h3>
                     <div className={styles.articleInfo}>
-                      <p className={styles.articleDate}>{data?.created_on}</p>
+                      <p className={styles.articleDate}><DateBlock time={data?.created_on}/></p>
                       <p className={styles.articleCity}>{data?.user?.city}</p>
                       <button
                         className={styles.articleLink}

@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery,retry } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 const DATA_TAG = { type: "Ads", id: "LIST" };
 
 export const productsApi = createApi({
