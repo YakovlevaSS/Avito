@@ -1,9 +1,13 @@
 import styles from "./styles.module.css";
 import CardItem from "../../components/card/Card";
+import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";
+import { useState } from "react";
 
 export default function MainPage() {
-  
-  return (
+  const { data = [], isLoading } = useGetAllProductsQuery();
+  console.log(data)
+
+  return !isLoading ? (
     <main className={styles.main}>
       <div className={`${styles.mainSearch} ${styles.search}`}>
         <a className={styles.searchLogoLink} href="#" target="_blank">
@@ -38,10 +42,12 @@ export default function MainPage() {
         <h2 className={styles.mainH2}>Объявления</h2>
         <div className={styles.mainContent}>
           <div className={`${styles.contentCards} ${styles.cards}`}>
-            <CardItem />
+            <CardItem products = {data} page={'Объявления'}/>
           </div>
         </div>
       </div>
     </main>
+  ) : (
+    <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>
   );
 }

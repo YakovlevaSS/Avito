@@ -18,8 +18,8 @@ function AppRoutes() {
       <Route path="/" element={<LayoutPage />}>
         <Route path="/" element={<MainPage />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="/artycle" element={<ArticlePage />} />
-          <Route path="/myartycle" element={<ArticlePage />} />
+          <Route path="/artycle/:id" element={<ArticlePage />} />
+          <Route path="/myartycle/:id" element={<ArticlePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/sellerprofile" element={<SellerProfilePage />} />
         </Route>
