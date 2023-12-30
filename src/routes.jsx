@@ -21,7 +21,7 @@ function AppRoutes() {
           <Route path="/artycle/:id" element={<ArticlePage />} />
           <Route path="/myartycle/:id" element={<MyArticlePage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/sellerprofile" element={<SellerProfilePage />} />
+          <Route path="/sellerprofile/:id" element={<SellerProfilePage />} />
         </Route>
       </Route>
 

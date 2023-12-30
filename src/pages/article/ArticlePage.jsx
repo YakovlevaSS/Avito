@@ -13,7 +13,8 @@ export default function ArticlePage() {
   const navigate = useNavigate();
   const idAds = useParams().id;
   const { data = [], isLoading } = useGetOneProductQuery(idAds);
-  const [bigImg, setBigImg] = useState( null);
+  console.log(data);
+  const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
   useEffect(() => {
     setBigImg(data?.images?.[0]?.url ?? null);
@@ -43,8 +44,7 @@ export default function ArticlePage() {
                   <div className={styles.articleFillImg}>
                     <div className={styles.articleImg} onClick={handleNextImg}>
                       <img
-                        src=
-                        {
+                        src={
                           bigImg
                             ? `http://localhost:8090/${bigImg}`
                             : "/img/no-foto.png"
@@ -94,7 +94,9 @@ export default function ArticlePage() {
                       {data?.title}
                     </h3>
                     <div className={styles.articleInfo}>
-                      <p className={styles.articleDate}><DateBlock time={data?.created_on}/></p>
+                      <p className={styles.articleDate}>
+                        <DateBlock time={data?.created_on} />
+                      </p>
                       <p className={styles.articleCity}>{data?.user?.city}</p>
                       <button
                         className={styles.articleLink}
@@ -123,7 +125,7 @@ export default function ArticlePage() {
                         <p
                           className={styles.authorName}
                           onClick={() => {
-                            navigate("/sellerprofile");
+                            navigate(`/sellerprofile/${data?.user_id}`);
                           }}
                         >
                           {data?.user.name}

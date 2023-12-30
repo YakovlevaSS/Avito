@@ -1,7 +1,10 @@
 import styles from "./styles.module.css";
 import LogoBlog from "../../components/logoBlog/LogoBlog";
 import CardItem from "../../components/card/Card";
+import { useParams } from "react-router-dom";
 export default function SellerProfilePage() {
+  const idSeller = useParams().id
+
   return (
     <main className={styles.main}>
             <div className={styles.mainContainer}>
