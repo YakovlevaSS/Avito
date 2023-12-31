@@ -50,3 +50,18 @@ export const DateBlock = ({ time }) => {
   
     return <span>{`${day} ${month} в ${hours}:${minutes}`}</span>;
   };
+
+  export const FormatSellingSince = ({dateString}) => {
+    const months = [
+      'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+      'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+    ];
+  
+    const date = new Date(dateString);
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+  
+    const formattedDate = `Продает товары с ${months[monthIndex]} ${year}`;
+    return <span>{formattedDate}</span>;
+  }
+ 
