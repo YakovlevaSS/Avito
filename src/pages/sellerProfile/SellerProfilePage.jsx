@@ -14,71 +14,95 @@ export default function SellerProfilePage() {
   const { data = [], isLoading } = useGetAllProductsQuery();
   console.log(data);
   const sellerProducts = data?.filter((item) => item.user_id === idSeller);
-const [isShow, setIsShow] = useState(false)
+  const [isShow, setIsShow] = useState(false);
   return (
     <main className={styles.main}>
       <div className={styles.mainContainer}>
         <div className={styles.mainCenterBlock}>
           <LogoBlog />
-          <h2 className={styles.mainH2}>Профиль продавца</h2>
-          <div className={`${styles.mainProfileSell} ${styles.profileSell}`}>
-            <div className={styles.profileSellContent}>
-              <div className={`${styles.profileSellSeller} ${styles.seller}`}>
-                <div className={styles.sellerLeft}>
-                  <div className={styles.sellerImg}>
-                    <NavLink>
-                      <img
-                        src={
-                          sellerProducts[0]?.user.avatar
-                            ? `http://localhost:8090/${sellerProducts[0]?.user.avatar}`
-                            : "/img/no-foto.png"
-                        }
-                        alt="ava"
-                      />
-                    </NavLink>
-                  </div>
-                </div>
-                <div className={styles.sellerRight}>
-                  <h3 className={styles.sellerTitle}>
-                    {sellerProducts[0]?.user.name}
-                  </h3>
-                  <p className={styles.sellerCity}>
-                    {sellerProducts[0]?.user.city}
-                  </p>
-                  <p className={styles.sellerInf}>
-                    <FormatSellingSince
-                      dateString={sellerProducts[0]?.user.sells_from}
-                    />
-                  </p>
-                  <div className={styles.sellerImgMobBlock}>
-                    <div className={styles.sellerImgMob}>
-                      <NavLink>
-                        <img
-                          src={
-                            sellerProducts[0]?.user.avatar
-                              ? `http://localhost:8090/${sellerProducts[0]?.user.avatar}`
-                              : "/img/no-foto.png"
-                          }
-                          alt="product"
+          {!isLoading ? (
+            <>
+              <h2 className={styles.mainH2}>Профиль продавца</h2>
+              <div
+                className={`${styles.mainProfileSell} ${styles.profileSell}`}
+              >
+                <div className={styles.profileSellContent}>
+                  <div
+                    className={`${styles.profileSellSeller} ${styles.seller}`}
+                  >
+                    <div className={styles.sellerLeft}>
+                      <div className={styles.sellerImg}>
+                        <NavLink>
+                          <img
+                            src={
+                              sellerProducts[0]?.user.avatar
+                                ? `http://localhost:8090/${sellerProducts[0]?.user.avatar}`
+                                : "/img/no-foto.png"
+                            }
+                            alt="ava"
+                          />
+                        </NavLink>
+                      </div>
+                    </div>
+                    <div className={styles.sellerRight}>
+                      <h3 className={styles.sellerTitle}>
+                        {sellerProducts[0]?.user.name}
+                      </h3>
+                      <p className={styles.sellerCity}>
+                        {sellerProducts[0]?.user.city}
+                      </p>
+                      <p className={styles.sellerInf}>
+                        <FormatSellingSince
+                          dateString={sellerProducts[0]?.user.sells_from}
                         />
-                      </NavLink>
+                      </p>
+                      <div className={styles.sellerImgMobBlock}>
+                        <div className={styles.sellerImgMob}>
+                          <NavLink>
+                            <img
+                              src={
+                                sellerProducts[0]?.user.avatar
+                                  ? `http://localhost:8090/${sellerProducts[0]?.user.avatar}`
+                                  : "/img/no-foto.png"
+                              }
+                              alt="product"
+                            />
+                          </NavLink>
+                        </div>
+                      </div>
+                      <button
+                        className={`${styles.sellerBtn} ${styles.btnHov02}`}
+                        onClick={() => {
+                          setIsShow(!isShow);
+                        }}
+                      >
+                        Показать&nbsp;телефон
+                        <FormatPhoneNumberClose
+                          phoneNumber={sellerProducts[0]?.user.phone}
+                          isShow={isShow}
+                        />
+                      </button>
                     </div>
                   </div>
-                  <button className={`${styles.sellerBtn} ${styles.btnHov02}`} onClick={()=>{setIsShow(!isShow)}}>
-                    Показать&nbsp;телефон
-                    <FormatPhoneNumberClose phoneNumber={sellerProducts[0]?.user.phone} isShow={isShow}/>
-                  </button>
                 </div>
               </div>
+              <h3 className={styles.mainTitle}>Товары продавца</h3>
+            </>
+          ) : (
+            <h1 style={{ textAlign: "center", marginTop: "50px" }}>
+              Loading...
+            </h1>
+          )}
+        </div>
+        {!isLoading ? (
+          <div className={styles.mainContent}>
+            <div className={`${styles.contentCards} ${styles.cards}`}>
+              <CardItem products={sellerProducts} />
             </div>
           </div>
-          <h3 className={styles.mainTitle}>Товары продавца</h3>
-        </div>
-        <div className={styles.mainContent}>
-          <div className={`${styles.contentCards} ${styles.cards}`}>
-            <CardItem products={sellerProducts} />
-          </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     </main>
   );
