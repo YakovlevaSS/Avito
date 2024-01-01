@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { userSelector } from "../../store/selectors/user";
+import { changeUser } from "../../API/userApi";
+import { setUser, removeUser } from "../../store/slices/userSlice";
 
 export default function UserSettings() {
   const { name, surname, phone, avatar, city } = useSelector(userSelector);
@@ -12,14 +14,45 @@ export default function UserSettings() {
   const [surnameInput, setSurnameInput] = useState(surname);
   const [phoneInput, setPhoneInput] = useState(phone);
   const [activeButton, setActiveButton] = useState(false);
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
       setActiveButton(false);
     }
   }, [nameInput, cityInput, surnameInput, phoneInput]);
+
+  const handleChangeUser = async (event) => {
+    event.preventDefault();
+
+    try {
+      const responseUser = await changeUser(
+        nameInput,
+        surnameInput,
+        cityInput,
+        phoneInput
+      );
+
+      dispatch(
+        setUser({
+          email: responseUser.email,
+          name: responseUser.name,
+          id: responseUser.id,
+          surname: responseUser.surname,
+          avatar: responseUser.avatar,
+          phone: responseUser.phone,
+          role: responseUser.role,
+          city: responseUser.city,
+        })
+      );
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setActiveButton(false);
+    }
+  };
 
   console.log(avatar);
   return (
@@ -46,7 +79,11 @@ export default function UserSettings() {
           </a>
         </div>
         <div className={styles.settingsRight}>
-          <form className={styles.settingsForm} action="#">
+          <form
+            className={styles.settingsForm}
+            action="#"
+            onSubmit={handleChangeUser}
+          >
             <div className={styles.settingsDiv}>
               <label htmlFor="fname">Имя</label>
               <input
@@ -57,9 +94,9 @@ export default function UserSettings() {
                 value={nameInput}
                 placeholder="введите имя"
                 onChange={(event) => {
-                    setNameInput(event.target.value);
-                    setActiveButton(true);
-                  }}
+                  setNameInput(event.target.value);
+                  setActiveButton(true);
+                }}
               />
             </div>
             <div className={styles.settingsDiv}>
@@ -72,9 +109,9 @@ export default function UserSettings() {
                 value={surnameInput}
                 placeholder="введите фамилию"
                 onChange={(event) => {
-                    setSurnameInput(event.target.value);
-                    setActiveButton(true);
-                  }}
+                  setSurnameInput(event.target.value);
+                  setActiveButton(true);
+                }}
               />
             </div>
             <div className={styles.settingsDiv}>
@@ -110,12 +147,18 @@ export default function UserSettings() {
             <button
               className={`${styles.settingsBtn} ${styles.btnHov02}`}
               id="settings-btn"
+              type="submit"
+              disabled={!activeButton}
             >
               Сохранить
             </button>
             <button
               className={`${styles.settingsBtn} ${styles.btnHov02}`}
               id="settings-btn"
+              onClick={() => {
+                dispatch(removeUser());
+                navigate("/");
+              }}
             >
               Выйти
             </button>

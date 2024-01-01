@@ -1,6 +1,7 @@
 import { setToken } from "../../store/slices/userSlice";
 export const getAccessTokenLocal = () => {
     const token = localStorage.getItem("accessToken");
+    console.log('acsess', token)
     return token ? token : null
 }
 export const getRefreshTokenLocal = () => {

@@ -8,8 +8,7 @@ import UserSettings from "../../components/userSettings/UserSettings";
 
 export default function ProfilePage() {
   const { data = [], isLoading } = useGetMeProductsQuery();
-  const { email, name, id, surname, phone, avatar, city } =
-    useSelector(userSelector);
+  const { name } = useSelector(userSelector);
 
   return (
     <main className={styles.main}>
@@ -17,7 +16,7 @@ export default function ProfilePage() {
         <div className={styles.mainCenterBlock}>
           <LogoBlog />
           {name ? (
-            <h2 className={styles.mainH2}>Здравствуйте, ${name}!</h2>
+            <h2 className={styles.mainH2}>Здравствуйте, {name}!</h2>
           ) : (
             <h2 className={styles.mainH2}>Здравствуйте!</h2>
           )}
