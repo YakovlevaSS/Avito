@@ -9,20 +9,27 @@ import { setUser, removeUser } from "../../store/slices/userSlice";
 export default function UserSettings() {
   const { name, surname, phone, avatar, city } = useSelector(userSelector);
 
+
   const [nameInput, setNameInput] = useState(name);
   const [cityInput, setCityInput] = useState(city);
   const [surnameInput, setSurnameInput] = useState(surname);
   const [phoneInput, setPhoneInput] = useState(phone);
   const [activeButton, setActiveButton] = useState(false);
   const [error, setError] = useState(false);
+  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
-      setActiveButton(false);
-    }
-  }, [nameInput, cityInput, surnameInput, phoneInput]);
+setNameInput(name)
+setCityInput(city)
+  }, []);
+//   useEffect(() => {
+//     if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
+//       setActiveButton(false);
+//     }
+//   }, [nameInput, cityInput, surnameInput, phoneInput]);
 
   const handleChangeUser = async (event) => {
     event.preventDefault();
