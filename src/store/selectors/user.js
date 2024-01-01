@@ -7,4 +7,4 @@ export const refreshTokenSelector = (store) => store.user.refreshToken;
 
 export const idSelector = (store) => store.user.id;
 
-export const selectUser = (state) => state.user;
+export const userSelector = (state) => state.user;
