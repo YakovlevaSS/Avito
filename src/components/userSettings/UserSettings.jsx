@@ -22,9 +22,11 @@ export default function UserSettings() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-setNameInput(name)
-setCityInput(city)
-  }, []);
+    setNameInput(name);
+    setCityInput(city);
+    setSurnameInput(surname);
+    setPhoneInput(phone);
+  }, [name, city, surname, phone]);
 //   useEffect(() => {
 //     if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
 //       setActiveButton(false);
