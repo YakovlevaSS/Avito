@@ -9,14 +9,12 @@ import { setUser, removeUser } from "../../store/slices/userSlice";
 export default function UserSettings() {
   const { name, surname, phone, avatar, city } = useSelector(userSelector);
 
-
-  const [nameInput, setNameInput] = useState(name);
-  const [cityInput, setCityInput] = useState(city);
-  const [surnameInput, setSurnameInput] = useState(surname);
-  const [phoneInput, setPhoneInput] = useState(phone);
+  const [nameInput, setNameInput] = useState(name || "");
+  const [cityInput, setCityInput] = useState(city || "");
+  const [surnameInput, setSurnameInput] = useState(surname || "");
+  const [phoneInput, setPhoneInput] = useState(phone || "");
   const [activeButton, setActiveButton] = useState(false);
   const [error, setError] = useState(false);
-  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,11 +25,11 @@ export default function UserSettings() {
     setSurnameInput(surname);
     setPhoneInput(phone);
   }, [name, city, surname, phone]);
-//   useEffect(() => {
-//     if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
-//       setActiveButton(false);
-//     }
-//   }, [nameInput, cityInput, surnameInput, phoneInput]);
+  useEffect(() => {
+    if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
+      setActiveButton(false);
+    }
+  }, [nameInput, cityInput, surnameInput, phoneInput]);
 
   const handleChangeUser = async (event) => {
     event.preventDefault();
@@ -73,14 +71,11 @@ export default function UserSettings() {
         <div className={styles.settingsLeft}>
           <div className={styles.settingsImg}>
             <NavLink to="/profile">
-              <img
-                src={
-                  avatar && avatar !== "null"
-                    ? `http://localhost:8090/${avatar}`
-                    : "/img/no-foto.png"
-                }
-                alt="ava"
-              />
+              {avatar && avatar !== "null" ? (
+                <img src={`http://localhost:8090/${avatar}`} alt="ava" />
+              ) : (
+                ""
+              )}
             </NavLink>
           </div>
           <a className={styles.settingsChangePhoto} href="" target="_self">
@@ -153,6 +148,7 @@ export default function UserSettings() {
                 }}
               />
             </div>
+            {error && <div className={styles.error}>{error}</div>}
             <button
               className={`${styles.settingsBtn} ${styles.btnHov02}`}
               id="settings-btn"

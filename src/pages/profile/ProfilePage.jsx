@@ -25,17 +25,17 @@ export default function ProfilePage() {
           </div>
           <h3 className={`${styles.mainTitle} ${styles.title}`}>Мои товары</h3>
         </div>
-        <div className={styles.mainContent}>
-          {isLoading ? (
-            <h1 style={{ textAlign: "center", marginTop: "50px" }}>
-              Loading...
-            </h1>
-          ) : (
+        {isLoading ? (
+          <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>
+        ) : data.length === 0 ? (
+          <p className={styles.mainText}>У вас пока нет ни одного объявления, вперед продавать!</p>
+        ) : (
+          <div className={styles.mainContent}>
             <div className={`${styles.contentCards} ${styles.cards}`}>
               <CardItem products={data} />
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </main>
   );

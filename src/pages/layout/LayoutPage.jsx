@@ -50,17 +50,17 @@ export default function LayoutPage() {
           <div className={styles.footerContainer}>
             <div className={styles.footerImg}>
               <a href="" target="_self">
-                <img src="img/icon_01.png" alt="home" />
+                <img src="/img/icon_01.png" alt="home" />
               </a>
             </div>
             <div className={styles.footerImg}>
               <a href="" target="_self">
-                <img src="img/icon_02.png" alt="home" />
+                <img src="/img/icon_02.png" alt="home" />
               </a>
             </div>
             <div className={styles.footerImg}>
               <a href="" target="_self">
-                <img src="img/icon_03.png" alt="home" />
+                <img src="/img/icon_03.png" alt="home" />
               </a>
             </div>
           </div>
