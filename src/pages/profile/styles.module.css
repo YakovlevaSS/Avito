@@ -264,9 +264,9 @@
 }
 
 @media screen and (max-width: 890px) {
-  .mainContainer {
+  /* .mainContainer {
     padding: 85px 0px 84px;
-  }
+  } */
   .mainCenterBlock {
     margin: 0 auto;
     padding: 0 20px;
@@ -300,9 +300,9 @@
       display: block;
       objectFit: cover;
     }
-    .mainContainer {
+    /* .mainContainer {
       padding: 85px 0px 84px;
-    }
+    } */
     .mainCenterBlock {
       margin: 0 auto;
       padding: 0 20px;

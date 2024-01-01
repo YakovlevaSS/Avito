@@ -1,11 +1,19 @@
 import styles from "./styles.module.css";
 import LogoBlog from "../../components/logoBlog/LogoBlog";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Reviews from "../../components/reviews/Reviews";
+import Atclsettings from "../../components/atclsettings/Atclsettings";
 
 export default function MyArticlePage() {
+const [isShow, setIsShow] = useState(false)
+const [isShowSettings, setIsShowSettings] = useState(false)
+const navigate = useNavigate()
+const location = useLocation();
   return (
+    <>
     <main className={styles.main}>
       <LogoBlog />
-
       <div className={`${styles.mainArtic} ${styles.artic}`}>
         <div className={`${styles.articContent} ${styles.article}`}>
           <div className={styles.articleLeft}>
@@ -38,36 +46,35 @@ export default function MyArticlePage() {
               <div className={styles.articleInfo}>
                 <p className={styles.articleDate}>Сегодня в 10:45</p>
                 <p className={styles.articleCity}>Санкт-Петербург</p>
-                <a
+                <button
                   className={styles.articleLink}
-                  href="/"
-                  target="_blank"
-                  rel=""
+                  onClick={()=>{setIsShow(true)}}
                 >
                   23 отзыва
-                </a>
+                </button>
               </div>
               <p className={styles.articlePrice}>2 200 ₽</p>
               <div className={`${styles.articleBtnBlock} ${styles.btnBlock}`}>
-                <button
-                  className={`${styles.articleBtn} ${styles.btnRedact} ${styles.btnHov02}`}
-                >
-                  Редактировать
-                </button>
-                <button
-                  className={`${styles.articleBtn} ${styles.btnRemove} ${styles.btnHov02}`}
-                >
-                  Снять с публикации
-                </button>
-              </div>
+              <button
+                className={`${styles.articleBtn} ${styles.btnRedact} ${styles.btnHov02}`}
+                onClick={()=>{setIsShowSettings(true)}}
+              >
+                Редактировать
+              </button>
+              <button
+                className={`${styles.articleBtn} ${styles.btnRemove} ${styles.btnHov02}`}
+              >
+                Снять с публикации
+              </button>
+            </div>
               <div className={`${styles.articleAuthor} ${styles.author}`}>
                 <div className={styles.authorImg}>
                 <img src="" alt="" />
                 </div>
                 <div className={styles.authorCont}>
-                  <p className={styles.authorName}>Антон</p>
+                  <p className={styles.authorName} onClick={()=>{navigate('/sellerprofile')}}>Кирилл</p>
                   <p className={styles.authorAbout}>
-                    Продает товары с мая 2022
+                    Продает товары с августа 2021
                   </p>
                 </div>
               </div>
@@ -93,5 +100,9 @@ export default function MyArticlePage() {
         </div>
       </div>
     </main>
+    {isShow && <Reviews setIsShow={setIsShow}/>}
+    {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings}/>}
+</>
+
   );
 }

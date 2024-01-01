@@ -1,8 +1,11 @@
 import styles from "./styles.module.css";
 import LogoBlog from "../../components/logoBlog/LogoBlog";
 import CardItem from "../../components/card/Card";
+import { useGetMeProductsQuery } from "../../store/RTKQuery/adsApi";
 
 export default function ProfilePage() {
+  const { data = [], isLoading } = useGetMeProductsQuery();
+
   return (
     <main className={styles.main}>
       <div className={styles.mainContainer}>
