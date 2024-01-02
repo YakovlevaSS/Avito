@@ -2,8 +2,9 @@ import styles from "./styles.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useRef } from "react";
 import { userSelector } from "../../store/selectors/user";
-import { changeUser } from "../../API/userApi";
+import { changeUserApi, setAvatarApi } from "../../API/userApi";
 import { setUser, removeUser } from "../../store/slices/userSlice";
 
 export default function UserSettings() {
@@ -18,6 +19,7 @@ export default function UserSettings() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const filePicker = useRef(null);
 
   useEffect(() => {
     setNameInput(name);
@@ -35,7 +37,7 @@ export default function UserSettings() {
     event.preventDefault();
 
     try {
-      const responseUser = await changeUser(
+      const responseUser = await changeUserApi(
         nameInput,
         surnameInput,
         cityInput,
@@ -60,6 +62,35 @@ export default function UserSettings() {
       setActiveButton(false);
     }
   };
+//avatar
+const handleSetAvatar = async (file) => {
+    try {
+      const responseUser = await setAvatarApi(file);
+
+      dispatch(
+        setUser({
+          email: responseUser.email,
+          name: responseUser.name,
+          id: responseUser.id,
+          surname: responseUser.surname,
+          avatar: responseUser.avatar,
+          phone: responseUser.phone,
+          role: responseUser.role,
+          city: responseUser.city,
+        })
+      );
+    } catch (error) {
+      setError(error.message);
+    } 
+  };
+
+const handleUploadFile = async () => {
+    filePicker.current.click()
+  }
+
+  const handleImgAdd = (event) => {
+    handleSetAvatar(event.target.files[0]);
+  };
 
   console.log(avatar);
   return (
@@ -77,10 +108,17 @@ export default function UserSettings() {
                 ""
               )}
             </NavLink>
+            <input
+                className={styles.hidden}
+                type="file"
+                ref={filePicker}
+                onChange={handleImgAdd}
+                accept="image/*, .png, .jpg, .gif, .web, .jpeg"
+              ></input>
           </div>
-          <a className={styles.settingsChangePhoto} href="" target="_self">
+          <div className={styles.settingsChangePhoto} onClick={handleUploadFile}>
             Заменить
-          </a>
+          </div>
         </div>
         <div className={styles.settingsRight}>
           <form
