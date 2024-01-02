@@ -98,7 +98,6 @@ export default function UserSettings() {
     setError(null);
   }, [nameInput, surnameInput, cityInput, phoneInput, filePicker]);
 
-  console.log(avatar);
   return (
     <div className={styles.profileContent}>
       <h3 className={`${styles.profileTitle} ${styles.title}`}>
