@@ -27,11 +27,12 @@ export default function UserSettings() {
     setSurnameInput(surname);
     setPhoneInput(phone);
   }, [name, city, surname, phone]);
-  useEffect(() => {
-    if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
-      setActiveButton(false);
-    }
-  }, [nameInput, cityInput, surnameInput, phoneInput]);
+
+  //   useEffect(() => {
+  //     if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
+  //       setActiveButton(false);
+  //     }
+  //   }, [nameInput, cityInput, surnameInput, phoneInput]);
 
   const handleChangeUser = async (event) => {
     event.preventDefault();
@@ -62,8 +63,8 @@ export default function UserSettings() {
       setActiveButton(false);
     }
   };
-//avatar
-const handleSetAvatar = async (file) => {
+  //avatar
+  const handleSetAvatar = async (file) => {
     try {
       const responseUser = await setAvatarApi(file);
 
@@ -81,16 +82,21 @@ const handleSetAvatar = async (file) => {
       );
     } catch (error) {
       setError(error.message);
-    } 
+    }
   };
 
-const handleUploadFile = async () => {
-    filePicker.current.click()
-  }
+  const handleUploadFile = async () => {
+    filePicker.current.click();
+  };
 
   const handleImgAdd = (event) => {
     handleSetAvatar(event.target.files[0]);
   };
+
+  //сброс ошибок валидации
+  useEffect(() => {
+    setError(null);
+  }, [nameInput, surnameInput, cityInput, phoneInput, filePicker]);
 
   console.log(avatar);
   return (
@@ -101,22 +107,25 @@ const handleUploadFile = async () => {
       <div className={`${styles.profileSettings} ${styles.settings}`}>
         <div className={styles.settingsLeft}>
           <div className={styles.settingsImg}>
-            <NavLink to="/profile">
+            {/* <NavLink to="/profile"> */}
               {avatar && avatar !== "null" ? (
                 <img src={`http://localhost:8090/${avatar}`} alt="ava" />
               ) : (
                 ""
               )}
-            </NavLink>
+            {/* </NavLink> */}
             <input
-                className={styles.hidden}
-                type="file"
-                ref={filePicker}
-                onChange={handleImgAdd}
-                accept="image/*, .png, .jpg, .gif, .web, .jpeg"
-              ></input>
+              className={styles.hidden}
+              type="file"
+              ref={filePicker}
+              onChange={handleImgAdd}
+              accept="image/*, .png, .jpg, .gif, .web, .jpeg"
+            ></input>
           </div>
-          <div className={styles.settingsChangePhoto} onClick={handleUploadFile}>
+          <div
+            className={styles.settingsChangePhoto}
+            onClick={handleUploadFile}
+          >
             Заменить
           </div>
         </div>

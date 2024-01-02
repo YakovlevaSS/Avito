@@ -31,14 +31,16 @@
     width: 170px;
     height: 170px;
     border-radius: 50%;
+    overflow: hidden; /* Обрезаем изображение, которое не вписывается в круг */
     background-color: #F0F0F0;
+    position: relative; 
   }
   
   .settingsImg img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
     object-fit: cover;
+    border-radius: 50%; 
   }
   
   .settingsChangePhoto {
