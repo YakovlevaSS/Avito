@@ -33,6 +33,8 @@ const AddNewAt = ({ setIsShow }) => {
       priceAdv,
     });
     console.log(response)
+    navigate(`/myartycle/${response.data?.id}`)
+    setIsShow(false)
   } catch (err) {
     // Handle errors if needed
     console.error('Add product error:', err);
@@ -135,7 +137,7 @@ const AddNewAt = ({ setIsShow }) => {
               id="btnPublish"
               disabled={offButton}
             >
-              Опубликовать
+              {isLoading? 'Публикуем' : 'Опубликовать'}
             </button>
           </form>
         </div>
