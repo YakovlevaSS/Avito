@@ -6,9 +6,11 @@ import Reviews from "../../components/reviews/Reviews";
 import Atclsettings from "../../components/atclsettings/Atclsettings";
 import { useGetOneProductQuery } from "../../store/RTKQuery/adsApi";
 import { DateBlock } from "../../components/dateBlog/DataBlog";
+import { FormatPhoneNumberClose } from "../../components/phoneBlog/PhoneBlog";
 
 export default function ArticlePage() {
   const [isShow, setIsShow] = useState(false);
+  const [isShowPhone, setIsShowPhone] = useState(false);
   const [isShowSettings, setIsShowSettings] = useState(false);
   const navigate = useNavigate();
   const idAds = useParams().id;
@@ -107,12 +109,18 @@ export default function ArticlePage() {
                         23 отзыва
                       </button>
                     </div>
-                    <p className={styles.articlePrice}>2 200 ₽</p>
+                    <p className={styles.articlePrice}>{data?.price}₽</p>
                     <button
                       className={`${styles.articleBtnBig} ${styles.btnHov02}`}
+                      onClick={() => {
+                        setIsShowPhone(!isShowPhone);
+                      }}
                     >
                       Показать телефон
-                      <span>8 905 XXX XX XX</span>
+                      <FormatPhoneNumberClose
+                          phoneNumber={data?.user.phone}
+                          isShow={isShowPhone}
+                        />
                     </button>
                     <div className={`${styles.articleAuthor} ${styles.author}`}>
                       <div className={styles.authorImg}>
