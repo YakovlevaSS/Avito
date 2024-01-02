@@ -7,11 +7,11 @@ import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";
 export default function MainPage() {
   const { data = [], isLoading } = useGetAllProductsQuery();
   console.log(data);
-  const [sortData, setSortData] = useState();
+  const [sortData, setSortData] = useState(data);
 
-  useEffect(() => {
-    setSortData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setSortData(data);
+  // }, [data]);
 
   return !isLoading ? (
     <main className={styles.main}>
