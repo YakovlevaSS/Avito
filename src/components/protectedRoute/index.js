@@ -1,9 +1,9 @@
 
 import { Navigate, Outlet } from "react-router-dom";
 
-function ProtectedRoute ({ redirectPath = "/checkAuth"}) {
-  // const { user } = useContext(UserContext)
-  const user = true
+function ProtectedRoute ({ redirectPath = "/"}) {
+const user = localStorage.getItem('email')
+
   if (!user) {
     return <Navigate to={redirectPath} replace />;
   }

@@ -17,7 +17,7 @@ const initialState = {
 const localStorageMiddleware = (store) => (next) => (action) => {
   if (action.type === userSlice.actions.initializeUserFromLocalStorage.type) {
     const storedEmail = localStorage.getItem("email");
-    const storedName = localStorage.getItem("nameUser");
+    const storedName = localStorage.getItem("name");
     const storedId = localStorage.getItem("id");
     const storedSurname = localStorage.getItem("surname");
     const storedAvatar = localStorage.getItem("avatar");
@@ -71,7 +71,6 @@ const userSlice = createSlice({
       state.role = action.payload.role;
       state.city = action.payload.city;
       localStorage.setItem("email", state.email);
-      localStorage.setItem("token", state.token);
       localStorage.setItem("id", state.id);
       localStorage.setItem("name", state.name);
       localStorage.setItem("surname", state.surname);

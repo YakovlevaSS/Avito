@@ -5,7 +5,7 @@ import { useState } from "react";
 import AddNewAt from "../../components/addNewAt/AddNewAt";
 
 export default function LayoutPage() {
-  const user = true;
+  const user = localStorage.getItem('email')
   const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false)
   return (
@@ -13,7 +13,7 @@ export default function LayoutPage() {
       <div className={styles.container}>
         <header className={styles.header}>
           <nav className={styles.headerNav}>
-            {user === false ? (
+            {!user ? (
               <button
                 className={`${styles.headerBtnMainEnter} ${styles.btnHov01}`}
                 id="btnMainEnter"
@@ -50,17 +50,17 @@ export default function LayoutPage() {
           <div className={styles.footerContainer}>
             <div className={styles.footerImg}>
               <a href="" target="_self">
-                <img src="img/icon_01.png" alt="home" />
+                <img src="/img/icon_01.png" alt="home" />
               </a>
             </div>
             <div className={styles.footerImg}>
               <a href="" target="_self">
-                <img src="img/icon_02.png" alt="home" />
+                <img src="/img/icon_02.png" alt="home" />
               </a>
             </div>
             <div className={styles.footerImg}>
               <a href="" target="_self">
-                <img src="img/icon_03.png" alt="home" />
+                <img src="/img/icon_03.png" alt="home" />
               </a>
             </div>
           </div>

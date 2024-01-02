@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBlog from "../../components/searchBlog/SearchBlog";
 import CardItem from "../../components/card/Card";
 import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";
@@ -8,6 +8,10 @@ export default function MainPage() {
   const { data = [], isLoading } = useGetAllProductsQuery();
   console.log(data);
   const [sortData, setSortData] = useState(data);
+
+  // useEffect(() => {
+  //   setSortData(data);
+  // }, [data]);
 
   return !isLoading ? (
     <main className={styles.main}>

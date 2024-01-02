@@ -26,7 +26,7 @@ export const productsApi = createApi({
             method: "GET",
             headers: {
               "Content-type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
           };
         },
