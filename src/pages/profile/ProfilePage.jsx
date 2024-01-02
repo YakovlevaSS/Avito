@@ -32,7 +32,7 @@ export default function ProfilePage() {
         ) : (
           <div className={styles.mainContent}>
             <div className={`${styles.contentCards} ${styles.cards}`}>
-              <CardItem products={data} />
+              <CardItem products={data} page ="Мои товары" />
             </div>
           </div>
         )}

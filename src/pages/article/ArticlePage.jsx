@@ -12,7 +12,7 @@ export default function ArticlePage() {
   const [isShowSettings, setIsShowSettings] = useState(false);
   const navigate = useNavigate();
   const idAds = useParams().id;
-  const { data = [], isLoading } = useGetOneProductQuery(idAds);
+  const { data = [], isLoading, isError, error } = useGetOneProductQuery(idAds);
   console.log(data);
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);

@@ -20,7 +20,7 @@ export default function MainPage() {
         <h2 className={styles.mainH2}>Объявления</h2>
         <div className={styles.mainContent}>
           <div className={`${styles.contentCards} ${styles.cards}`}>
-            <CardItem products={sortData} page={"Объявления"} />
+            <CardItem products={sortData} page="Объявления" />
           </div>
         </div>
       </div>
