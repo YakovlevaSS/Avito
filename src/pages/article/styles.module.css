@@ -136,16 +136,6 @@ line-height: 140%; /* 44.8px */
   margin-bottom: 4px;
 }
 
-.articleLink {
-  font-size: 16px;
-  line-height: 21px;
-  color: #009EE4;
-  border: none;
-  background-color: white;
-  margin: 0;
-  padding: 0;
-}
-
 .articlePrice {
   font-size: 28px;
   line-height: 39px;
@@ -386,12 +376,7 @@ line-height: 140%; /* 44.8px */
     margin-bottom: 4px;
   }
 
-  .articleLink {
-    font-size: 14px;
-    line-height: 19px;
-    color: #009EE4;
 
-  }
 
   .articlePrice {
     font-size: 18px;

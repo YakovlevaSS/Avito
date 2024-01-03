@@ -224,6 +224,20 @@ export const productsApi = createApi({
         invalidatesTags: ["ADS"],
       }),
 
+      getComments: builder.query({
+        query:  (id) =>  {
+  
+          return {
+            url: `/ads/${id}/comments`,
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+            },
+          };
+        },
+        providesTags: ["COMMENTS"],
+      }),
+
       }),
     })
   
@@ -237,4 +251,5 @@ export const productsApi = createApi({
     useUpdateProductMutation,
     useAddProductImageMutation,
     useDeleteProductImageMutation,
+    useGetCommentsQuery,
   } = productsApi;
