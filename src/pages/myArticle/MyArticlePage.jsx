@@ -19,6 +19,7 @@ export default function MyArticlePage() {
   useEffect(() => {
     setBigImg(data?.images?.[0]?.url ?? null);
   }, [data]);
+  console.log(data)
 
   const handleNextImg = () => {
     if (window.innerWidth <= 768) {
@@ -107,7 +108,7 @@ export default function MyArticlePage() {
                         23 отзыва
                       </button>
                     </div>
-                    <p className={styles.articlePrice}>2 200 ₽</p>
+                    <p className={styles.articlePrice}>{data?.price} ₽</p>
                     <div
                       className={`${styles.articleBtnBlock} ${styles.btnBlock}`}
                     >
@@ -165,7 +166,7 @@ export default function MyArticlePage() {
         )}
       </main>
       {isShow && <Reviews setIsShow={setIsShow} />}
-      {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings} />}
+      {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings} adv={data}/>}
     </>
   );
 }

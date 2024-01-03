@@ -11,6 +11,7 @@ const AddNewAt = ({ setIsShow }) => {
   const [offButton, setOffButton] = useState(true);
   const navigate = useNavigate();
   const [addProductText, { isLoading, isError, error }] = useAddProductTextMutation();
+
   //Validation
   useEffect(() => {
     if (!nameAdv || !descriptionAdv || !priceAdv) {
@@ -136,8 +137,9 @@ const AddNewAt = ({ setIsShow }) => {
               className={offButton? (`${styles.formNewArtBtnPub}`) : (`${styles.formNewArtBtnPubActive} ${styles.btnHov02}`)}
               id="btnPublish"
               disabled={offButton}
+              type="submit"
             >
-              {isLoading? 'Публикуем' : 'Опубликовать'}
+              {isLoading? 'Публикуем...' : 'Опубликовать'}
             </button>
           </form>
         </div>
