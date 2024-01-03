@@ -224,6 +224,33 @@ export const productsApi = createApi({
         invalidatesTags: ["ADS"],
       }),
 
+      getComments: builder.query({
+        query:  (id) =>  {
+  
+          return {
+            url: `/ads/${id}/comments`,
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+            },
+          };
+        },
+        providesTags: ["COMMENTS"],
+      }),
+
+      addComment: builder.mutation({
+        query: (body) => ({
+          url: `/ads/${body.id}/comments`,
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            text: body.text,
+          }),
+        }),
+        invalidatesTags: ["COMMENTS"],
+      }),
       }),
     })
   
@@ -237,4 +264,6 @@ export const productsApi = createApi({
     useUpdateProductMutation,
     useAddProductImageMutation,
     useDeleteProductImageMutation,
+    useGetCommentsQuery,
+    useAddCommentMutation,
   } = productsApi;

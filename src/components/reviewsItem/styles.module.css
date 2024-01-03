@@ -1,0 +1,78 @@
+/* YourStyles.module.css */
+
+  .reviewItem {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+  
+  .reviewLeft {
+    margin-right: 12px;
+  }
+  
+  .reviewImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #F0F0F0;
+
+    border-radius: 50%;
+    overflow: hidden; /* Обрезаем изображение, которое не вписывается в круг */
+    background-color: #F0F0F0;
+    position: relative; 
+  }
+  
+  .reviewImg img {
+    display: block;
+    width: 100%;
+    height: auto;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+  
+  .reviewRight {
+    display: block;
+  }
+  
+  .reviewName {
+    margin-bottom: 12px;
+    font-weight: 600;
+font-size: 16px;
+line-height: 200%; /* 32px */
+  }
+  
+  .reviewName span {
+    margin-left: 10px;
+    color: #5F5F5F;
+  }
+  
+  .reviewTitle {
+    font-weight: 600;
+  }
+  
+  .fontT {
+    font-size: 16px;
+    line-height: 32px;
+    color: #000000;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .fontT {
+      font-size: 14px;
+      line-height: 28px;
+      color: #000000;
+    }
+  }
+
+  
+  

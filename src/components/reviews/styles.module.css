@@ -14,6 +14,29 @@
   align-items: center;
   justify-content: center;
   }
+
+  .error {
+    /* display: flex;
+    width: 100%; */
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 128, 113);
+    /* font-size: 1rem;
+    font-weight: 400;
+    top: 70px;
+    left: 5px; */
+    
+    margin-bottom: 10px;
+  }
+
+  .formLabel {
+    color: #000;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 200%; 
+margin-bottom: 14px;
+  }
   
   .modalBtnCloseLine:hover::after,
   .modalBtnCloseLine:hover::before {
@@ -222,18 +245,24 @@
     line-height: 24px;
     color: #FFFFFF;
   }
+  .formNewArtBtnPubActive {
+    margin-top: 10px;
+    width: 181px;
+    height: 50px;
+    background: #009ee4;
+    border: 1px solid #009ee4;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+  }
   
   .reviewsReview {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    margin: 15px 0;
+    align-items: flex-start;
+    margin-top: 30px;
+flex-direction: column;
+gap: 30px;
   }
   
   .reviewItem {

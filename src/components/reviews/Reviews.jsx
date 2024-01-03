@@ -1,18 +1,59 @@
 import styles from "./styles.module.css";
+import { useState, useEffect } from "react";
+import { useAddCommentMutation } from "../../store/RTKQuery/adsApi";
+import ReviewsItem from "../reviewsItem/ReviewsItem";
+const Reviews = ({ setIsShow, id }) => {
+  const [textCom, setTextCom] = useState("");
+  const [offButton, setOffButton] = useState(true);
+  const [addComment, { isLoading, isError, error }] = useAddCommentMutation();
 
-const Reviews= ({setIsShow}) => {
+  useEffect(() => {
+    if (!textCom) {
+      setOffButton(true);
+    } else {
+      setOffButton(false);
+    }
+  }, [textCom]);
+
+  const handleSentCom = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await addComment({
+        text: textCom,
+        id,
+      });
+      console.log(response);
+      setTextCom('');
+    } catch (err) {
+      // Handle errors if needed
+      console.error("Add product error:", err);
+    }
+  };
   return (
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
         <div className={styles.modalContent}>
           <h3 className={styles.modalTitle}>Отзывы о товаре</h3>
           <div className={styles.modalBtnClose}>
-            <div className={styles.modalBtnCloseLine} onClick={() => {setIsShow(false)}}></div>
+            <div
+              className={styles.modalBtnCloseLine}
+              onClick={() => {
+                setIsShow(false);
+              }}
+            ></div>
           </div>
           <div className={styles.modalScroll}>
-            <form className={`${styles.modalFormNewArt} ${styles.formNewArt}`} id="formNewArt" action="#">
+            <form
+              className={`${styles.modalFormNewArt} ${styles.formNewArt}`}
+              id="formNewArt"
+              action="#"
+              onSubmit={handleSentCom}
+            >
               <div className={styles.formNewArtBlock}>
-                <label htmlFor="text">Добавить отзыв</label>
+                <label className={styles.formLabel} htmlFor="text">
+                  Добавить отзыв
+                </label>
+                {isError && <div className={styles.error}>{error}</div>}
                 <textarea
                   className={styles.formNewArtArea}
                   name="text"
@@ -20,31 +61,26 @@ const Reviews= ({setIsShow}) => {
                   cols="auto"
                   rows="5"
                   placeholder="Введите описание"
+                  value={textCom}
+                  onChange={(event) => {
+                    setTextCom(event.target.value);
+                  }}
                 ></textarea>
               </div>
-              <button className={`${styles.formNewArtBtnPub} ${styles.btnHov02}`} id="btnPublish">
-                Опубликовать
+              <button
+                // className={`${styles.formNewArtBtnPub} ${styles.btnHov02}`}
+                className={offButton? (`${styles.formNewArtBtnPub}`) : (`${styles.formNewArtBtnPubActive} ${styles.btnHov02}`)}
+                id="btnPublish"
+                disabled={offButton}
+                type="submit"
+              >
+                              {isLoading? 'Публикуем...' : 'Опубликовать'}
               </button>
             </form>
 
             <div className={`${styles.modalReviews} ${styles.reviews}`}>
               <div className={`${styles.reviewsReview} ${styles.review}`}>
-                <div className={styles.reviewItem}>
-                  <div className={styles.reviewLeft}>
-                    <div className={styles.reviewImg}>
-                      <img src="" alt="" />
-                    </div>
-                  </div>
-                  <div className={styles.reviewRight}>
-                    <p className={`${styles.reviewName} ${styles.fontT}`}>
-                      Олег <span>14 августа</span>
-                    </p>
-                    <h5 className={`${styles.reviewTitle} ${styles.fontT}`}>Комментарий</h5>
-                    <p className={`${styles.reviewText} ${styles.fontT}`}>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                  </div>
-                </div>
+                <ReviewsItem id={id} />
               </div>
             </div>
           </div>

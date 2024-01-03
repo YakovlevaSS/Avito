@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews";
 import Atclsettings from "../../components/atclsettings/Atclsettings";
+import { CommentsBlog } from "../../components/commentsBlog/CommentsBlog";
 import { useGetOneProductQuery } from "../../store/RTKQuery/adsApi";
 import { DateBlock } from "../../components/dateBlog/DataBlog";
 import { FormatPhoneNumberClose } from "../../components/phoneBlog/PhoneBlog";
@@ -100,14 +101,7 @@ export default function ArticlePage() {
                         <DateBlock time={data?.created_on} />
                       </p>
                       <p className={styles.articleCity}>{data?.user?.city}</p>
-                      <button
-                        className={styles.articleLink}
-                        onClick={() => {
-                          setIsShow(true);
-                        }}
-                      >
-                        23 отзыва
-                      </button>
+                      <CommentsBlog setIsShow={setIsShow} id={data?.id} />
                     </div>
                     <p className={styles.articlePrice}>{data?.price}₽</p>
                     <button
@@ -118,9 +112,9 @@ export default function ArticlePage() {
                     >
                       Показать телефон
                       <FormatPhoneNumberClose
-                          phoneNumber={data?.user.phone}
-                          isShow={isShowPhone}
-                        />
+                        phoneNumber={data?.user.phone}
+                        isShow={isShowPhone}
+                      />
                     </button>
                     <div className={`${styles.articleAuthor} ${styles.author}`}>
                       <div className={styles.authorImg}>
@@ -152,9 +146,7 @@ export default function ArticlePage() {
                 Описание товара
               </h3>
               <div className={styles.mainContent}>
-                <p className={styles.mainText}>
-                {data?.description}
-                </p>
+                <p className={styles.mainText}>{data?.description}</p>
               </div>
             </div>
           </>
@@ -162,7 +154,7 @@ export default function ArticlePage() {
           <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>
         )}
       </main>
-      {isShow && <Reviews setIsShow={setIsShow} />}
+      {isShow && <Reviews setIsShow={setIsShow} id={data?.id}/>}
       {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings} />}
     </>
   );

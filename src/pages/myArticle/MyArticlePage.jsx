@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews";
 import Atclsettings from "../../components/atclsettings/Atclsettings";
+import { CommentsBlog } from "../../components/commentsBlog/CommentsBlog";
 import {
   useGetOneProductQuery,
   useDeleteProductMutation,
@@ -126,14 +127,7 @@ export default function MyArticlePage() {
                         <DateBlock time={data?.created_on} />
                       </p>
                       <p className={styles.articleCity}>{data?.user?.city}</p>
-                      <button
-                        className={styles.articleLink}
-                        onClick={() => {
-                          setIsShow(true);
-                        }}
-                      >
-                        23 отзыва
-                      </button>
+                      <CommentsBlog setIsShow={setIsShow} id={data?.id} />
                     </div>
                     <p className={styles.articlePrice}>{data?.price} ₽</p>
                     <div
@@ -192,7 +186,7 @@ export default function MyArticlePage() {
           <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>
         )}
       </main>
-      {isShow && <Reviews setIsShow={setIsShow} />}
+      {isShow && <Reviews setIsShow={setIsShow} id={data?.id} />}
       {isShowSettings && (
         <Atclsettings setIsShowSettings={setIsShowSettings} adv={data} />
       )}
