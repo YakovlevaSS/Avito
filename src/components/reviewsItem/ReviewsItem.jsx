@@ -9,7 +9,7 @@ const ReviewsItem = ({ id }) => {
     <>
       {data?.map((item) => {
         return (
-          <div className={styles.reviewItem}>
+          <div className={styles.reviewItem} key={item.id}>
             <div className={styles.reviewLeft}>
               <div className={styles.reviewImg}>
                 <img

@@ -1,9 +1,34 @@
 import styles from "./styles.module.css";
-import { useGetCommentsQuery } from "../../store/RTKQuery/adsApi";
+import { useState, useEffect } from "react";
+import { useAddCommentMutation } from "../../store/RTKQuery/adsApi";
 import ReviewsItem from "../reviewsItem/ReviewsItem";
 const Reviews = ({ setIsShow, id }) => {
-  const { data = [], isLoading, isError, error } = useGetCommentsQuery(id);
+  const [textCom, setTextCom] = useState("");
+  const [offButton, setOffButton] = useState(true);
+  const [addComment, { isLoading, isError, error }] = useAddCommentMutation();
 
+  useEffect(() => {
+    if (!textCom) {
+      setOffButton(true);
+    } else {
+      setOffButton(false);
+    }
+  }, [textCom]);
+
+  const handleSentCom = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await addComment({
+        text: textCom,
+        id,
+      });
+      console.log(response);
+      setTextCom('');
+    } catch (err) {
+      // Handle errors if needed
+      console.error("Add product error:", err);
+    }
+  };
   return (
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
@@ -22,9 +47,13 @@ const Reviews = ({ setIsShow, id }) => {
               className={`${styles.modalFormNewArt} ${styles.formNewArt}`}
               id="formNewArt"
               action="#"
+              onSubmit={handleSentCom}
             >
               <div className={styles.formNewArtBlock}>
-                <label htmlFor="text">Добавить отзыв</label>
+                <label className={styles.formLabel} htmlFor="text">
+                  Добавить отзыв
+                </label>
+                {isError && <div className={styles.error}>{error}</div>}
                 <textarea
                   className={styles.formNewArtArea}
                   name="text"
@@ -32,19 +61,26 @@ const Reviews = ({ setIsShow, id }) => {
                   cols="auto"
                   rows="5"
                   placeholder="Введите описание"
+                  value={textCom}
+                  onChange={(event) => {
+                    setTextCom(event.target.value);
+                  }}
                 ></textarea>
               </div>
               <button
-                className={`${styles.formNewArtBtnPub} ${styles.btnHov02}`}
+                // className={`${styles.formNewArtBtnPub} ${styles.btnHov02}`}
+                className={offButton? (`${styles.formNewArtBtnPub}`) : (`${styles.formNewArtBtnPubActive} ${styles.btnHov02}`)}
                 id="btnPublish"
+                disabled={offButton}
+                type="submit"
               >
-                Опубликовать
+                              {isLoading? 'Публикуем...' : 'Опубликовать'}
               </button>
             </form>
 
             <div className={`${styles.modalReviews} ${styles.reviews}`}>
               <div className={`${styles.reviewsReview} ${styles.review}`}>
-                <ReviewsItem id={id}/>
+                <ReviewsItem id={id} />
               </div>
             </div>
           </div>
