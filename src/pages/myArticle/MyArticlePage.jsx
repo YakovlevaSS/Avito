@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews";
 import Atclsettings from "../../components/atclsettings/Atclsettings";
-import { useGetOneProductQuery } from "../../store/RTKQuery/adsApi";
+import {
+  useGetOneProductQuery,
+  useDeleteProductMutation,
+} from "../../store/RTKQuery/adsApi";
 import { DateBlock } from "../../components/dateBlog/DataBlog";
 
 export default function MyArticlePage() {
@@ -16,10 +19,16 @@ export default function MyArticlePage() {
   console.log(data);
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
+  const [
+    deleteProduct,
+    { isLoadingDel = isLoading, isErrorDel = isError, errorDel = error },
+  ] = useDeleteProductMutation();
+  console.log(errorDel)
+
   useEffect(() => {
     setBigImg(data?.images?.[0]?.url ?? null);
   }, [data]);
-  console.log(data)
+  console.log(data);
 
   const handleNextImg = () => {
     if (window.innerWidth <= 768) {
@@ -33,6 +42,22 @@ export default function MyArticlePage() {
     }
   };
 
+  const id = idAds;
+
+  const handleDelText = async () => {
+    try {
+      const response = await deleteProduct({
+     id
+      });
+      console.log(response);
+      navigate(`/`);
+      setIsShowSettings(false);
+    } catch (err) {
+      // Handle errors if needed
+      console.error("Add product error:", err);
+    }
+  };
+
   return (
     <>
       <main className={styles.main}>
@@ -41,7 +66,7 @@ export default function MyArticlePage() {
           <>
             <div className={`${styles.mainArtic} ${styles.artic}`}>
               <div className={`${styles.articContent} ${styles.article}`}>
-              <div className={styles.articleLeft}>
+                <div className={styles.articleLeft}>
                   <div className={styles.articleFillImg}>
                     <div className={styles.articleImg} onClick={handleNextImg}>
                       <img
@@ -92,7 +117,7 @@ export default function MyArticlePage() {
                 <div className={styles.articleRight}>
                   <div className={styles.articleBlock}>
                     <h3 className={`${styles.articleTitle} ${styles.title}`}>
-                    {data?.title}
+                      {data?.title}
                     </h3>
                     <div className={styles.articleInfo}>
                       <p className={styles.articleDate}>
@@ -122,7 +147,7 @@ export default function MyArticlePage() {
                       </button>
                       <button
                         className={`${styles.articleBtn} ${styles.btnRemove} ${styles.btnHov02}`}
-                      >
+                      onClick={handleDelText}>
                         Снять с публикации
                       </button>
                     </div>
@@ -166,7 +191,9 @@ export default function MyArticlePage() {
         )}
       </main>
       {isShow && <Reviews setIsShow={setIsShow} />}
-      {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings} adv={data}/>}
+      {isShowSettings && (
+        <Atclsettings setIsShowSettings={setIsShowSettings} adv={data} />
+      )}
     </>
   );
 }
