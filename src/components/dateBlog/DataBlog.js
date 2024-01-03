@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const DateBlock = ({ time }) => {
     const createMonth = (numberOfMonth) => {
       switch (numberOfMonth) {
@@ -64,4 +66,24 @@ export const DateBlock = ({ time }) => {
     const formattedDate = `Продает товары с ${months[monthIndex]} ${year}`;
     return <span>{formattedDate}</span>;
   }
+
+
+export const DateReview = ({inputDate}) => {
+  
+  // Преобразование строки в объект Date
+  const dateObject = new Date(inputDate);
+
+  // Определение месяца на русском языке
+  const monthNames = [
+    'января', 'февраля', 'марта',
+    'апреля', 'мая', 'июня',
+    'июля', 'августа', 'сентября',
+    'октября', 'ноября', 'декабря'
+  ];
+
+  // Форматирование даты в новый формат
+  return <span>{format(dateObject, 'd')} {monthNames[dateObject.getMonth()]}</span>;
+
+};
+
  

@@ -154,7 +154,7 @@ export default function ArticlePage() {
           <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>
         )}
       </main>
-      {isShow && <Reviews setIsShow={setIsShow} />}
+      {isShow && <Reviews setIsShow={setIsShow} id={data?.id}/>}
       {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings} />}
     </>
   );
