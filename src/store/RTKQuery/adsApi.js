@@ -162,7 +162,7 @@ export const productsApi = createApi({
             price: body.priceAdv,
           }),
         }),
-        // invalidatesTags: ["ADS"],
+        invalidatesTags: ["ADS"],
       }),
 
       deleteProduct: builder.mutation({
