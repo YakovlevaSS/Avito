@@ -6,13 +6,15 @@ import Reviews from "../../components/reviews/Reviews";
 import Atclsettings from "../../components/atclsettings/Atclsettings";
 import { useGetOneProductQuery } from "../../store/RTKQuery/adsApi";
 import { DateBlock } from "../../components/dateBlog/DataBlog";
+import { FormatPhoneNumberClose } from "../../components/phoneBlog/PhoneBlog";
 
 export default function ArticlePage() {
   const [isShow, setIsShow] = useState(false);
+  const [isShowPhone, setIsShowPhone] = useState(false);
   const [isShowSettings, setIsShowSettings] = useState(false);
   const navigate = useNavigate();
   const idAds = useParams().id;
-  const { data = [], isLoading } = useGetOneProductQuery(idAds);
+  const { data = [], isLoading, isError, error } = useGetOneProductQuery(idAds);
   console.log(data);
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
@@ -107,12 +109,18 @@ export default function ArticlePage() {
                         23 отзыва
                       </button>
                     </div>
-                    <p className={styles.articlePrice}>2 200 ₽</p>
+                    <p className={styles.articlePrice}>{data?.price}₽</p>
                     <button
                       className={`${styles.articleBtnBig} ${styles.btnHov02}`}
+                      onClick={() => {
+                        setIsShowPhone(!isShowPhone);
+                      }}
                     >
                       Показать телефон
-                      <span>8 905 XXX XX XX</span>
+                      <FormatPhoneNumberClose
+                          phoneNumber={data?.user.phone}
+                          isShow={isShowPhone}
+                        />
                     </button>
                     <div className={`${styles.articleAuthor} ${styles.author}`}>
                       <div className={styles.authorImg}>
@@ -145,14 +153,7 @@ export default function ArticlePage() {
               </h3>
               <div className={styles.mainContent}>
                 <p className={styles.mainText}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
+                {data?.description}
                 </p>
               </div>
             </div>
