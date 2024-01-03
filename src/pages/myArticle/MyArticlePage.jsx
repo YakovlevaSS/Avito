@@ -12,6 +12,7 @@ import { DateBlock } from "../../components/dateBlog/DataBlog";
 
 export default function MyArticlePage() {
   const [isShow, setIsShow] = useState(false);
+  const [id, setId] = useState(false);
   const [isShowSettings, setIsShowSettings] = useState(false);
   const navigate = useNavigate();
   const idAds = useParams().id;
@@ -19,16 +20,17 @@ export default function MyArticlePage() {
   console.log(data);
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
-  const [
-    deleteProduct,
-    { isLoadingDel = isLoading, isErrorDel = isError, errorDel = error },
-  ] = useDeleteProductMutation();
-  console.log(errorDel)
 
   useEffect(() => {
     setBigImg(data?.images?.[0]?.url ?? null);
+    setId(data?.id)
   }, [data]);
-  console.log(data);
+  
+  const [
+    deleteProduct,
+    { isLoadingDel = isLoading, isErrorDel = isError, errorDel = error },
+  ] = useDeleteProductMutation(id);
+
 
   const handleNextImg = () => {
     if (window.innerWidth <= 768) {
@@ -42,13 +44,13 @@ export default function MyArticlePage() {
     }
   };
 
-  const id = idAds;
+
 
   const handleDelText = async () => {
+    const id = idAds;
+    console.log(id)
     try {
-      const response = await deleteProduct({
-     id
-      });
+      const response = await deleteProduct(id);
       console.log(response);
       navigate(`/`);
       setIsShowSettings(false);
