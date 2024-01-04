@@ -5,13 +5,22 @@ import CardItem from "../../components/card/Card";
 import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";
 
 export default function MainPage() {
-  const { data = [], isLoading } = useGetAllProductsQuery();
+  const { data = [], isLoading, error} = useGetAllProductsQuery();
   console.log(data);
   const [sortData, setSortData] = useState(data);
 
-  // useEffect(() => {
-  //   setSortData(data);
-  // }, [data]);
+  // Обработка ошибки
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <h1 className={styles.errorHeading}>Что-то пошло не так</h1>
+        <p className={styles.errorMessage}>
+          Упс! Произошла ошибка при загрузке данных. Пожалуйста, повторите попытку позже.
+        </p>
+        <p className={styles.errorDetails}>{error.message}</p>
+      </div>
+    );
+  }
 
   return !isLoading ? (
     <main className={styles.main}>

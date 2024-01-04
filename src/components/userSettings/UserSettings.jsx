@@ -1,10 +1,9 @@
 import styles from "./styles.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import { userSelector } from "../../store/selectors/user";
-import { changeUserApi, setAvatarApi } from "../../API/userApi";
 import { setUser, removeUser } from "../../store/slices/userSlice";
 import {
   useChangeUserMutation,
