@@ -2,8 +2,9 @@ import styles from "./styles.module.css";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { singInApi, getUser } from "../../API/authApi";
+import { singInApi,} from "../../API/authApi";
 import { setToken, setUser } from "../../store/slices/userSlice";
+import { useLazyGetUserQuery } from "../../store/RTKQuery/adsApi";
 
 
 
@@ -14,7 +15,7 @@ const SigninPage = () => {
   const [offButton, setOffButton] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+const [getUser] = useLazyGetUserQuery();
   const [errorsForm, setErrorsForm] = useState({
     email: "",
     password: "",
@@ -81,14 +82,14 @@ const SigninPage = () => {
         console.log(responseUser)
         dispatch(
           setUser({
-            email: responseUser.email,
-            name: responseUser.name,
-            id: responseUser.id,
-            surname: responseUser.surname,
-            avatar: responseUser.avatar,
-            phone: responseUser.phone,
-            role: responseUser.role,
-            city: responseUser.city,
+            email: responseUser.data.email,
+            name: responseUser.data.name,
+            id: responseUser.data.id,
+            surname: responseUser.data.surname,
+            avatar: responseUser.data.avatar,
+            phone: responseUser.data.phone,
+            role: responseUser.data.role,
+            city: responseUser.data.city,
           })
         );
         console.log('done')

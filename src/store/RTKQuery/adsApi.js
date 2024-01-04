@@ -251,6 +251,51 @@ export const productsApi = createApi({
         }),
         invalidatesTags: ["COMMENTS"],
       }),
+
+      getUser: builder.query({
+        query:  () =>  {
+          return {
+            url: `/user`,
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+            },
+          };
+        },
+        providesTags: ["USER"],
+      }),
+
+      changeUser: builder.mutation({
+        query: (body) => ({
+          url: `/user`,
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            name: body.nameInput,
+            surname: body.surnameInput,
+            city: body.cityInput,
+            phone: body.phoneInput,
+          }),
+        }),
+        invalidatesTags: ["USER"],
+      }),
+
+      setAvatar: builder.mutation({
+        query: (body) => {
+          const formData = new FormData();
+          formData.append("file", body);
+  
+          return {
+            url: `/user/avatar`,
+            method: "POST",
+            body: formData,
+          };
+        },
+        invalidatesTags: ["USER"],
+      }),
+
       }),
     })
   
@@ -258,7 +303,6 @@ export const productsApi = createApi({
     useGetAllProductsQuery,
     useGetMeProductsQuery,
     useGetOneProductQuery,
-    useLazyGetMeProductsQuery,
     useAddProductTextMutation,
     useDeleteProductMutation,
     useUpdateProductMutation,
@@ -266,4 +310,8 @@ export const productsApi = createApi({
     useDeleteProductImageMutation,
     useGetCommentsQuery,
     useAddCommentMutation,
+    useGetUserQuery,
+    useLazyGetUserQuery,
+    useChangeUserMutation,
+    useSetAvatarMutation,
   } = productsApi;

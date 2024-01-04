@@ -6,10 +6,15 @@ import { useRef } from "react";
 import { userSelector } from "../../store/selectors/user";
 import { changeUserApi, setAvatarApi } from "../../API/userApi";
 import { setUser, removeUser } from "../../store/slices/userSlice";
+import {
+  useChangeUserMutation,
+  useSetAvatarMutation,
+} from "../../store/RTKQuery/adsApi";
 
 export default function UserSettings() {
   const { name, surname, phone, avatar, city } = useSelector(userSelector);
-
+  const [changeUser, { isLoading }] = useChangeUserMutation();
+  const [setAvatar] = useSetAvatarMutation();
   const [nameInput, setNameInput] = useState(name || "");
   const [cityInput, setCityInput] = useState(city || "");
   const [surnameInput, setSurnameInput] = useState(surname || "");
@@ -28,56 +33,48 @@ export default function UserSettings() {
     setPhoneInput(phone);
   }, [name, city, surname, phone]);
 
-  //   useEffect(() => {
-  //     if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
-  //       setActiveButton(false);
-  //     }
-  //   }, [nameInput, cityInput, surnameInput, phoneInput]);
-
   const handleChangeUser = async (event) => {
     event.preventDefault();
-
     try {
-      const responseUser = await changeUserApi(
+      const responseUser = await changeUser({
         nameInput,
         surnameInput,
         cityInput,
-        phoneInput
-      );
-
+        phoneInput,
+      });
+      console.log(responseUser);
       dispatch(
         setUser({
-          email: responseUser.email,
-          name: responseUser.name,
-          id: responseUser.id,
-          surname: responseUser.surname,
-          avatar: responseUser.avatar,
-          phone: responseUser.phone,
-          role: responseUser.role,
-          city: responseUser.city,
+          email: responseUser.data.email,
+          name: responseUser.data.name,
+          id: responseUser.data.id,
+          surname: responseUser.data.surname,
+          avatar: responseUser.data.avatar,
+          phone: responseUser.data.phone,
+          role: responseUser.data.role,
+          city: responseUser.data.city,
         })
       );
     } catch (error) {
       setError(error.message);
-    } finally {
-      setActiveButton(false);
     }
   };
   //avatar
   const handleSetAvatar = async (file) => {
     try {
-      const responseUser = await setAvatarApi(file);
+      const responseUser = await setAvatar(file);
+      console.log(responseUser);
 
       dispatch(
         setUser({
-          email: responseUser.email,
-          name: responseUser.name,
-          id: responseUser.id,
-          surname: responseUser.surname,
-          avatar: responseUser.avatar,
-          phone: responseUser.phone,
-          role: responseUser.role,
-          city: responseUser.city,
+          email: responseUser.data.email,
+          name: responseUser.data.name,
+          id: responseUser.data.id,
+          surname: responseUser.data.surname,
+          avatar: responseUser.data.avatar,
+          phone: responseUser.data.phone,
+          role: responseUser.data.role,
+          city: responseUser.data.city,
         })
       );
     } catch (error) {
@@ -107,11 +104,11 @@ export default function UserSettings() {
         <div className={styles.settingsLeft}>
           <div className={styles.settingsImg}>
             {/* <NavLink to="/profile"> */}
-              {avatar && avatar !== "null" ? (
-                <img src={`http://localhost:8090/${avatar}`} alt="ava" />
-              ) : (
-                ""
-              )}
+            {avatar && avatar !== "null" ? (
+              <img src={`http://localhost:8090/${avatar}`} alt="ava" />
+            ) : (
+              ""
+            )}
             {/* </NavLink> */}
             <input
               className={styles.hidden}
@@ -201,7 +198,7 @@ export default function UserSettings() {
               type="submit"
               disabled={!activeButton}
             >
-              Сохранить
+              {isLoading ? "Сохраняю изменения.." : "Сохранить"}
             </button>
             <button
               className={`${styles.settingsBtn} ${styles.btnHov02}`}
