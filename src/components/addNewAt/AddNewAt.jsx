@@ -10,7 +10,7 @@ const AddNewAt = ({ setIsShow }) => {
   const [errorForm, setErrorForm] = useState(null);
   const [offButton, setOffButton] = useState(true);
   const navigate = useNavigate();
-  const [addProductText, { isLoading, isError, error }] = useAddProductTextMutation();
+  const [addProductText, { isLoading, error }] = useAddProductTextMutation();
 
   //Validation
   useEffect(() => {
@@ -62,7 +62,7 @@ const AddNewAt = ({ setIsShow }) => {
             onSubmit={handleSentText}
           >
             {errorForm && <div className={styles.error}>{errorForm}</div>}
-            {isError && <div className={styles.error}>{error}</div>}
+            {error && <div className={styles.error}>{error.message}</div>}
             <div className={styles.formNewArtBlock}>
               <label className={styles.formLabel} htmlFor="name">Название</label>
               <input

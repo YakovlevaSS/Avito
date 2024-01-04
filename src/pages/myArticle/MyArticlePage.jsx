@@ -10,6 +10,8 @@ import {
   useDeleteProductMutation,
 } from "../../store/RTKQuery/adsApi";
 import { DateBlock } from "../../components/dateBlog/DataBlog";
+import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
+import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 
 export default function MyArticlePage() {
   const [isShow, setIsShow] = useState(false);
@@ -17,8 +19,7 @@ export default function MyArticlePage() {
   const [isShowSettings, setIsShowSettings] = useState(false);
   const navigate = useNavigate();
   const idAds = useParams().id;
-  const { data = [], isLoading, isError, error } = useGetOneProductQuery(idAds);
-  console.log(data);
+  const { data = [], isLoading, error } = useGetOneProductQuery(idAds);
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
 
@@ -29,7 +30,7 @@ export default function MyArticlePage() {
   
   const [
     deleteProduct,
-    { isLoadingDel = isLoading, isErrorDel = isError, errorDel = error },
+    { isLoading: isLoadingDel,  error: errorDel },
   ] = useDeleteProductMutation(id);
 
 

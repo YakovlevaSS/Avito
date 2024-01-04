@@ -1,0 +1,21 @@
+.errorContainer {
+    border: 2px solid #ff4d4f;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    background-color: #fff1f0;
+    box-shadow: 0 4px 8px rgba(255, 77, 79, 0.1);
+  }
+  
+  .errorHeading {
+    color: #ff4d4f;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .errorMessage {
+    color: #ff4d4f;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }

@@ -1,11 +1,19 @@
 import styles from "./styles.module.css";
 import { useGetCommentsQuery } from "../../store/RTKQuery/adsApi";
 import { DateReview } from "../dateBlog/DataBlog";
+import LoadingBlog from "../loadingBlog/LoadingBlog";
+import ErrorBlog from "../errorBlog/ErrorBlog";
+
 const ReviewsItem = ({ id }) => {
-  const { data = [], isLoading, isError, error } = useGetCommentsQuery(id);
-  console.log(data);
-  console.log(data[0].text);
+  const { data = [], isLoading, error } = useGetCommentsQuery(id);
+
+    // Обработка ошибки
+    if (error) {
+      return <ErrorBlog errorMessage={error.message} />;
+    }
+
   return (
+    !isLoading ? (
     <>
       {data?.map((item) => {
         return (
@@ -37,6 +45,9 @@ const ReviewsItem = ({ id }) => {
         );
       })}
     </>
+      ) : (
+        <LoadingBlog />
+      )
   );
 };
 

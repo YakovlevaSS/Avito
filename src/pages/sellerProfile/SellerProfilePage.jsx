@@ -7,14 +7,22 @@ import { NavLink } from "react-router-dom";
 import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";
 import { FormatSellingSince } from "../../components/dateBlog/DataBlog";
 import { FormatPhoneNumberClose } from "../../components/phoneBlog/PhoneBlog";
+import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
+import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 
 export default function SellerProfilePage() {
   const idSeller = Number(useParams().id);
   console.log(idSeller);
-  const { data = [], isLoading } = useGetAllProductsQuery();
+  const { data = [], isLoading, error } = useGetAllProductsQuery();
   console.log(data);
   const sellerProducts = data?.filter((item) => item.user_id === idSeller);
   const [isShow, setIsShow] = useState(false);
+
+    // Обработка ошибки
+    if (error) {
+      return <ErrorBlog errorMessage={error.message} />;
+    }
+
   return (
     <main className={styles.main}>
       <div className={styles.mainContainer}>
@@ -89,9 +97,7 @@ export default function SellerProfilePage() {
               <h3 className={styles.mainTitle}>Товары продавца</h3>
             </>
           ) : (
-            <h1 style={{ textAlign: "center", marginTop: "50px" }}>
-              Loading...
-            </h1>
+            <LoadingBlog />
           )}
         </div>
         {!isLoading ? (
