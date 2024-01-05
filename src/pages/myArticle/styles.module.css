@@ -34,6 +34,20 @@
   padding: 0 5px 117px;
 }
 
+.error {
+  /* display: flex;
+  width: 100%; */
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 128, 113);
+  /* font-size: 1rem;
+  font-weight: 400;
+  top: 70px;
+  left: 5px; */
+  
+  margin-bottom: 10px;
+}
+
 .btnHov01:hover {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid #FFFFFF;

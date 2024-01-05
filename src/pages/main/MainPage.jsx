@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import SearchBlog from "../../components/searchBlog/SearchBlog";
 import CardItem from "../../components/card/Card";
 import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";

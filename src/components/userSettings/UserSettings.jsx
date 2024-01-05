@@ -12,14 +12,16 @@ import {
 
 export default function UserSettings() {
   const { name, surname, phone, avatar, city } = useSelector(userSelector);
-  const [changeUser, { isLoading }] = useChangeUserMutation();
-  const [setAvatar] = useSetAvatarMutation();
+  const [changeUser, { isLoading: isLoadingChangeUser }] =
+    useChangeUserMutation();
+  const [setAvatar, { isLoading: isLoadingAvatar }] = useSetAvatarMutation();
   const [nameInput, setNameInput] = useState(name || "");
   const [cityInput, setCityInput] = useState(city || "");
   const [surnameInput, setSurnameInput] = useState(surname || "");
   const [phoneInput, setPhoneInput] = useState(phone || "");
   const [activeButton, setActiveButton] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorAvatar, setErrorAvatar] = useState(false);
+  const [errorChangeUser, setErrorChangeUser] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -55,7 +57,7 @@ export default function UserSettings() {
         })
       );
     } catch (error) {
-      setError(error.message);
+      setErrorChangeUser(error.message);
     }
   };
   //avatar
@@ -77,7 +79,7 @@ export default function UserSettings() {
         })
       );
     } catch (error) {
-      setError(error.message);
+      setErrorAvatar(error.message);
     }
   };
 
@@ -91,8 +93,12 @@ export default function UserSettings() {
 
   //сброс ошибок валидации
   useEffect(() => {
-    setError(null);
-  }, [nameInput, surnameInput, cityInput, phoneInput, filePicker]);
+    setErrorChangeUser(null);
+  }, [nameInput, surnameInput, cityInput, phoneInput]);
+
+  useEffect(() => {
+    setErrorAvatar(null);
+  }, [filePicker]);
 
   return (
     <div className={styles.profileContent}>
@@ -121,7 +127,7 @@ export default function UserSettings() {
             className={styles.settingsChangePhoto}
             onClick={handleUploadFile}
           >
-            Заменить
+            {isLoadingAvatar ? "Сохраняю изменения.." : "Заменить"}
           </div>
         </div>
         <div className={styles.settingsRight}>
@@ -190,14 +196,17 @@ export default function UserSettings() {
                 }}
               />
             </div>
-            {error && <div className={styles.error}>{error}</div>}
+            {errorAvatar && <div className={styles.error}>{errorAvatar}</div>}
+            {errorChangeUser && (
+              <div className={styles.error}>{errorChangeUser}</div>
+            )}
             <button
               className={`${styles.settingsBtn} ${styles.btnHov02}`}
               id="settings-btn"
               type="submit"
               disabled={!activeButton}
             >
-              {isLoading ? "Сохраняю изменения.." : "Сохранить"}
+              {isLoadingChangeUser ? "Сохраняю изменения.." : "Сохранить"}
             </button>
             <button
               className={`${styles.settingsBtn} ${styles.btnHov02}`}
