@@ -128,7 +128,7 @@ export default function ArticlePage() {
                       <div className={styles.authorImg}>
                         <img
                           src={`http://localhost:8090/${data.user.avatar}`}
-                          alt=""
+                          alt="ava"
                         />
                       </div>
                       <div className={styles.authorCont}>
