@@ -10,6 +10,7 @@ import { DateBlock } from "../../components/dateBlog/DataBlog";
 import { FormatPhoneNumberClose } from "../../components/phoneBlog/PhoneBlog";
 import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
 import ErrorBlog from "../../components/errorBlog/ErrorBlog";
+import { FormatSellingSince } from "../../components/dateBlog/DataBlog";
 
 export default function ArticlePage() {
   const [isShow, setIsShow] = useState(false);
@@ -140,7 +141,7 @@ export default function ArticlePage() {
                           {data?.user.name}
                         </p>
                         <p className={styles.authorAbout}>
-                          {`Продает товары с ${data?.user.sells_from}`}
+                          <FormatSellingSince dateString={data?.user.sells_from}/>
                         </p>
                       </div>
                     </div>

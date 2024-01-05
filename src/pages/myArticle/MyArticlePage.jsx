@@ -9,7 +9,7 @@ import {
   useGetOneProductQuery,
   useDeleteProductMutation,
 } from "../../store/RTKQuery/adsApi";
-import { DateBlock } from "../../components/dateBlog/DataBlog";
+import { DateBlock, FormatSellingSince } from "../../components/dateBlog/DataBlog";
 import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
 import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 
@@ -167,7 +167,7 @@ export default function MyArticlePage() {
                           {data?.user.name}
                         </p>
                         <p className={styles.authorAbout}>
-                          {`Продает товары с ${data?.user.sells_from}`}
+                        <FormatSellingSince dateString={data?.user.sells_from}/>
                         </p>
                       </div>
                     </div>
