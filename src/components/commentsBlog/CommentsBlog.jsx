@@ -11,8 +11,7 @@ const getCommentsWordForm = (number) => {
   };
 
 export const CommentsBlog = ({ setIsShow, id }) => {
-  const { data = [], isLoading, isError, error } = useGetCommentsQuery(id);
-  console.log(data);
+  const { data = []} = useGetCommentsQuery(id);
 
   const commentsCount = data?.length || 0;
   const commentsWordForm = getCommentsWordForm(commentsCount);

@@ -1,21 +1,27 @@
 import styles from "./styles.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import { userSelector } from "../../store/selectors/user";
-import { changeUserApi, setAvatarApi } from "../../API/userApi";
 import { setUser, removeUser } from "../../store/slices/userSlice";
+import {
+  useChangeUserMutation,
+  useSetAvatarMutation,
+} from "../../store/RTKQuery/adsApi";
 
 export default function UserSettings() {
   const { name, surname, phone, avatar, city } = useSelector(userSelector);
-
+  const [changeUser, { isLoading: isLoadingChangeUser }] =
+    useChangeUserMutation();
+  const [setAvatar, { isLoading: isLoadingAvatar }] = useSetAvatarMutation();
   const [nameInput, setNameInput] = useState(name || "");
   const [cityInput, setCityInput] = useState(city || "");
   const [surnameInput, setSurnameInput] = useState(surname || "");
   const [phoneInput, setPhoneInput] = useState(phone || "");
   const [activeButton, setActiveButton] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorAvatar, setErrorAvatar] = useState(false);
+  const [errorChangeUser, setErrorChangeUser] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,60 +34,52 @@ export default function UserSettings() {
     setPhoneInput(phone);
   }, [name, city, surname, phone]);
 
-  //   useEffect(() => {
-  //     if (!nameInput && !cityInput && !surnameInput && !phoneInput) {
-  //       setActiveButton(false);
-  //     }
-  //   }, [nameInput, cityInput, surnameInput, phoneInput]);
-
   const handleChangeUser = async (event) => {
     event.preventDefault();
-
     try {
-      const responseUser = await changeUserApi(
+      const responseUser = await changeUser({
         nameInput,
         surnameInput,
         cityInput,
-        phoneInput
-      );
-
+        phoneInput,
+      });
+      console.log(responseUser);
       dispatch(
         setUser({
-          email: responseUser.email,
-          name: responseUser.name,
-          id: responseUser.id,
-          surname: responseUser.surname,
-          avatar: responseUser.avatar,
-          phone: responseUser.phone,
-          role: responseUser.role,
-          city: responseUser.city,
+          email: responseUser.data.email,
+          name: responseUser.data.name,
+          id: responseUser.data.id,
+          surname: responseUser.data.surname,
+          avatar: responseUser.data.avatar,
+          phone: responseUser.data.phone,
+          role: responseUser.data.role,
+          city: responseUser.data.city,
         })
       );
     } catch (error) {
-      setError(error.message);
-    } finally {
-      setActiveButton(false);
+      setErrorChangeUser(error.message);
     }
   };
   //avatar
   const handleSetAvatar = async (file) => {
     try {
-      const responseUser = await setAvatarApi(file);
+      const responseUser = await setAvatar(file);
+      console.log(responseUser);
 
       dispatch(
         setUser({
-          email: responseUser.email,
-          name: responseUser.name,
-          id: responseUser.id,
-          surname: responseUser.surname,
-          avatar: responseUser.avatar,
-          phone: responseUser.phone,
-          role: responseUser.role,
-          city: responseUser.city,
+          email: responseUser.data.email,
+          name: responseUser.data.name,
+          id: responseUser.data.id,
+          surname: responseUser.data.surname,
+          avatar: responseUser.data.avatar,
+          phone: responseUser.data.phone,
+          role: responseUser.data.role,
+          city: responseUser.data.city,
         })
       );
     } catch (error) {
-      setError(error.message);
+      setErrorAvatar(error.message);
     }
   };
 
@@ -95,8 +93,12 @@ export default function UserSettings() {
 
   //сброс ошибок валидации
   useEffect(() => {
-    setError(null);
-  }, [nameInput, surnameInput, cityInput, phoneInput, filePicker]);
+    setErrorChangeUser(null);
+  }, [nameInput, surnameInput, cityInput, phoneInput]);
+
+  useEffect(() => {
+    setErrorAvatar(null);
+  }, [filePicker]);
 
   return (
     <div className={styles.profileContent}>
@@ -107,11 +109,11 @@ export default function UserSettings() {
         <div className={styles.settingsLeft}>
           <div className={styles.settingsImg}>
             {/* <NavLink to="/profile"> */}
-              {avatar && avatar !== "null" ? (
-                <img src={`http://localhost:8090/${avatar}`} alt="ava" />
-              ) : (
-                ""
-              )}
+            {avatar && avatar !== "null" ? (
+              <img src={`http://localhost:8090/${avatar}`} alt="ava" />
+            ) : (
+              ""
+            )}
             {/* </NavLink> */}
             <input
               className={styles.hidden}
@@ -125,7 +127,7 @@ export default function UserSettings() {
             className={styles.settingsChangePhoto}
             onClick={handleUploadFile}
           >
-            Заменить
+            {isLoadingAvatar ? "Сохраняю изменения.." : "Заменить"}
           </div>
         </div>
         <div className={styles.settingsRight}>
@@ -194,14 +196,17 @@ export default function UserSettings() {
                 }}
               />
             </div>
-            {error && <div className={styles.error}>{error}</div>}
+            {errorAvatar && <div className={styles.error}>{errorAvatar}</div>}
+            {errorChangeUser && (
+              <div className={styles.error}>{errorChangeUser}</div>
+            )}
             <button
               className={`${styles.settingsBtn} ${styles.btnHov02}`}
               id="settings-btn"
               type="submit"
               disabled={!activeButton}
             >
-              Сохранить
+              {isLoadingChangeUser ? "Сохраняю изменения.." : "Сохранить"}
             </button>
             <button
               className={`${styles.settingsBtn} ${styles.btnHov02}`}

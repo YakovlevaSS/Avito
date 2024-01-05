@@ -5,7 +5,7 @@ import ReviewsItem from "../reviewsItem/ReviewsItem";
 const Reviews = ({ setIsShow, id }) => {
   const [textCom, setTextCom] = useState("");
   const [offButton, setOffButton] = useState(true);
-  const [addComment, { isLoading, isError, error }] = useAddCommentMutation();
+  const [addComment, { isLoading, error }] = useAddCommentMutation();
 
   useEffect(() => {
     if (!textCom) {
@@ -23,7 +23,7 @@ const Reviews = ({ setIsShow, id }) => {
         id,
       });
       console.log(response);
-      setTextCom('');
+      setTextCom("");
     } catch (err) {
       // Handle errors if needed
       console.error("Add product error:", err);
@@ -53,7 +53,7 @@ const Reviews = ({ setIsShow, id }) => {
                 <label className={styles.formLabel} htmlFor="text">
                   Добавить отзыв
                 </label>
-                {isError && <div className={styles.error}>{error}</div>}
+                {error && <div className={styles.error}>{error.message}</div>}
                 <textarea
                   className={styles.formNewArtArea}
                   name="text"
@@ -69,12 +69,16 @@ const Reviews = ({ setIsShow, id }) => {
               </div>
               <button
                 // className={`${styles.formNewArtBtnPub} ${styles.btnHov02}`}
-                className={offButton? (`${styles.formNewArtBtnPub}`) : (`${styles.formNewArtBtnPubActive} ${styles.btnHov02}`)}
+                className={
+                  offButton
+                    ? `${styles.formNewArtBtnPub}`
+                    : `${styles.formNewArtBtnPubActive} ${styles.btnHov02}`
+                }
                 id="btnPublish"
                 disabled={offButton}
                 type="submit"
               >
-                              {isLoading? 'Публикуем...' : 'Опубликовать'}
+                {isLoading ? "Публикуем..." : "Опубликовать"}
               </button>
             </form>
 

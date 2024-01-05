@@ -12,7 +12,7 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
   const [errorForm, setErrorForm] = useState(null);
   const [offButton, setOffButton] = useState(true);
   const navigate = useNavigate();
-  const [updateProduct, { isLoading, isError, error }] =
+  const [updateProduct, { isLoading, error }] =
     useUpdateProductMutation();
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
             onSubmit={handleSentText}
           >
             {errorForm && <div className={styles.error}>{errorForm}</div>}
-            {isError && <div className={styles.error}>{error}</div>}
+            {error && <div className={styles.error}>{error.message}</div>}
             <div className={styles.formNewArtBlock}>
               <label className={styles.formLabel} htmlFor="name">
                 Название

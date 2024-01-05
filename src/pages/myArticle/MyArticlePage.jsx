@@ -10,28 +10,27 @@ import {
   useDeleteProductMutation,
 } from "../../store/RTKQuery/adsApi";
 import { DateBlock } from "../../components/dateBlog/DataBlog";
+import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
+import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 
 export default function MyArticlePage() {
   const [isShow, setIsShow] = useState(false);
   const [id, setId] = useState(false);
   const [isShowSettings, setIsShowSettings] = useState(false);
+  const [errorDel, setErrorDel] = useState(null);
   const navigate = useNavigate();
   const idAds = useParams().id;
-  const { data = [], isLoading, isError, error } = useGetOneProductQuery(idAds);
-  console.log(data);
+  const { data = [], isLoading, error } = useGetOneProductQuery(idAds);
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
 
   useEffect(() => {
     setBigImg(data?.images?.[0]?.url ?? null);
-    setId(data?.id)
+    setId(data?.id);
   }, [data]);
-  
-  const [
-    deleteProduct,
-    { isLoadingDel = isLoading, isErrorDel = isError, errorDel = error },
-  ] = useDeleteProductMutation(id);
 
+  const [deleteProduct, { isLoading: isLoadingDel,}] =
+    useDeleteProductMutation(id);
 
   const handleNextImg = () => {
     if (window.innerWidth <= 768) {
@@ -45,21 +44,23 @@ export default function MyArticlePage() {
     }
   };
 
-
-
   const handleDelText = async () => {
     const id = idAds;
-    console.log(id)
+    console.log(id);
     try {
       const response = await deleteProduct(id);
       console.log(response);
       navigate(`/`);
       setIsShowSettings(false);
-    } catch (err) {
-      // Handle errors if needed
-      console.error("Add product error:", err);
+    } catch (errorDel) {
+      setErrorDel(errorDel.message);
     }
   };
+
+    // Обработка ошибки
+    if (error) {
+      return <ErrorBlog errorMessage={error.message} />;
+    }
 
   return (
     <>
@@ -143,15 +144,17 @@ export default function MyArticlePage() {
                       </button>
                       <button
                         className={`${styles.articleBtn} ${styles.btnRemove} ${styles.btnHov02}`}
-                      onClick={handleDelText}>
-                        Снять с публикации
+                        onClick={handleDelText}
+                      >
+                        {isLoadingDel? "Удаляем объявление" : "Снять с публикации"}
                       </button>
+                      {errorDel && <div className={styles.error}>{errorDel}</div>}
                     </div>
                     <div className={`${styles.articleAuthor} ${styles.author}`}>
                       <div className={styles.authorImg}>
                         <img
                           src={`http://localhost:8090/${data.user.avatar}`}
-                          alt=""
+                          alt="ava"
                         />
                       </div>
                       <div className={styles.authorCont}>
@@ -183,7 +186,7 @@ export default function MyArticlePage() {
             </div>
           </>
         ) : (
-          <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>
+          <LoadingBlog />
         )}
       </main>
       {isShow && <Reviews setIsShow={setIsShow} id={data?.id} />}

@@ -8,6 +8,8 @@ import { CommentsBlog } from "../../components/commentsBlog/CommentsBlog";
 import { useGetOneProductQuery } from "../../store/RTKQuery/adsApi";
 import { DateBlock } from "../../components/dateBlog/DataBlog";
 import { FormatPhoneNumberClose } from "../../components/phoneBlog/PhoneBlog";
+import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
+import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 
 export default function ArticlePage() {
   const [isShow, setIsShow] = useState(false);
@@ -15,7 +17,7 @@ export default function ArticlePage() {
   const [isShowSettings, setIsShowSettings] = useState(false);
   const navigate = useNavigate();
   const idAds = useParams().id;
-  const { data = [], isLoading, isError, error } = useGetOneProductQuery(idAds);
+  const { data = [], isLoading, error } = useGetOneProductQuery(idAds);
   console.log(data);
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
@@ -34,6 +36,11 @@ export default function ArticlePage() {
       }
     }
   };
+
+    // Обработка ошибки
+    if (error) {
+      return <ErrorBlog errorMessage={error.message} />;
+    }
 
   return (
     <>
@@ -151,7 +158,7 @@ export default function ArticlePage() {
             </div>
           </>
         ) : (
-          <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>
+          <LoadingBlog/>
         )}
       </main>
       {isShow && <Reviews setIsShow={setIsShow} id={data?.id}/>}
