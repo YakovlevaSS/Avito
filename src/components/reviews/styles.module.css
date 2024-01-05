@@ -325,10 +325,14 @@ gap: 30px;
   }
   
   @media screen and (max-width: 600px) {
+    .modalContent {
+      width: 400px;
+    }
+
     .modalBlock {
       position: absolute;
       z-index: 5;
-      left: 0px;
+      left: calc(50% - (400px/2));
       top: 55px;
       opacity: 1;
     }
