@@ -240,6 +240,10 @@
       padding: 9px 17px;
       border-radius: 30px;
     }
+    .inputBlog {
+      margin-bottom: 0px;
+    }
+
     .modalInput::-webkit-input-placeholder {
       font-style: normal;
       font-weight: 400;
