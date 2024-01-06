@@ -63,7 +63,7 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
               <path
                 d="M11 1.5L2 10.5L11 19.5"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               />
             </svg>
             </div>

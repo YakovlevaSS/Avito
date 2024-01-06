@@ -1,7 +1,10 @@
 import styles from "./styles.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAddProductTextMutation } from "../../store/RTKQuery/adsApi";
+import {
+  useAddProductTextMutation,
+  useAddProductImageMutation,
+} from "../../store/RTKQuery/adsApi";
 
 const AddNewAt = ({ setIsShow }) => {
   const [nameAdv, setNameAdv] = useState("");
@@ -9,8 +12,12 @@ const AddNewAt = ({ setIsShow }) => {
   const [priceAdv, setPriceAdv] = useState("");
   const [errorForm, setErrorForm] = useState(null);
   const [offButton, setOffButton] = useState(true);
+  const [selectedImages, setSelectedImages] = useState([]);
   const navigate = useNavigate();
+  const filePicker = useRef(null);
   const [addProductText, { isLoading, error }] = useAddProductTextMutation();
+  const [addProductImage, { isLoading: imageIsLoading, error: imageError }] =
+    useAddProductImageMutation();
 
   //Validation
   useEffect(() => {
@@ -25,29 +32,44 @@ const AddNewAt = ({ setIsShow }) => {
     event.preventDefault();
     if (!nameAdv || !descriptionAdv || !priceAdv) {
       setErrorForm("Не все поля заполнены");
-      return
+      return;
     }
     try {
-    const response = await addProductText({
-      nameAdv,
-      descriptionAdv,
-      priceAdv,
-    });
-    console.log(response)
-    navigate(`/myartycle/${response.data?.id}`)
-    setIsShow(false)
-  } catch (err) {
-    // Handle errors if needed
-    console.error('Add product error:', err);
-  }
+      const response = await addProductText({
+        nameAdv,
+        descriptionAdv,
+        priceAdv,
+      });
+      console.log(response);
+      const adId = response.data?.id;
+      console.log(adId)
+
+      // Отправка изображений
+      const imageResponses = await Promise.all(
+        selectedImages.map(async (image) => {
+          const formData = new FormData();
+          formData.append("image", image);
+
+          return await addProductImage(formData, { id: adId });
+        })
+      );
+
+      console.log("Image responses:", imageResponses);
+
+      navigate(`/myartycle/${response.data?.id}`);
+      setIsShow(false);
+    } catch (error) {
+      setErrorForm(error);
+    }
   };
 
   return (
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
         <div className={styles.modalContent}>
-        <div className={styles.modalTitleBlog}>
-            <svg className={styles.articleFillImgSvg}
+          <div className={styles.modalTitleBlog}>
+            <svg
+              className={styles.articleFillImgSvg}
               xmlns="http://www.w3.org/2000/svg"
               width="12"
               height="21"
@@ -60,10 +82,10 @@ const AddNewAt = ({ setIsShow }) => {
               <path
                 d="M11 1.5L2 10.5L11 19.5"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               />
             </svg>
-          <h3 className={styles.modalTitle}>Новое объявление</h3>
+            <h3 className={styles.modalTitle}>Новое объявление</h3>
           </div>
           <div className={styles.modalBtnClose}>
             <div
@@ -82,7 +104,9 @@ const AddNewAt = ({ setIsShow }) => {
             {errorForm && <div className={styles.error}>{errorForm}</div>}
             {error && <div className={styles.error}>{error.message}</div>}
             <div className={styles.formNewArtBlock}>
-              <label className={styles.formLabel} htmlFor="name">Название</label>
+              <label className={styles.formLabel} htmlFor="name">
+                Название
+              </label>
               <input
                 className={styles.formNewArtInput}
                 type="text"
@@ -96,7 +120,9 @@ const AddNewAt = ({ setIsShow }) => {
               />
             </div>
             <div className={styles.formNewArtBlock}>
-              <label className={styles.formLabel} htmlFor="text">Описание</label>
+              <label className={styles.formLabel} htmlFor="text">
+                Описание
+              </label>
               <textarea
                 className={styles.formNewArtArea}
                 name="text"
@@ -115,30 +141,36 @@ const AddNewAt = ({ setIsShow }) => {
                 Фотографии товара<span>не более 5 фотографий</span>
               </p>
               <div className={styles.formNewArtBarImg}>
-                <div className={styles.formNewArtImg}>
-                  <img src="" alt="" />
-                  <div className={styles.formNewArtImgCover} />
-                </div>
-                <div className={styles.formNewArtImg}>
-                  <img src="" alt="" />
-                  <div className={styles.formNewArtImgCover} />
-                </div>
-                <div className={styles.formNewArtImg}>
-                  <div className={styles.formNewArtImgCover} />
-                  <img src="" alt="" />
-                </div>
-                <div className={styles.formNewArtImg}>
-                  <div className={styles.formNewArtImgCover} />
-                  <img src="" alt="" />
-                </div>
-                <div className={styles.formNewArtImg}>
-                  <div className={styles.formNewArtImgCover} />
-                  <img src="" alt="" />
-                </div>
+                {Array.from({ length: Math.max(5 - selectedImages.length, 0) }).map((_, index) => (
+                  <div key={index} className={styles.formNewArtImg} onClick={() => filePicker.current.click()}>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={filePicker}
+                      style={{ display: "none" }}
+                      onChange={(event) => {
+                        const file = event.target.files[0];
+                        if (selectedImages.length < 5) {
+                          setSelectedImages([...selectedImages, file]);
+                        }
+                      }}
+                    />
+                    <img src="" alt="" />
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
+                {selectedImages.map((image, index) => (
+                  <div key={index} className={styles.formNewArtImg}>
+                    <img src={URL.createObjectURL(image)} alt={`Selected ${index + 1}`} />
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
               </div>
             </div>
             <div className={`${styles.formNewArtBlock} ${styles.blockPrice}`}>
-              <label className={styles.formLabel} htmlFor="price">Цена</label>
+              <label className={styles.formLabel} htmlFor="price">
+                Цена
+              </label>
               <input
                 className={styles.formNewArtInputPrice}
                 type="text"
@@ -152,12 +184,16 @@ const AddNewAt = ({ setIsShow }) => {
               <div className={styles.formNewArtInputPriceCover} />
             </div>
             <button
-              className={offButton? (`${styles.formNewArtBtnPub}`) : (`${styles.formNewArtBtnPubActive} ${styles.btnHov02}`)}
+              className={
+                offButton
+                  ? `${styles.formNewArtBtnPub}`
+                  : `${styles.formNewArtBtnPubActive} ${styles.btnHov02}`
+              }
               id="btnPublish"
               disabled={offButton}
               type="submit"
             >
-              {isLoading? 'Публикуем...' : 'Опубликовать'}
+              {isLoading ? "Публикуем..." : "Опубликовать"}
             </button>
           </form>
         </div>
