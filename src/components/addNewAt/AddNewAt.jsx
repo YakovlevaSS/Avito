@@ -145,7 +145,7 @@ const AddNewAt = ({ setIsShow }) => {
                   <div key={index} className={styles.formNewArtImg} onClick={() => filePicker.current.click()}>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/*, .png, .jpg, .gif, .web, .jpeg"
                       ref={filePicker}
                       style={{ display: "none" }}
                       onChange={(event) => {
