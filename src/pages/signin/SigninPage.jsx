@@ -2,20 +2,19 @@ import styles from "./styles.module.css";
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { singInApi,} from "../../API/authApi";
+import { singInApi } from "../../API/authApi";
 import { setToken, setUser } from "../../store/slices/userSlice";
 import { useLazyGetUserQuery } from "../../store/RTKQuery/adsApi";
-
-
 
 const SigninPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [offButton, setOffButton] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-const [getUser] = useLazyGetUserQuery();
+  const [getUser] = useLazyGetUserQuery();
   const [errorsForm, setErrorsForm] = useState({
     email: "",
     password: "",
@@ -67,19 +66,29 @@ const [getUser] = useLazyGetUserQuery();
     setErrorsForm(newErrors);
   }, [password]);
 
+  useEffect(() => {
+    if (!email || !password) {
+      setOffButton(true);
+    } else {
+      setOffButton(false);
+    }
+  }, [email, password]);
+
   const handleLog = async (event) => {
     event.preventDefault();
     if (validateFormLog()) {
       try {
         const response = await singInApi(email, password);
-        dispatch(setToken({
-          accessToken: response.access_token,
-          refreshToken: response.refresh_token,
-          typeToken: response.token_type,
-        }));
-        console.log('done')
+        dispatch(
+          setToken({
+            accessToken: response.access_token,
+            refreshToken: response.refresh_token,
+            typeToken: response.token_type,
+          })
+        );
+        console.log("done");
         const responseUser = await getUser();
-        console.log(responseUser)
+        console.log(responseUser);
         dispatch(
           setUser({
             email: responseUser.data.email,
@@ -92,15 +101,17 @@ const [getUser] = useLazyGetUserQuery();
             city: responseUser.data.city,
           })
         );
-        console.log('done')
+        console.log("done");
         setOffButton(true);
+        setIsLoading(true);
         navigate("/");
+        setEmail("");
+        setPassword("");
       } catch (error) {
         setError(error.message);
       } finally {
         setOffButton(false);
-        setEmail("");
-        setPassword("");
+        setIsLoading(false);
       }
     }
   };
@@ -151,14 +162,19 @@ const [getUser] = useLazyGetUserQuery();
             )}
           </div>
           <button
-            className={styles.modalBtnEnter}
+            className={
+              offButton
+                ? `${styles.modalBtnEnter}`
+                : `${styles.modalBtnEnterActive}`
+            }
             disabled={offButton}
             type="submit"
           >
-            {offButton ? "Осуществляем вход" : "Войти"}
+            {isLoading ? "Осуществляем вход" : "Войти"}
           </button>
           <button
             className={styles.modalBtnSignup}
+            disabled={offButton}
             onClick={() => {
               navigate("/signup");
             }}

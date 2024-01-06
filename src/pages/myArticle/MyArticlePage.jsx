@@ -9,7 +9,10 @@ import {
   useGetOneProductQuery,
   useDeleteProductMutation,
 } from "../../store/RTKQuery/adsApi";
-import { DateBlock } from "../../components/dateBlog/DataBlog";
+import {
+  DateBlock,
+  FormatSellingSince,
+} from "../../components/dateBlog/DataBlog";
 import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
 import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 
@@ -20,7 +23,12 @@ export default function MyArticlePage() {
   const [errorDel, setErrorDel] = useState(null);
   const navigate = useNavigate();
   const idAds = useParams().id;
-  const { data = [], isLoading, error } = useGetOneProductQuery(idAds);
+  const [isSkipRefetching, setIsSkipRefetching] = useState(false);
+  const {
+    data = [],
+    isLoading,
+    error,
+  } = useGetOneProductQuery(idAds, { skip: isSkipRefetching });
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
 
@@ -29,7 +37,7 @@ export default function MyArticlePage() {
     setId(data?.id);
   }, [data]);
 
-  const [deleteProduct, { isLoading: isLoadingDel,}] =
+  const [deleteProduct, { isLoading: isLoadingDel }] =
     useDeleteProductMutation(id);
 
   const handleNextImg = () => {
@@ -46,21 +54,22 @@ export default function MyArticlePage() {
 
   const handleDelText = async () => {
     const id = idAds;
-    console.log(id);
+    setIsSkipRefetching(true);
     try {
       const response = await deleteProduct(id);
       console.log(response);
       navigate(`/`);
+      setIsSkipRefetching(false);
       setIsShowSettings(false);
     } catch (errorDel) {
       setErrorDel(errorDel.message);
     }
   };
 
-    // Обработка ошибки
-    if (error) {
-      return <ErrorBlog errorMessage={error.message} />;
-    }
+  // Обработка ошибки
+  if (error) {
+    return <ErrorBlog errorMessage={error.message} />;
+  }
 
   return (
     <>
@@ -146,9 +155,13 @@ export default function MyArticlePage() {
                         className={`${styles.articleBtn} ${styles.btnRemove} ${styles.btnHov02}`}
                         onClick={handleDelText}
                       >
-                        {isLoadingDel? "Удаляем объявление" : "Снять с публикации"}
+                        {isLoadingDel
+                          ? "Удаляем объявление"
+                          : "Снять с публикации"}
                       </button>
-                      {errorDel && <div className={styles.error}>{errorDel}</div>}
+                      {errorDel && (
+                        <div className={styles.error}>{errorDel}</div>
+                      )}
                     </div>
                     <div className={`${styles.articleAuthor} ${styles.author}`}>
                       <div className={styles.authorImg}>
@@ -167,7 +180,9 @@ export default function MyArticlePage() {
                           {data?.user.name}
                         </p>
                         <p className={styles.authorAbout}>
-                          {`Продает товары с ${data?.user.sells_from}`}
+                          <FormatSellingSince
+                            dateString={data?.user.sells_from}
+                          />
                         </p>
                       </div>
                     </div>

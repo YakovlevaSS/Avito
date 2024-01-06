@@ -108,13 +108,11 @@ export default function UserSettings() {
       <div className={`${styles.profileSettings} ${styles.settings}`}>
         <div className={styles.settingsLeft}>
           <div className={styles.settingsImg}>
-            {/* <NavLink to="/profile"> */}
             {avatar && avatar !== "null" ? (
               <img src={`http://localhost:8090/${avatar}`} alt="ava" />
             ) : (
               ""
             )}
-            {/* </NavLink> */}
             <input
               className={styles.hidden}
               type="file"
@@ -201,7 +199,11 @@ export default function UserSettings() {
               <div className={styles.error}>{errorChangeUser}</div>
             )}
             <button
-              className={`${styles.settingsBtn} ${styles.btnHov02}`}
+              className={
+                activeButton
+                  ? `${styles.settingsBtnActive} ${styles.btnHov02}`
+                  : `${styles.settingsBtn}`
+              }
               id="settings-btn"
               type="submit"
               disabled={!activeButton}
@@ -209,7 +211,7 @@ export default function UserSettings() {
               {isLoadingChangeUser ? "Сохраняю изменения.." : "Сохранить"}
             </button>
             <button
-              className={`${styles.settingsBtn} ${styles.btnHov02}`}
+              className={`${styles.settingsBtnActive} ${styles.btnHov02}`}
               id="settings-btn"
               onClick={() => {
                 dispatch(removeUser());

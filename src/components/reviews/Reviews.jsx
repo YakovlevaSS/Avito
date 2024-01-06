@@ -29,10 +29,21 @@ const Reviews = ({ setIsShow, id }) => {
       console.error("Add product error:", err);
     }
   };
+
+  const handleClick = (event) => {
+    const target = event.target;
+
+    // Проверяем, находится ли кликнутый элемент внутри .modalBtnCloseLine::before
+    if (target.classList.contains('modalBtnCloseLine') || target.parentElement.classList.contains('modalBtnCloseLine')) {
+      // Ваша логика обработки клика на .modalBtnCloseLine::before
+      console.log('Клик на .modalBtnCloseLine::before');
+    }
+  };
+  
   return (
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
-        <div className={styles.modalContent}>
+        <div className={styles.modalContent} onClick={handleClick}>
           <h3 className={styles.modalTitle}>Отзывы о товаре</h3>
           <div className={styles.modalBtnClose}>
             <div
@@ -68,7 +79,6 @@ const Reviews = ({ setIsShow, id }) => {
                 ></textarea>
               </div>
               <button
-                // className={`${styles.formNewArtBtnPub} ${styles.btnHov02}`}
                 className={
                   offButton
                     ? `${styles.formNewArtBtnPub}`
