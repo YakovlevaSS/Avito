@@ -629,5 +629,11 @@
       width: 100%;
       height: 46px;
     }
+
+    .formNewArtBtnPubActive {
+      margin-top: 10px;
+      width: 100%;
+      height: 46px;
+    }
   }
   

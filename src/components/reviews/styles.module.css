@@ -429,7 +429,11 @@ gap: 30px;
       margin-top: 0px;
       width: 100%;
       height: 46px;
-      background-color: #009EE4;
+    }
+    .formNewArtBtnPubActive {
+      margin-top: 0px;
+      width: 100%;
+      height: 46px;
     }
     .fontT {
       font-size: 14px;

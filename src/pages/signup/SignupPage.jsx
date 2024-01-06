@@ -14,6 +14,7 @@ const SignupPage = () => {
   const [surname, setSurname] = useState("");
   const role = "user";
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [offButton, setOffButton] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -87,6 +88,14 @@ const SignupPage = () => {
     setErrorsForm(newErrors);
   }, [confirmPassword]);
 
+  useEffect(() => {
+    if (!email || !password || !confirmPassword) {
+      setOffButton(true);
+    } else {
+      setOffButton(false);
+    }
+  }, [email, password, confirmPassword]);
+
   const handleReg = async (event) => {
     if (validateFormReg()) {
       event.preventDefault();
@@ -112,23 +121,27 @@ const SignupPage = () => {
           })
         );
         const responseToken = await singInApi(email, password);
-        dispatch(setToken({
-          accessToken: responseToken.access_token,
-          refreshToken: responseToken.refresh_token,
-          typeToken: responseToken.token_type,
-        }));
+        dispatch(
+          setToken({
+            accessToken: responseToken.access_token,
+            refreshToken: responseToken.refresh_token,
+            typeToken: responseToken.token_type,
+          })
+        );
         setOffButton(true);
+        setIsLoading(true);
         navigate("/");
-        setName();
-        setSurname();
-        setEmail();
-        setPassword();
-        setCity();
+        setName("");
+        setSurname("");
+        setEmail("");
+        setPassword("");
+        setCity("");
         setConfirmPassword();
       } catch (error) {
         setError(error.message);
       } finally {
         setOffButton(false);
+        setIsLoading(false);
       }
     }
   };
@@ -228,12 +241,16 @@ const SignupPage = () => {
             }}
           />
           <button
-            className={styles.modalBtnSignupEnt}
+            className={
+              offButton
+                ? `${styles.modalBtnSignupEnt}`
+                : `${styles.modalBtnSignupEntActive}`
+            }
             id="SignUpEnter"
             disabled={offButton}
             type="submit"
           >
-            {offButton ? "Осуществляем регистрацию" : "Зарегистрироваться"}
+            {isLoading ? "Осуществляем регистрацию" : "Зарегистрироваться"}
           </button>
         </form>
       </div>

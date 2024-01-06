@@ -79,7 +79,6 @@ const Reviews = ({ setIsShow, id }) => {
                 ></textarea>
               </div>
               <button
-                // className={`${styles.formNewArtBtnPub} ${styles.btnHov02}`}
                 className={
                   offButton
                     ? `${styles.formNewArtBtnPub}`
