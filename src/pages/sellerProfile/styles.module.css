@@ -27,7 +27,10 @@
     border-top: 2px solid #0080C1;
     border-left: 2px solid #0080C1;
   }
-  
+  .fillImgSvg {
+    display: none;
+  }
+
   .mainContainer {
     max-width: 1178px;
     margin: 0 auto;
@@ -272,8 +275,14 @@
       margin: 0 auto;
       padding: 0 20px;
     }
+    .modalTitleBlog {
+      display: flex;
+    }
     .mainMenu {
       display: none;
+    }
+    .titleBlog {
+      display: flex;
     }
     .mainH2 {
       font-size: 24px;
@@ -283,20 +292,13 @@
       margin-bottom: 20px;
       position: relative;
     }
-    .mainH2::before {
+
+    .fillImgSvg {
       content: "";
       display: block;
-      width: 12px;
-      height: 12px;
-      background-color: transparent;
-      border-top: 2px solid #000000;
-      border-left: 2px solid #000000;
-      transform: rotate(-45deg);
-      position: absolute;
-      top: 9px;
-      left: 0;
       cursor: pointer;
     }
+
     .mainProfileSell {
       width: 100%;
       padding: 0 0 40px;

@@ -46,7 +46,25 @@ const AddNewAt = ({ setIsShow }) => {
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
         <div className={styles.modalContent}>
+        <div className={styles.modalTitleBlog}>
+            <svg className={styles.articleFillImgSvg}
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="21"
+              viewBox="0 0 12 21"
+              fill="none"
+              onClick={() => {
+                setIsShow(false);
+              }}
+            >
+              <path
+                d="M11 1.5L2 10.5L11 19.5"
+                stroke="black"
+                stroke-width="2"
+              />
+            </svg>
           <h3 className={styles.modalTitle}>Новое объявление</h3>
+          </div>
           <div className={styles.modalBtnClose}>
             <div
               className={styles.modalBtnCloseLine}

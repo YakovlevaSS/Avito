@@ -1,6 +1,5 @@
 import styles from "./styles.module.css";
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import { useAddCommentMutation } from "../../store/RTKQuery/adsApi";
 import ReviewsItem from "../reviewsItem/ReviewsItem";
 const Reviews = ({ setIsShow, id }) => {
@@ -26,7 +25,7 @@ const Reviews = ({ setIsShow, id }) => {
       console.log(response);
       setTextCom("");
     } catch (err) {
-      // Handle errors if needed
+
       console.error("Add product error:", err);
     }
   };

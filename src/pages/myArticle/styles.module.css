@@ -75,6 +75,10 @@
   align-items: center;
 }
 
+.articleFillImgSvg {
+  display: none;
+}
+
 .articleImg {
   width: 480px;
   height: 480px;
@@ -336,23 +340,14 @@ line-height: 140%; /* 44.8px */
     justify-content: center;
     position: relative;
   }
-
-  .articleFillImg::before {
+  .articleFillImgSvg {
     content: "";
     display: block;
-    width: 23px;
-    height: 23px;
-    background-color: transparent;
-    border-top: 2px solid #000000;
-    border-left: 2px solid #000000;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
     position: absolute;
-    top: 24px;
-    left: 32px;
+    top: 20px;
+    left: 26px;
     cursor: pointer;
   }
-
   .articleImg {
     width: 100%;
     min-width: 320px;
