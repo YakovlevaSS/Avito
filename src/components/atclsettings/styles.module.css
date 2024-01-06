@@ -77,6 +77,10 @@
     font-weight: 500;
     color: #000000;
   }
+
+  .modalTitleBlog{
+    display: none;
+  }
   
   .modalBtnClose {
     width: 23px;
@@ -440,19 +444,13 @@
       padding: 0 0 0 26px;
       position: relative;
     }
-    .modalTitle::before {
+
+    .modalTitleBlog {
+      display: flex;
+    }
+    .articleFillImgSvg {
       content: "";
       display: block;
-      width: 12px;
-      height: 12px;
-      background-color: transparent;
-      border-top: 2px solid #000000;
-      border-left: 2px solid #000000;
-      -webkit-transform: rotate(-45deg);
-      transform: rotate(-45deg);
-      position: absolute;
-      top: 9px;
-      left: 0;
       cursor: pointer;
     }
     .modalBtnClose {

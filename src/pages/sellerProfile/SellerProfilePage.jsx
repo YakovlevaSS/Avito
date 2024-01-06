@@ -2,7 +2,7 @@ import styles from "./styles.module.css";
 import LogoBlog from "../../components/logoBlog/LogoBlog";
 import CardItem from "../../components/card/Card";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";
 import { FormatSellingSince } from "../../components/dateBlog/DataBlog";
@@ -17,11 +17,11 @@ export default function SellerProfilePage() {
   console.log(data);
   const sellerProducts = data?.filter((item) => item.user_id === idSeller);
   const [isShow, setIsShow] = useState(false);
-
-    // Обработка ошибки
-    if (error) {
-      return <ErrorBlog errorMessage={error.message} />;
-    }
+  const navigate = useNavigate();
+  // Обработка ошибки
+  if (error) {
+    return <ErrorBlog errorMessage={error.message} />;
+  }
 
   return (
     <main className={styles.main}>
@@ -30,7 +30,25 @@ export default function SellerProfilePage() {
           <LogoBlog />
           {!isLoading ? (
             <>
-              <h2 className={styles.mainH2}>Профиль продавца</h2>
+              <div className={styles.modalTitleBlog}>
+                <svg
+                  className={styles.fillImgSvg}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="21"
+                  viewBox="0 0 12 21"
+                  fill="none"
+                  onClick={() => {navigate(-1)}}
+                >
+                  <path
+                    d="M11 1.5L2 10.5L11 19.5"
+                    stroke="black"
+                    stroke-width="2"
+                  />
+                </svg>
+                <h2 className={styles.mainH2}>Профиль продавца</h2>
+              </div>
+
               <div
                 className={`${styles.mainProfileSell} ${styles.profileSell}`}
               >

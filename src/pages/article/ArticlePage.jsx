@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import LogoBlog from "../../components/logoBlog/LogoBlog";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews";
 import Atclsettings from "../../components/atclsettings/Atclsettings";
 import { CommentsBlog } from "../../components/commentsBlog/CommentsBlog";
@@ -11,6 +12,7 @@ import { FormatPhoneNumberClose } from "../../components/phoneBlog/PhoneBlog";
 import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
 import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 import { FormatSellingSince } from "../../components/dateBlog/DataBlog";
+
 
 export default function ArticlePage() {
   const [isShow, setIsShow] = useState(false);
@@ -38,10 +40,10 @@ export default function ArticlePage() {
     }
   };
 
-    // Обработка ошибки
-    if (error) {
-      return <ErrorBlog errorMessage={error.message} />;
-    }
+  // Обработка ошибки
+  if (error) {
+    return <ErrorBlog errorMessage={error.message} />;
+  }
 
   return (
     <>
@@ -53,6 +55,21 @@ export default function ArticlePage() {
               <div className={`${styles.articContent} ${styles.article}`}>
                 <div className={styles.articleLeft}>
                   <div className={styles.articleFillImg}>
+                    <NavLink to='/'>
+                    <svg className={styles.articleFillImgSvg}
+                      width="14"
+                      height="25"
+                      viewBox="0 0 14 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 1L1.5 12.5L13 24"
+                        stroke="white"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    </NavLink>
                     <div className={styles.articleImg} onClick={handleNextImg}>
                       <img
                         src={
@@ -141,7 +158,9 @@ export default function ArticlePage() {
                           {data?.user.name}
                         </p>
                         <p className={styles.authorAbout}>
-                          <FormatSellingSince dateString={data?.user.sells_from}/>
+                          <FormatSellingSince
+                            dateString={data?.user.sells_from}
+                          />
                         </p>
                       </div>
                     </div>
@@ -159,10 +178,10 @@ export default function ArticlePage() {
             </div>
           </>
         ) : (
-          <LoadingBlog/>
+          <LoadingBlog />
         )}
       </main>
-      {isShow && <Reviews setIsShow={setIsShow} id={data?.id}/>}
+      {isShow && <Reviews setIsShow={setIsShow} id={data?.id} />}
       {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings} />}
     </>
   );

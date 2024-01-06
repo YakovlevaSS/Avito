@@ -49,6 +49,24 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
         <div className={styles.modalContent}>
+        <div className={styles.modalTitleBlog}>
+            <svg className={styles.articleFillImgSvg}
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="21"
+              viewBox="0 0 12 21"
+              fill="none"
+              onClick={() => {
+                setIsShowSettings(false);
+              }}
+            >
+              <path
+                d="M11 1.5L2 10.5L11 19.5"
+                stroke="black"
+                stroke-width="2"
+              />
+            </svg>
+            </div>
           <h3 className={styles.modalTitle}>Редактировать объявление</h3>
           <div className={styles.modalBtnClose}>
             <div

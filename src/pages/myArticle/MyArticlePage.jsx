@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import LogoBlog from "../../components/logoBlog/LogoBlog";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Reviews from "../../components/reviews/Reviews";
 import Atclsettings from "../../components/atclsettings/Atclsettings";
 import { CommentsBlog } from "../../components/commentsBlog/CommentsBlog";
@@ -81,6 +82,21 @@ export default function MyArticlePage() {
               <div className={`${styles.articContent} ${styles.article}`}>
                 <div className={styles.articleLeft}>
                   <div className={styles.articleFillImg}>
+                  <NavLink to="/profile">
+                    <svg className={styles.articleFillImgSvg}
+                      width="14"
+                      height="25"
+                      viewBox="0 0 14 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 1L1.5 12.5L13 24"
+                        stroke="white"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    </NavLink>
                     <div className={styles.articleImg} onClick={handleNextImg}>
                       <img
                         src={
