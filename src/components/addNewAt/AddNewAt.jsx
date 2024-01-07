@@ -41,13 +41,9 @@ const AddNewAt = ({ setIsShow }) => {
         descriptionAdv,
         priceAdv,
       });
-      console.log(response);
       const adId = response.data?.id;
-      console.log(adId)
-
-      const imageResponses = await Promise.all(
+      if (selectedImages.length > 0) {
         selectedImages.map(async (image, index) => {
-
           try {
             // Отправка каждого изображения отдельным POST запросом
             const imageResponse = await addProductImage({
@@ -56,11 +52,11 @@ const AddNewAt = ({ setIsShow }) => {
             });
             console.log(`Image ${index + 1} response:`, imageResponse);
           } catch (error) {
-            console.error(`Error uploading image ${index + 1}:`, error);
+            setErrorForm(error);
           }
         })
-      );
-      console.log(imageResponses)
+      }
+
 
       navigate(`/myartycle/${response.data?.id}`);
       setIsShow(false);
