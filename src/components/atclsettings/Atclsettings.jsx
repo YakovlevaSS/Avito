@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {
   useUpdateProductMutation,
   useAddProductImageMutation,
+  useDeleteProductImageMutation,
 } from "../../store/RTKQuery/adsApi";
 
 const Atclsettings = ({ setIsShowSettings, adv }) => {
@@ -19,6 +20,10 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
   const [updateProduct, { isLoading, error }] = useUpdateProductMutation();
   const [addProductImage, { isLoading: imageIsLoading, error: imageError }] =
     useAddProductImageMutation();
+  const [
+    delProductImage,
+    { isLoading: delImageIsLoading, error: delImageError },
+  ] = useDeleteProductImageMutation();
 
   const [filePickers, setFilePickers] = useState(
     Array.from({ length: 5 }, () => useRef())
@@ -34,7 +39,7 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
     }
   }, [nameAdv, descriptionAdv, priceAdv]);
 
-  const handleSentText = async (event) => {
+  const handleSentAdv = async (event) => {
     event.preventDefault();
     if (!nameAdv || !descriptionAdv || !priceAdv) {
       setErrorForm("Не все поля заполнены");
@@ -83,6 +88,21 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
     }
   };
 
+  const handleDelImgServer = async (url) => {
+    try {
+      await delProductImage({ id: adv.id, url: url });
+    } catch (error) {
+      setErrorForm(error);
+    }
+  };
+
+  const handleDelImgAdd = (index) => {
+    const updatedImages = [...selectedImages];
+    updatedImages.splice(index, 1);
+    setSelectedImages(updatedImages);
+  };
+
+
   return (
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
@@ -115,10 +135,16 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
             className={`${styles.modalFormNewArt} ${styles.formNewArt}`}
             id="formNewArt"
             action="#"
-            onSubmit={handleSentText}
+            onSubmit={handleSentAdv}
           >
             {errorForm && <div className={styles.error}>{errorForm}</div>}
             {error && <div className={styles.error}>{error.message}</div>}
+            {delImageError && (
+              <div className={styles.error}>{delImageError.message}</div>
+            )}
+            {imageError && (
+              <div className={styles.error}>{imageError.message}</div>
+            )}
             <div className={styles.formNewArtBlock}>
               <label className={styles.formLabel} htmlFor="name">
                 Название
@@ -157,12 +183,21 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
                 Фотографии товара<span>не более 5 фотографий</span>
               </p>
               <div className={styles.formNewArtBarImg}>
+                {/* Добавление изображений, которые пришли с бэка */}
                 {adv.images.map((image, index) => (
                   <div key={index} className={styles.formNewArtImg}>
                     <img
                       src={`http://localhost:8090/${image.url}`}
-                      alt={`Image ${index + 1}`}
+                      alt={`product ${index + 1}`}
                     />
+                    <div
+                      className={styles.imgDel}
+                      onClick={() => {
+                        handleDelImgServer(image.url);
+                      }}
+                    >
+                      x
+                    </div>
                     <div className={styles.formNewArtImgCover} />
                   </div>
                 ))}
@@ -196,6 +231,14 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
                       src={URL.createObjectURL(image)}
                       alt={`Selected ${index + 1}`}
                     />
+                    <div
+                      className={styles.imgDel}
+                      onClick={() => {
+                        handleDelImgAdd(index);
+                      }}
+                    >
+                      x
+                    </div>
                     <div className={styles.formNewArtImgCover} />
                   </div>
                 ))}
