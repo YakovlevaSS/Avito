@@ -43,7 +43,7 @@ export default function SellerProfilePage() {
                   <path
                     d="M11 1.5L2 10.5L11 19.5"
                     stroke="black"
-                    stroke-width="2"
+                    strokeWidth="2"
                   />
                 </svg>
                 <h2 className={styles.mainH2}>Профиль продавца</h2>

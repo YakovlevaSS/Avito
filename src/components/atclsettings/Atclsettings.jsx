@@ -1,19 +1,34 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import styles from "./styles.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUpdateProductMutation } from "../../store/RTKQuery/adsApi";
+import {
+  useUpdateProductMutation,
+  useAddProductImageMutation,
+  useDeleteProductImageMutation,
+} from "../../store/RTKQuery/adsApi";
 
 const Atclsettings = ({ setIsShowSettings, adv }) => {
   console.log(adv);
-  const id = adv.id
-  const [nameAdv, setNameAdv] = useState(adv?.title);
-  const [descriptionAdv, setDescriptionAdv] = useState(adv?.description);
-  const [priceAdv, setPriceAdv] = useState(adv?.price);
+  const id = adv.id;
+  const [nameAdv, setNameAdv] = useState(adv?.title || "");
+  const [descriptionAdv, setDescriptionAdv] = useState(adv?.description || "");
+  const [priceAdv, setPriceAdv] = useState(adv?.price || "");
   const [errorForm, setErrorForm] = useState(null);
   const [offButton, setOffButton] = useState(true);
   const navigate = useNavigate();
-  const [updateProduct, { isLoading, error }] =
-    useUpdateProductMutation();
+  const [updateProduct, { isLoading, error }] = useUpdateProductMutation();
+  const [addProductImage, { isLoading: imageIsLoading, error: imageError }] =
+    useAddProductImageMutation();
+  const [
+    delProductImage,
+    { isLoading: delImageIsLoading, error: delImageError },
+  ] = useDeleteProductImageMutation();
+
+  const [filePickers, setFilePickers] = useState(
+    Array.from({ length: 5 }, () => useRef())
+  );
+  const [selectedImages, setSelectedImages] = useState([]);
 
   useEffect(() => {
     if (!nameAdv || !descriptionAdv || !priceAdv) {
@@ -23,7 +38,7 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
     }
   }, [nameAdv, descriptionAdv, priceAdv]);
 
-  const handleSentText = async (event) => {
+  const handleSentAdv = async (event) => {
     event.preventDefault();
     if (!nameAdv || !descriptionAdv || !priceAdv) {
       setErrorForm("Не все поля заполнены");
@@ -36,21 +51,64 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
         priceAdv,
         id,
       });
-      console.log(response);
+
+      const adId = response.data?.id;
+
+      // Загрузка новых изображений, если они есть
+      if (selectedImages.length > 0) {
+        selectedImages.forEach(async (image, index) => {
+          try {
+            const imageResponse = await addProductImage({
+              id: adId,
+              file: image,
+            });
+            console.log(`Image ${index + 1} response:`, imageResponse);
+          } catch (error) {
+            setErrorForm(error);
+          }
+        });
+      }
+
       navigate(`/myartycle/${response.data?.id}`);
       setIsShowSettings(false);
-    } catch (err) {
-      // Handle errors if needed
-      console.error("Add product error:", err);
+    } catch (error) {
+      setErrorForm(error);
     }
   };
+
+  const handleAddImage = (index) => {
+    filePickers[index].current.click();
+  };
+
+  const handleImageChange = (index, event) => {
+    const file = event.target.files[0];
+    if (file && selectedImages.length < 5) {
+      setSelectedImages([...selectedImages, file]);
+    }
+  };
+
+  const handleDelImgServer = async (url) => {
+    try {
+      await delProductImage({ id: adv.id, url: url });
+    } catch (error) {
+      setErrorForm(error);
+    }
+  };
+
+  const handleDelImgAdd = (index) => {
+    const updatedImages = [...selectedImages];
+    updatedImages.splice(index, 1);
+    setSelectedImages(updatedImages);
+  };
+
 
   return (
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
         <div className={styles.modalContent}>
-        <div className={styles.modalTitleBlog}>
-            <svg className={styles.articleFillImgSvg}
+          <div className={styles.modalTitleBlog}>
+            <svg
+              className={styles.articleFillImgSvg}
               xmlns="http://www.w3.org/2000/svg"
               width="12"
               height="21"
@@ -60,13 +118,9 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
                 setIsShowSettings(false);
               }}
             >
-              <path
-                d="M11 1.5L2 10.5L11 19.5"
-                stroke="black"
-                stroke-width="2"
-              />
+              <path d="M11 1.5L2 10.5L11 19.5" stroke="black" strokeWidth="2" />
             </svg>
-            </div>
+          </div>
           <h3 className={styles.modalTitle}>Редактировать объявление</h3>
           <div className={styles.modalBtnClose}>
             <div
@@ -80,10 +134,16 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
             className={`${styles.modalFormNewArt} ${styles.formNewArt}`}
             id="formNewArt"
             action="#"
-            onSubmit={handleSentText}
+            onSubmit={handleSentAdv}
           >
             {errorForm && <div className={styles.error}>{errorForm}</div>}
             {error && <div className={styles.error}>{error.message}</div>}
+            {delImageError && (
+              <div className={styles.error}>{delImageError.message}</div>
+            )}
+            {imageError && (
+              <div className={styles.error}>{imageError.message}</div>
+            )}
             <div className={styles.formNewArtBlock}>
               <label className={styles.formLabel} htmlFor="name">
                 Название
@@ -122,26 +182,65 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
                 Фотографии товара<span>не более 5 фотографий</span>
               </p>
               <div className={styles.formNewArtBarImg}>
-                <div className={styles.formNewArtImg}>
-                  <img src="" alt="" />
-                  <div className={styles.formNewArtImgCover}></div>
-                </div>
-                <div className={styles.formNewArtImg}>
-                  <img src="" alt="" />
-                  <div className={styles.formNewArtImgCover}></div>
-                </div>
-                <div className={styles.formNewArtImg}>
-                  <div className={styles.formNewArtImgCover}></div>
-                  <img src="" alt="" />
-                </div>
-                <div className={styles.formNewArtImg}>
-                  <div className={styles.formNewArtImgCover}></div>
-                  <img src="" alt="" />
-                </div>
-                <div className={styles.formNewArtImg}>
-                  <div className={styles.formNewArtImgCover}></div>
-                  <img src="" alt="" />
-                </div>
+                {/* Добавление изображений, которые пришли с бэка */}
+                {adv.images.map((image, index) => (
+                  <div key={index} className={styles.formNewArtImg}>
+                    <img
+                      src={`http://localhost:8090/${image.url}`}
+                      alt={`product ${index + 1}`}
+                    />
+                    <div
+                      className={styles.imgDel}
+                      onClick={() => {
+                        handleDelImgServer(image.url);
+                      }}
+                    >
+                      x
+                    </div>
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
+                {/* Добавление пустых блоков для недостающих изображений */}
+                {Array.from({
+                  length: Math.max(
+                    5 - adv.images.length - selectedImages.length,
+                    0
+                  ),
+                }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={styles.formNewArtImg}
+                    onClick={() => handleAddImage(index)}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*, .png, .jpg, .gif, .web, .jpeg"
+                      ref={filePickers[index]}
+                      style={{ display: "none" }}
+                      onChange={(event) => handleImageChange(index, event)}
+                    />
+                    <img src="" alt="" />
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
+                {/* Отображение выбранных изображений */}
+                {selectedImages.map((image, index) => (
+                  <div key={index} className={styles.formNewArtImg}>
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt={`Selected ${index + 1}`}
+                    />
+                    <div
+                      className={styles.imgDel}
+                      onClick={() => {
+                        handleDelImgAdd(index);
+                      }}
+                    >
+                      x
+                    </div>
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
               </div>
             </div>
             <div className={`${styles.formNewArtBlock} ${styles.blockPrice}`}>
@@ -162,7 +261,11 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
             </div>
 
             <button
-              className={offButton? (`${styles.formNewArtBtnPub}`) : (`${styles.formNewArtBtnPubActive} ${styles.btnHov02}`)}
+              className={
+                offButton
+                  ? `${styles.formNewArtBtnPub}`
+                  : `${styles.formNewArtBtnPubActive} ${styles.btnHov02}`
+              }
               id="btnPublish"
               disabled={offButton}
               type="submit"

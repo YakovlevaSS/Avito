@@ -205,11 +205,14 @@ export const productsApi = createApi({
             body: formData,
             headers: {
               "Content-Type": undefined,
+              // "Content-Type": "multipart/form-data",
             },
           };
         },
         invalidatesTags: ["ADS"],
       }),
+
+      
   
       deleteProductImage: builder.mutation({
         query: (body) => {

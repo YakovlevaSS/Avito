@@ -48,7 +48,7 @@ const Reviews = ({ setIsShow, id }) => {
               <path
                 d="M11 1.5L2 10.5L11 19.5"
                 stroke="black"
-                stroke-width="2"
+                strokeWidth="2"
               />
             </svg>
           <h3 className={styles.modalTitle}>Отзывы о товаре</h3>

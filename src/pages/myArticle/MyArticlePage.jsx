@@ -93,7 +93,7 @@ export default function MyArticlePage() {
                       <path
                         d="M13 1L1.5 12.5L13 24"
                         stroke="white"
-                        stroke-width="2"
+                        strokeWidth="2"
                       />
                     </svg>
                     </NavLink>
