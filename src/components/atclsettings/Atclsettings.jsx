@@ -1,21 +1,30 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import styles from "./styles.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUpdateProductMutation } from "../../store/RTKQuery/adsApi";
+import {
+  useUpdateProductMutation,
+  useAddProductImageMutation,
+} from "../../store/RTKQuery/adsApi";
 
 const Atclsettings = ({ setIsShowSettings, adv }) => {
   console.log(adv);
   const id = adv.id;
-  const [nameAdv, setNameAdv] = useState(adv?.title);
-  const [descriptionAdv, setDescriptionAdv] = useState(adv?.description);
-  const [priceAdv, setPriceAdv] = useState(adv?.price);
+  const [nameAdv, setNameAdv] = useState(adv?.title || "");
+  const [descriptionAdv, setDescriptionAdv] = useState(adv?.description || "");
+  const [priceAdv, setPriceAdv] = useState(adv?.price || "");
   const [errorForm, setErrorForm] = useState(null);
   const [offButton, setOffButton] = useState(true);
   const navigate = useNavigate();
   const [updateProduct, { isLoading, error }] = useUpdateProductMutation();
+  const [addProductImage, { isLoading: imageIsLoading, error: imageError }] =
+    useAddProductImageMutation();
 
-  const [showingImg, setShowingImg] = useState([]);
+  const [filePickers, setFilePickers] = useState(
+    Array.from({ length: 5 }, () => useRef())
+  );
   const [selectedImages, setSelectedImages] = useState([]);
+  const [existingImages, setExistingImages] = useState(adv?.images || []);
 
   useEffect(() => {
     if (!nameAdv || !descriptionAdv || !priceAdv) {
@@ -38,11 +47,39 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
         priceAdv,
         id,
       });
-      console.log(response);
+
+      const adId = response.data?.id;
+
+      // Загрузка новых изображений, если они есть
+      if (selectedImages.length > 0) {
+        selectedImages.forEach(async (image, index) => {
+          try {
+            const imageResponse = await addProductImage({
+              id: adId,
+              file: image,
+            });
+            console.log(`Image ${index + 1} response:`, imageResponse);
+          } catch (error) {
+            setErrorForm(error);
+          }
+        });
+      }
+
       navigate(`/myartycle/${response.data?.id}`);
       setIsShowSettings(false);
-    } catch (err) {
-      setErrorForm(err);
+    } catch (error) {
+      setErrorForm(error);
+    }
+  };
+
+  const handleAddImage = (index) => {
+    filePickers[index].current.click();
+  };
+
+  const handleImageChange = (index, event) => {
+    const file = event.target.files[0];
+    if (file && selectedImages.length < 5) {
+      setSelectedImages([...selectedImages, file]);
     }
   };
 
@@ -115,22 +152,54 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
                 }}
               />
             </div>
-            <div className={styles.formNewArtBarImg}>
-              {adv.images.map((image, index) => (
-                <div key={index} className={styles.formNewArtImg}>
-                  <img src={`http://localhost:8090/${image.url}`} alt={`Image ${index + 1}`} />
-                  <div className={styles.formNewArtImgCover} />
-                </div>
-              ))}
-              {/* Добавление пустых блоков для недостающих изображений */}
-              {Array.from({ length: Math.max(5 - adv.images.length, 0) }).map(
-                (_, index) => (
+            <div className={styles.formNewArtBlock}>
+              <p className={styles.formNewArtP}>
+                Фотографии товара<span>не более 5 фотографий</span>
+              </p>
+              <div className={styles.formNewArtBarImg}>
+                {adv.images.map((image, index) => (
                   <div key={index} className={styles.formNewArtImg}>
-                    <div className={styles.formNewArtImgCover}></div>
-                    <img src="" alt="" />
+                    <img
+                      src={`http://localhost:8090/${image.url}`}
+                      alt={`Image ${index + 1}`}
+                    />
+                    <div className={styles.formNewArtImgCover} />
                   </div>
-                )
-              )}
+                ))}
+                {/* Добавление пустых блоков для недостающих изображений */}
+                {Array.from({
+                  length: Math.max(
+                    5 - adv.images.length - selectedImages.length,
+                    0
+                  ),
+                }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={styles.formNewArtImg}
+                    onClick={() => handleAddImage(index)}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*, .png, .jpg, .gif, .web, .jpeg"
+                      ref={filePickers[index]}
+                      style={{ display: "none" }}
+                      onChange={(event) => handleImageChange(index, event)}
+                    />
+                    <img src="" alt="" />
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
+                {/* Отображение выбранных изображений */}
+                {selectedImages.map((image, index) => (
+                  <div key={index} className={styles.formNewArtImg}>
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt={`Selected ${index + 1}`}
+                    />
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
+              </div>
             </div>
             <div className={`${styles.formNewArtBlock} ${styles.blockPrice}`}>
               <label className={styles.formLabel} htmlFor="price">
