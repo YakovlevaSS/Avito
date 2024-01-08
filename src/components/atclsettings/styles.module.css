@@ -414,23 +414,23 @@
     position: relative;
   }
   
-.imgDel {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 9;
-  text-decoration: none;
-  width: 30px;
-  height: 30px;
-  line-height: 1.1;
-  text-align: center;
-  color: #000000;
-  font-size: 24px;
-  font-weight: 700;
-  background: hsl(0, 0%, 100%);
-  border-radius: 50%;
-  cursor: pointer;
-}
+  .imgDel {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    z-index: 9;
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    line-height: 1.1;
+    text-align: center;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 700;
+    background: hsl(0, 0%, 100%);
+    border-radius: 50%;
+    cursor: pointer;
+  }
 
   @media screen and (max-width: 600px) {
     .modalBlock {

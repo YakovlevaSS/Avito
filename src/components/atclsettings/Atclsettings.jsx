@@ -29,7 +29,6 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
     Array.from({ length: 5 }, () => useRef())
   );
   const [selectedImages, setSelectedImages] = useState([]);
-  const [existingImages, setExistingImages] = useState(adv?.images || []);
 
   useEffect(() => {
     if (!nameAdv || !descriptionAdv || !priceAdv) {

@@ -54,15 +54,20 @@ const AddNewAt = ({ setIsShow }) => {
           } catch (error) {
             setErrorForm(error);
           }
-        })
+        });
       }
-
 
       navigate(`/myartycle/${response.data?.id}`);
       setIsShow(false);
     } catch (error) {
       setErrorForm(error);
     }
+  };
+
+  const handleDelImgAdd = (index) => {
+    const updatedImages = [...selectedImages];
+    updatedImages.splice(index, 1);
+    setSelectedImages(updatedImages);
   };
 
   return (
@@ -81,11 +86,7 @@ const AddNewAt = ({ setIsShow }) => {
                 setIsShow(false);
               }}
             >
-              <path
-                d="M11 1.5L2 10.5L11 19.5"
-                stroke="black"
-                strokeWidth="2"
-              />
+              <path d="M11 1.5L2 10.5L11 19.5" stroke="black" strokeWidth="2" />
             </svg>
             <h3 className={styles.modalTitle}>Новое объявление</h3>
           </div>
@@ -139,38 +140,55 @@ const AddNewAt = ({ setIsShow }) => {
               />
             </div>
             <div className={styles.formNewArtBlock}>
-            <p className={styles.formNewArtP}>
-              Фотографии товара<span>не более 5 фотографий</span>
-            </p>
-            <div className={styles.formNewArtBarImg}>
-              {/* Генерация блоков для отображения изображений */}
-              {Array.from({ length: Math.max(5 - selectedImages.length, 0) }).map((_, index) => (
-                <div key={index} className={styles.formNewArtImg} onClick={() => filePickers[index].current.click()}>
-                  <input
-                    type="file"
-                    accept="image/*, .png, .jpg, .gif, .web, .jpeg"
-                    ref={filePickers[index]}
-                    style={{ display: "none" }}
-                    onChange={(event) => {
-                      const file = event.target.files[0];
-                      if (selectedImages.length < 5) {
-                        setSelectedImages([...selectedImages, file]);
-                      }
-                    }}
-                  />
-                  <img src="" alt="" />
-                  <div className={styles.formNewArtImgCover} />
-                </div>
-              ))}
-              {/* Отображение выбранных изображений */}
-              {selectedImages.map((image, index) => (
-                <div key={index} className={styles.formNewArtImg}>
-                  <img src={URL.createObjectURL(image)} alt={`Selected ${index + 1}`} />
-                  <div className={styles.formNewArtImgCover} />
-                </div>
-              ))}
+              <p className={styles.formNewArtP}>
+                Фотографии товара<span>не более 5 фотографий</span>
+              </p>
+              <div className={styles.formNewArtBarImg}>
+                {/* Генерация блоков для отображения изображений */}
+                {Array.from({
+                  length: Math.max(5 - selectedImages.length, 0),
+                }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={styles.formNewArtImg}
+                    onClick={() => filePickers[index].current.click()}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*, .png, .jpg, .gif, .web, .jpeg"
+                      ref={filePickers[index]}
+                      style={{ display: "none" }}
+                      onChange={(event) => {
+                        const file = event.target.files[0];
+                        if (selectedImages.length < 5) {
+                          setSelectedImages([...selectedImages, file]);
+                        }
+                      }}
+                    />
+                    <img src="" alt="" />
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
+                {/* Отображение выбранных изображений */}
+                {selectedImages.map((image, index) => (
+                  <div key={index} className={styles.formNewArtImg}>
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt={`Selected ${index + 1}`}
+                    />
+                    <div
+                      className={styles.imgDel}
+                      onClick={() => {
+                        handleDelImgAdd(index);
+                      }}
+                    >
+                      x
+                    </div>
+                    <div className={styles.formNewArtImgCover} />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
             <div className={`${styles.formNewArtBlock} ${styles.blockPrice}`}>
               <label className={styles.formLabel} htmlFor="price">
                 Цена
