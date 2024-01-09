@@ -86,9 +86,7 @@ const SigninPage = () => {
             typeToken: response.token_type,
           })
         );
-        console.log("done");
         const responseUser = await getUser();
-        console.log(responseUser);
         dispatch(
           setUser({
             email: responseUser.data.email,
@@ -101,7 +99,6 @@ const SigninPage = () => {
             city: responseUser.data.city,
           })
         );
-        console.log("done");
         setOffButton(true);
         setIsLoading(true);
         navigate("/");

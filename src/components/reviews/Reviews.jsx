@@ -22,10 +22,8 @@ const Reviews = ({ setIsShow, id }) => {
         text: textCom,
         id,
       });
-      console.log(response);
       setTextCom("");
     } catch (err) {
-
       console.error("Add product error:", err);
     }
   };
@@ -34,8 +32,9 @@ const Reviews = ({ setIsShow, id }) => {
     <div className={styles.containerBg}>
       <div className={styles.modalBlock}>
         <div className={styles.modalContent}>
-        <div className={styles.modalTitleBlog}>
-            <svg className={styles.articleFillImgSvg}
+          <div className={styles.modalTitleBlog}>
+            <svg
+              className={styles.articleFillImgSvg}
               xmlns="http://www.w3.org/2000/svg"
               width="12"
               height="21"
@@ -45,13 +44,9 @@ const Reviews = ({ setIsShow, id }) => {
                 setIsShow(false);
               }}
             >
-              <path
-                d="M11 1.5L2 10.5L11 19.5"
-                stroke="black"
-                strokeWidth="2"
-              />
+              <path d="M11 1.5L2 10.5L11 19.5" stroke="black" strokeWidth="2" />
             </svg>
-          <h3 className={styles.modalTitle}>Отзывы о товаре</h3>
+            <h3 className={styles.modalTitle}>Отзывы о товаре</h3>
           </div>
           <div className={styles.modalBtnClose}>
             <div

@@ -8,7 +8,7 @@ const initialState = {
   avatar: null,
   phone: null,
   role: null,
-  city:null,
+  city: null,
   accessToken: null,
   refreshToken: null,
   typeToken: null,
@@ -38,7 +38,7 @@ const localStorageMiddleware = (store) => (next) => (action) => {
           avatar: storedAvatar,
           phone: storedPhone,
           role: storedRole,
-          city: storedCity
+          city: storedCity,
         })
       );
     }
@@ -80,25 +80,25 @@ const userSlice = createSlice({
       localStorage.setItem("city", state.city);
     },
     setToken(state, action) {
-      state.accessToken= action.payload.accessToken;
+      state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
-      state.typeToken= action.payload.typeToken;
+      state.typeToken = action.payload.typeToken;
       localStorage.setItem("accessToken", state.accessToken);
       localStorage.setItem("refreshToken", state.refreshToken);
       localStorage.setItem("typeToken", state.typeToken);
     },
     removeUser(state) {
-      state.email = '';
-      state.name = '';
-      state.id = '';
-      state.surname = '';
-      state.avatar = '';
-      state.phone = '';
-      state.role = '';
-      state.city = '';
-      state.accessToken = '';
-      state.refreshToken = '';
-      state.typeToken =  '';
+      state.email = "";
+      state.name = "";
+      state.id = "";
+      state.surname = "";
+      state.avatar = "";
+      state.phone = "";
+      state.role = "";
+      state.city = "";
+      state.accessToken = "";
+      state.refreshToken = "";
+      state.typeToken = "";
       localStorage.removeItem("email");
       localStorage.removeItem("token");
       localStorage.removeItem("id");
@@ -115,16 +115,12 @@ const userSlice = createSlice({
 
     initializeUserFromLocalStorage() {
       // Пустное действие, middleware будет обрабатывать это действие
-    }
-  }
+    },
+  },
 });
 
-export const {
-  setUser,
-  setToken,
-  removeUser,
-  initializeUserFromLocalStorage,
-} = userSlice.actions;
+export const { setUser, setToken, removeUser, initializeUserFromLocalStorage } =
+  userSlice.actions;
 export default userSlice.reducer;
 export const userReducer = userSlice.reducer;
 export { localStorageMiddleware };

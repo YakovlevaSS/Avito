@@ -43,7 +43,6 @@ export default function UserSettings() {
         cityInput,
         phoneInput,
       });
-      console.log(responseUser);
       dispatch(
         setUser({
           email: responseUser.data.email,
@@ -64,7 +63,6 @@ export default function UserSettings() {
   const handleSetAvatar = async (file) => {
     try {
       const responseUser = await setAvatar(file);
-      console.log(responseUser);
 
       dispatch(
         setUser({
