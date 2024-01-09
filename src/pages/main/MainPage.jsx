@@ -1,5 +1,5 @@
 import styles from "./styles.module.css";
-import { useState} from "react";
+import { useState } from "react";
 import SearchBlog from "../../components/searchBlog/SearchBlog";
 import CardItem from "../../components/card/Card";
 import { useGetAllProductsQuery } from "../../store/RTKQuery/adsApi";
@@ -8,7 +8,6 @@ import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 
 export default function MainPage() {
   const { data = [], isLoading, error } = useGetAllProductsQuery();
-  console.log(data);
   const [sortData, setSortData] = useState(data);
 
   // Обработка ошибки

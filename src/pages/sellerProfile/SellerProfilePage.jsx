@@ -12,9 +12,7 @@ import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 
 export default function SellerProfilePage() {
   const idSeller = Number(useParams().id);
-  console.log(idSeller);
   const { data = [], isLoading, error } = useGetAllProductsQuery();
-  console.log(data);
   const sellerProducts = data?.filter((item) => item.user_id === idSeller);
   const [isShow, setIsShow] = useState(false);
   const navigate = useNavigate();
@@ -38,7 +36,9 @@ export default function SellerProfilePage() {
                   height="21"
                   viewBox="0 0 12 21"
                   fill="none"
-                  onClick={() => {navigate(-1)}}
+                  onClick={() => {
+                    navigate(-1);
+                  }}
                 >
                   <path
                     d="M11 1.5L2 10.5L11 19.5"

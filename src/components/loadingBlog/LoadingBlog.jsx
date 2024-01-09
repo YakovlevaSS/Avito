@@ -1,4 +1,4 @@
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 const LoadingBlog = () => (
   <div className={styles.loadingContainer}>

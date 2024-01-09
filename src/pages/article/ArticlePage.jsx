@@ -13,7 +13,6 @@ import LoadingBlog from "../../components/loadingBlog/LoadingBlog";
 import ErrorBlog from "../../components/errorBlog/ErrorBlog";
 import { FormatSellingSince } from "../../components/dateBlog/DataBlog";
 
-
 export default function ArticlePage() {
   const [isShow, setIsShow] = useState(false);
   const [isShowPhone, setIsShowPhone] = useState(false);
@@ -21,7 +20,6 @@ export default function ArticlePage() {
   const navigate = useNavigate();
   const idAds = useParams().id;
   const { data = [], isLoading, error } = useGetOneProductQuery(idAds);
-  console.log(data);
   const [bigImg, setBigImg] = useState(null);
   const [numberOfShowImg, setNumberOfShowImg] = useState(1);
   useEffect(() => {
@@ -55,20 +53,21 @@ export default function ArticlePage() {
               <div className={`${styles.articContent} ${styles.article}`}>
                 <div className={styles.articleLeft}>
                   <div className={styles.articleFillImg}>
-                    <NavLink to='/'>
-                    <svg className={styles.articleFillImgSvg}
-                      width="14"
-                      height="25"
-                      viewBox="0 0 14 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 1L1.5 12.5L13 24"
-                        stroke="white"
-                        strokeWidth="2"
-                      />
-                    </svg>
+                    <NavLink to="/">
+                      <svg
+                        className={styles.articleFillImgSvg}
+                        width="14"
+                        height="25"
+                        viewBox="0 0 14 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13 1L1.5 12.5L13 24"
+                          stroke="white"
+                          strokeWidth="2"
+                        />
+                      </svg>
                     </NavLink>
                     <div className={styles.articleImg} onClick={handleNextImg}>
                       <img
@@ -182,7 +181,6 @@ export default function ArticlePage() {
         )}
       </main>
       {isShow && <Reviews setIsShow={setIsShow} id={data?.id} />}
-      {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings} />}
     </>
   );
 }

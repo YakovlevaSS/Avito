@@ -17,10 +17,10 @@ const AddNewAt = ({ setIsShow }) => {
   const navigate = useNavigate();
   const filePickers = Array.from({ length: 5 }, () => useRef());
   const [addProductText, { isLoading, error }] = useAddProductTextMutation();
-  const [addProductImage, { isLoading: imageIsLoading, error: imageError }] =
+  const [addProductImage, { isLoading: isLoadingAddImg }] =
     useAddProductImageMutation();
 
-  //Validation
+  //Валидация полей
   useEffect(() => {
     if (!nameAdv || !descriptionAdv || !priceAdv) {
       setOffButton(true);
@@ -29,7 +29,7 @@ const AddNewAt = ({ setIsShow }) => {
     }
   }, [nameAdv, descriptionAdv, priceAdv]);
 
-  const handleSentText = async (event) => {
+  const handleSentAdv = async (event) => {
     event.preventDefault();
     if (!nameAdv || !descriptionAdv || !priceAdv) {
       setErrorForm("Не все поля заполнены");
@@ -46,11 +46,10 @@ const AddNewAt = ({ setIsShow }) => {
         selectedImages.map(async (image, index) => {
           try {
             // Отправка каждого изображения отдельным POST запросом
-            const imageResponse = await addProductImage({
+            await addProductImage({
               id: adId,
               file: image,
             });
-            console.log(`Image ${index + 1} response:`, imageResponse);
           } catch (error) {
             setErrorForm(error);
           }
@@ -102,7 +101,7 @@ const AddNewAt = ({ setIsShow }) => {
             className={`${styles.modalFormNewArt} ${styles.formNewArt}`}
             id="formNewArt"
             action="#"
-            onSubmit={handleSentText}
+            onSubmit={handleSentAdv}
           >
             {errorForm && <div className={styles.error}>{errorForm}</div>}
             {error && <div className={styles.error}>{error.message}</div>}
@@ -215,7 +214,7 @@ const AddNewAt = ({ setIsShow }) => {
               disabled={offButton}
               type="submit"
             >
-              {isLoading ? "Публикуем..." : "Опубликовать"}
+              {isLoading || isLoadingAddImg ? "Публикуем..." : "Опубликовать"}
             </button>
           </form>
         </div>

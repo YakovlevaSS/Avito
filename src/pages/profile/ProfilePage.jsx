@@ -28,11 +28,13 @@ export default function ProfilePage() {
         {isLoading ? (
           <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>
         ) : data.length === 0 ? (
-          <p className={styles.mainText}>У вас пока нет ни одного объявления, вперед продавать!</p>
+          <p className={styles.mainText}>
+            У вас пока нет ни одного объявления, вперед продавать!
+          </p>
         ) : (
           <div className={styles.mainContent}>
             <div className={`${styles.contentCards} ${styles.cards}`}>
-              <CardItem products={data} page ="Мои товары" />
+              <CardItem products={data} page="Мои товары" />
             </div>
           </div>
         )}

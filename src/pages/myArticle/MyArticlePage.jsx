@@ -57,8 +57,7 @@ export default function MyArticlePage() {
     const id = idAds;
     setIsSkipRefetching(true);
     try {
-      const response = await deleteProduct(id);
-      console.log(response);
+      await deleteProduct(id);
       navigate(`/`);
       setIsSkipRefetching(false);
       setIsShowSettings(false);
@@ -82,20 +81,21 @@ export default function MyArticlePage() {
               <div className={`${styles.articContent} ${styles.article}`}>
                 <div className={styles.articleLeft}>
                   <div className={styles.articleFillImg}>
-                  <NavLink to="/profile">
-                    <svg className={styles.articleFillImgSvg}
-                      width="14"
-                      height="25"
-                      viewBox="0 0 14 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 1L1.5 12.5L13 24"
-                        stroke="white"
-                        strokeWidth="2"
-                      />
-                    </svg>
+                    <NavLink to="/profile">
+                      <svg
+                        className={styles.articleFillImgSvg}
+                        width="14"
+                        height="25"
+                        viewBox="0 0 14 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13 1L1.5 12.5L13 24"
+                          stroke="white"
+                          strokeWidth="2"
+                        />
+                      </svg>
                     </NavLink>
                     <div className={styles.articleImg} onClick={handleNextImg}>
                       <img

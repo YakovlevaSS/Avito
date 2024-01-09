@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setToken, removeUser } from "../slices/userSlice";
 
 /**
@@ -93,13 +93,15 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       return forceLogout();
     }
 
-  // Мы наконец получили новый access токен, сохраняем его в стор, чтобы последующие запросы могли его использовать внутри prepareHeaders
-  api.dispatch(setToken({
-    accessToken: refreshResult.data.access_token,
-    refreshToken: refreshResult.data.refresh_token,
-    typeToken: refreshResult.data.token_type,
-  }))
-}
+    // Мы наконец получили новый access токен, сохраняем его в стор, чтобы последующие запросы могли его использовать внутри prepareHeaders
+    api.dispatch(
+      setToken({
+        accessToken: refreshResult.data.access_token,
+        refreshToken: refreshResult.data.refresh_token,
+        typeToken: refreshResult.data.token_type,
+      })
+    );
+  }
 
   // Делаем повторный запрос с теми же параметрами что и исходный,
   // но помним, что повторный запрос произойдет уже с новым токеном,
@@ -118,203 +120,197 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 };
 
 export const productsApi = createApi({
-    reducerPath: "productsApi",
-    tagTypes: ["ADS", "USER", "COMMENTS"],
-    // baseQuery: fetchBaseQuery({
-    //   baseUrl: "http://localhost:8090/",
-    // }), 
-    baseQuery: baseQueryWithReauth,
-    endpoints: (builder) => ({
-      getAllProducts: builder.query({
-        query: () => "/ads",
-        providesTags: ["ADS"],
-      }),
-  
-      getOneProduct: builder.query({
-        query: (id) => `/ads/${id}`,
-        providesTags: ["ADS"],
-      }),
-  
-      getMeProducts: builder.query({
-        query:  () =>  {
-  
-          return {
-            url: "/ads/me",
-            method: "GET",
-            headers: {
-              "Content-type": "application/json",
-            },
-          };
-        },
-        providesTags: ["ADS"],
-      }),
-  
-      addProductText: builder.mutation({
-        query: (body) => ({
-          url: "/adstext",
-          method: "POST",
+  reducerPath: "productsApi",
+  tagTypes: ["ADS", "USER", "COMMENTS"],
+  // baseQuery: fetchBaseQuery({
+  //   baseUrl: "http://localhost:8090/",
+  // }),
+  baseQuery: baseQueryWithReauth,
+  endpoints: (builder) => ({
+    getAllProducts: builder.query({
+      query: () => "/ads",
+      providesTags: ["ADS"],
+    }),
+
+    getOneProduct: builder.query({
+      query: (id) => `/ads/${id}`,
+      providesTags: ["ADS"],
+    }),
+
+    getMeProducts: builder.query({
+      query: () => {
+        return {
+          url: "/ads/me",
+          method: "GET",
           headers: {
             "Content-type": "application/json",
           },
+        };
+      },
+      providesTags: ["ADS"],
+    }),
+
+    addProductText: builder.mutation({
+      query: (body) => ({
+        url: "/adstext",
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          title: body.nameAdv,
+          description: body.descriptionAdv,
+          price: body.priceAdv,
+        }),
+      }),
+      invalidatesTags: ["ADS"],
+    }),
+
+    deleteProduct: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/ads/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["ADS"],
+    }),
+
+    updateProduct: builder.mutation({
+      query: (body) => {
+        return {
+          url: `/ads/${body.id}`,
+          method: "PATCH",
           body: JSON.stringify({
             title: body.nameAdv,
             description: body.descriptionAdv,
             price: body.priceAdv,
           }),
-        }),
-        invalidatesTags: ["ADS"],
-      }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+      },
+      invalidatesTags: ["ADS"],
+    }),
 
-      deleteProduct: builder.mutation({
-        query: (id) => {
-          return {
-            url: `/ads/${id}`,
-            method: "DELETE",
-          };
-        },
-        invalidatesTags: ["ADS"],
-      }),
-  
-      updateProduct: builder.mutation({
-        query: (body) => {
-          return {
-            url: `/ads/${body.id}`,
-            method: "PATCH",
-            body: JSON.stringify({
-              title: body.nameAdv,
-              description: body.descriptionAdv,
-              price: body.priceAdv,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          };
-        },
-        invalidatesTags: ["ADS"],
-      }),
-  
-      addProductImage: builder.mutation({
-        query: (body) => {
-          const formData = new FormData();
-          console.log(body.file);
-          formData.append("file", body.file);
-  
-          return {
-            url: `/ads/${body.id}/image`,
-            method: "POST",
-            body: formData,
-            headers: {
-              "Content-Type": undefined,
-              // "Content-Type": "multipart/form-data",
-            },
-          };
-        },
-        invalidatesTags: ["ADS"],
-      }),
+    addProductImage: builder.mutation({
+      query: (body) => {
+        const formData = new FormData();
+        formData.append("file", body.file);
 
-      
-  
-      deleteProductImage: builder.mutation({
-        query: (body) => {
-          return {
-            url: `/ads/${body.id}/image/?${new URLSearchParams({
-              file_url: body.url,
-            })}`,
-            method: "DELETE",
-            headers: {},
-          };
-        },
-        invalidatesTags: ["ADS"],
-      }),
-
-      getComments: builder.query({
-        query:  (id) =>  {
-  
-          return {
-            url: `/ads/${id}/comments`,
-            method: "GET",
-            headers: {
-              "Content-type": "application/json",
-            },
-          };
-        },
-        providesTags: ["COMMENTS"],
-      }),
-
-      addComment: builder.mutation({
-        query: (body) => ({
-          url: `/ads/${body.id}/comments`,
+        return {
+          url: `/ads/${body.id}/image`,
           method: "POST",
+          body: formData,
+          headers: {
+            "Content-Type": undefined,
+            // "Content-Type": "multipart/form-data",
+          },
+        };
+      },
+      invalidatesTags: ["ADS"],
+    }),
+
+    deleteProductImage: builder.mutation({
+      query: (body) => {
+        return {
+          url: `/ads/${body.id}/image/?${new URLSearchParams({
+            file_url: body.url,
+          })}`,
+          method: "DELETE",
+          headers: {},
+        };
+      },
+      invalidatesTags: ["ADS"],
+    }),
+
+    getComments: builder.query({
+      query: (id) => {
+        return {
+          url: `/ads/${id}/comments`,
+          method: "GET",
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify({
-            text: body.text,
-          }),
-        }),
-        invalidatesTags: ["COMMENTS"],
-      }),
+        };
+      },
+      providesTags: ["COMMENTS"],
+    }),
 
-      getUser: builder.query({
-        query:  () =>  {
-          return {
-            url: `/user`,
-            method: "GET",
-            headers: {
-              "Content-type": "application/json",
-            },
-          };
+    addComment: builder.mutation({
+      query: (body) => ({
+        url: `/ads/${body.id}/comments`,
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
         },
-        providesTags: ["USER"],
+        body: JSON.stringify({
+          text: body.text,
+        }),
       }),
+      invalidatesTags: ["COMMENTS"],
+    }),
 
-      changeUser: builder.mutation({
-        query: (body) => ({
+    getUser: builder.query({
+      query: () => {
+        return {
           url: `/user`,
-          method: "PATCH",
+          method: "GET",
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify({
-            name: body.nameInput,
-            surname: body.surnameInput,
-            city: body.cityInput,
-            phone: body.phoneInput,
-          }),
-        }),
-        invalidatesTags: ["USER"],
-      }),
+        };
+      },
+      providesTags: ["USER"],
+    }),
 
-      setAvatar: builder.mutation({
-        query: (body) => {
-          const formData = new FormData();
-          formData.append("file", body);
-  
-          return {
-            url: `/user/avatar`,
-            method: "POST",
-            body: formData,
-          };
+    changeUser: builder.mutation({
+      query: (body) => ({
+        url: `/user`,
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
         },
-        invalidatesTags: ["USER"],
+        body: JSON.stringify({
+          name: body.nameInput,
+          surname: body.surnameInput,
+          city: body.cityInput,
+          phone: body.phoneInput,
+        }),
       }),
+      invalidatesTags: ["USER"],
+    }),
 
-      }),
-    })
-  
-  export const {
-    useGetAllProductsQuery,
-    useGetMeProductsQuery,
-    useGetOneProductQuery,
-    useAddProductTextMutation,
-    useDeleteProductMutation,
-    useUpdateProductMutation,
-    useAddProductImageMutation,
-    useDeleteProductImageMutation,
-    useGetCommentsQuery,
-    useAddCommentMutation,
-    useGetUserQuery,
-    useLazyGetUserQuery,
-    useChangeUserMutation,
-    useSetAvatarMutation,
-  } = productsApi;
+    setAvatar: builder.mutation({
+      query: (body) => {
+        const formData = new FormData();
+        formData.append("file", body);
+
+        return {
+          url: `/user/avatar`,
+          method: "POST",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["USER"],
+    }),
+  }),
+});
+
+export const {
+  useGetAllProductsQuery,
+  useGetMeProductsQuery,
+  useGetOneProductQuery,
+  useAddProductTextMutation,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+  useAddProductImageMutation,
+  useDeleteProductImageMutation,
+  useGetCommentsQuery,
+  useAddCommentMutation,
+  useGetUserQuery,
+  useLazyGetUserQuery,
+  useChangeUserMutation,
+  useSetAvatarMutation,
+} = productsApi;

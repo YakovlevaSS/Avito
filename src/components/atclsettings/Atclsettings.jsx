@@ -9,7 +9,6 @@ import {
 } from "../../store/RTKQuery/adsApi";
 
 const Atclsettings = ({ setIsShowSettings, adv }) => {
-  console.log(adv);
   const id = adv.id;
   const [nameAdv, setNameAdv] = useState(adv?.title || "");
   const [descriptionAdv, setDescriptionAdv] = useState(adv?.description || "");
@@ -20,10 +19,8 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
   const [updateProduct, { isLoading, error }] = useUpdateProductMutation();
   const [addProductImage, { isLoading: imageIsLoading, error: imageError }] =
     useAddProductImageMutation();
-  const [
-    delProductImage,
-    { isLoading: delImageIsLoading, error: delImageError },
-  ] = useDeleteProductImageMutation();
+  const [delProductImage, { error: delImageError }] =
+    useDeleteProductImageMutation();
 
   const [filePickers, setFilePickers] = useState(
     Array.from({ length: 5 }, () => useRef())
@@ -58,11 +55,10 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
       if (selectedImages.length > 0) {
         selectedImages.forEach(async (image, index) => {
           try {
-            const imageResponse = await addProductImage({
+            await addProductImage({
               id: adId,
               file: image,
             });
-            console.log(`Image ${index + 1} response:`, imageResponse);
           } catch (error) {
             setErrorForm(error);
           }
@@ -100,7 +96,6 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
     updatedImages.splice(index, 1);
     setSelectedImages(updatedImages);
   };
-
 
   return (
     <div className={styles.containerBg}>
@@ -270,7 +265,7 @@ const Atclsettings = ({ setIsShowSettings, adv }) => {
               disabled={offButton}
               type="submit"
             >
-              {isLoading ? "Публикуем..." : "Сохранить"}
+              {isLoading || imageIsLoading ? "Публикуем..." : "Сохранить"}
             </button>
           </form>
         </div>
