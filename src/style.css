@@ -1,3 +1,31 @@
+@font-face {
+  font-family: 'Roboto';
+  src:
+    local('Roboto'),
+    url('/public/fonts/Roboto-Black.ttf') format('ttf'),
+    url('/public/fonts/Roboto-BlackItalic.ttf') format('ttf'),
+    url('/public/fonts/Roboto-Bold.ttf') format('ttf'),
+    url('/public/fonts/Roboto-BoldItalic.ttf') format('ttf'),
+    url('/public/fonts/Roboto-Italic.ttf') format('ttf'),
+    url('/public/fonts/Roboto-Light.ttf') format('ttf'),
+    url('/public/fonts/Roboto-LightItalic.ttf') format('ttf'),
+    url('/public/fonts/Roboto-Medium.ttf') format('ttf'),
+    url('/public/fonts/Roboto-MediumItalic.ttf') format('ttf'),
+    url('/public/fonts/Roboto-Regular.ttf') format('ttf'),
+    url('/public/fonts/Roboto-Thin.ttf') format('ttf'),
+    url('/public/fonts/Roboto-ThinItalic.ttf') format('ttf');
+
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -14,8 +42,20 @@
 a,
 a:visited {
   text-decoration: none;
-  font-family: 'StratosSkyeng', sans-serif;
-  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
 }
 
 button,
