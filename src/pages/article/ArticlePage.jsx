@@ -181,7 +181,6 @@ export default function ArticlePage() {
         )}
       </main>
       {isShow && <Reviews setIsShow={setIsShow} id={data?.id} />}
-      {isShowSettings && <Atclsettings setIsShowSettings={setIsShowSettings} />}
     </>
   );
 }

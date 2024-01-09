@@ -2,11 +2,13 @@ import styles from "./styles.module.css";
 import { useState, useEffect } from "react";
 import { useAddCommentMutation } from "../../store/RTKQuery/adsApi";
 import ReviewsItem from "../reviewsItem/ReviewsItem";
+import { useNavigate } from "react-router-dom";
 const Reviews = ({ setIsShow, id }) => {
   const [textCom, setTextCom] = useState("");
   const [offButton, setOffButton] = useState(true);
   const [addComment, { isLoading, error }] = useAddCommentMutation();
-
+  const user = localStorage.getItem("email");
+  const navigate = useNavigate();
   useEffect(() => {
     if (!textCom) {
       setOffButton(true);
@@ -17,8 +19,12 @@ const Reviews = ({ setIsShow, id }) => {
 
   const handleSentCom = async (event) => {
     event.preventDefault();
+    if (!user) {
+      navigate("/signin");
+      return;
+    }
     try {
-      const response = await addComment({
+      await addComment({
         text: textCom,
         id,
       });
