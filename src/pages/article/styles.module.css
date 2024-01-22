@@ -74,7 +74,7 @@
 
 .articleImg img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
 }
@@ -105,7 +105,7 @@
 
 .articleImgBarDiv img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
 }
@@ -327,9 +327,7 @@ line-height: 140%; /* 44.8px */
   }
 
   .articleImg {
-    width: 100%;
     min-width: 320px;
-    height: auto;
     min-height: 320px;
     margin: 0 0px;
   }

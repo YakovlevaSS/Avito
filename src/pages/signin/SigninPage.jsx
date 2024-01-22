@@ -171,8 +171,8 @@ const SigninPage = () => {
           </button>
           <button
             className={styles.modalBtnSignup}
-            disabled={offButton}
             onClick={() => {
+              console.log('done');
               navigate("/signup");
             }}
           >
