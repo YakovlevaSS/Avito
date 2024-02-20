@@ -13,21 +13,22 @@
 - Просмотр и добавление комментариев
 
 ## Технический стек:
-React
-Redux
-REST API
-RTK Query
-React Router
-CSS modules
+- React
+- Redux
+- REST API
+- RTK Query
+- React Router
+- CSS modules
 
 ## Установка и запуск проекта:
 1. Скачать файл backend по ссылке (https://drive.google.com/file/d/1pFE-NRANTsWmQwTyURjHXuECMmoKCFjO/view).
 2. Через терминал перейдите в разархивированную папку.
 3. Запустите в терминале команду: docker-compose -f docker-compose-backend.yaml up -d
-4. Кланировать репозиторий: git repo clone YakovlevaSS/Avito;
-5. Установить заисимости: npm install;
-6. Запустить приложение: npm run start.
-
+4. Проверьте, установлен у вас Node.js, если нет, то установите согласно инструкции на сайте https://nodejs.org/en
+5. Клонируйте репозиторий: git clone <URL репозитория>
+6. Перейдите в директорию клонированного проекта: cd github_search
+7. Установите заисимости: npm install
+8. Запустите приложение: npm run start.
 Приложение будет запущено на http://localhost:3000.
 
 
